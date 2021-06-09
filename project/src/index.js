@@ -1,16 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {randomElem, randomInt} from './utils.js';
-import {GENRES, TITLES} from './consts.js';
-
-function getFilmCardProps () {
-  return {
-    title: randomElem(TITLES),
-    genre: randomElem(GENRES),
-    year: randomInt(2021, 2000),
-  };
-}
+import {getFilmCardProps} from './mock-utils.js';
 
 const cardFilmProps = getFilmCardProps();
 
