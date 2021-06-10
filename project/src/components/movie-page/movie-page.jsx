@@ -1,36 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Catalog from '../catalog/catalog.jsx';
 import FilmCard from '../film-card/film-card.jsx';
-import GenreList from '../genre-list/genre-list.jsx';
+import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
 import {getCardKeys} from '../../mock-utils.js';
-import {AMOUNT_MAIN_PAGE_CARDS, CatalogTitle} from '../../consts.js';
+import {AMOUNT_MORE_LIKE_THIS} from '../../consts.js';
 
-const keyList = getCardKeys(AMOUNT_MAIN_PAGE_CARDS);
+const keyList = getCardKeys(AMOUNT_MORE_LIKE_THIS);
 
-function MainPage({title, genre, year}) {
+function MoviePage({title, genre, year}) {
   return (
     <>
       <FilmCard title={title} genre={genre} year={year}/>
-
       <div className="page-content">
-
-        <Catalog title={CatalogTitle.CATALOG} films={keyList}>
-          <GenreList/>
-        </Catalog>
-
+        <FilmList films={keyList}/>
         <Footer/>
-
       </div>
     </>
   );
 }
 
-MainPage.propTypes = {
+MoviePage.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
 };
 
-export default MainPage;
+export default MoviePage;
