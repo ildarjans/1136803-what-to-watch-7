@@ -1,17 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import SmallFilmCard from '../small-film-card/small-film-card.jsx';
+import {filmsPropTypes} from '../../prop-types/films.js';
 
 function FilmList({films}) {
+  const [, setActiveCard] = useState();
   return (
     <div className="catalog__films-list">
-      {films.map((film) => <SmallFilmCard key={film}/>)}
+      {films.map((film) => (
+        <SmallFilmCard
+          key={film.id}
+          id={film.id}
+          title={film.title}
+          previewImage={film.previewImage}
+          handleFilmCardHover={setActiveCard}
+        />
+      ))}
     </div>
   );
 }
 
 FilmList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  films: filmsPropTypes.isRequired,
 };
 
 export default FilmList;

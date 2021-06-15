@@ -1,19 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import FilmCard from '../film-card/film-card.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
-import {getCardKeys} from '../../mock-utils.js';
-import {AMOUNT_MORE_LIKE_THIS} from '../../consts.js';
+import NotFoundPage from '../not-found-page/not-found-page.jsx';
+import FilmCardFull from '../film-card-full/film-card-full.js';
+import {DisplayCards, CatalogTitle} from '../../const.js';
+import {filmPropertyTypes, filmsPropTypes} from '../../prop-types/films.js';
 
-const keyList = getCardKeys(AMOUNT_MORE_LIKE_THIS);
+function MoviePage({films, id}) {
+  const film = films.find((filmItem) => filmItem.id === id);
 
-function MoviePage({title, genre, year}) {
+  if (!film) {
+    return <NotFoundPage/>;
+  }
+
   return (
     <>
-      <FilmCard title={title} genre={genre} year={year}/>
+      <FilmCardFull film={film}/>
       <div className="page-content">
-        <FilmList films={keyList}/>
+        <section className="catalog catalog--like-this">
+          <h2 className="catalog__title">{CatalogTitle.MORE_LIKE_THIS}</h2>
+          <FilmList films={films.slice(DisplayCards.MORE_LIKE_THIS)}/>
+        </section>
         <Footer/>
       </div>
     </>
@@ -21,9 +28,8 @@ function MoviePage({title, genre, year}) {
 }
 
 MoviePage.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  id: filmPropertyTypes.id.isRequired,
+  films: filmsPropTypes.isRequired,
 };
 
 export default MoviePage;

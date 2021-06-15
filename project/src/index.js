@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {getFilmCardProps} from './mock-utils.js';
+import {films} from './mocks/films.js';
+import {adaptFilmToClient} from './utils.js';
 
-const cardFilmProps = getFilmCardProps();
+const adaptedFilms = films.map(adaptFilmToClient);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      title={cardFilmProps.title}
-      genre={cardFilmProps.genre}
-      year={cardFilmProps.year}
-    />
+    <App films={adaptedFilms}/>
   </React.StrictMode>,
   document.getElementById('root'));
