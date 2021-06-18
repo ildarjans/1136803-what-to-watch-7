@@ -6,6 +6,18 @@ export function getRandomArrayElement(arr) {
   return arr[getRandomInteger(arr.length - 1)];
 }
 
+export function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    setTimeout(fn.bind(null, ...args), delay);
+  }
+}
+
+export function getFilmByID(films, id) {
+  return films.find((film) => film.id === id);
+}
+
 export function adaptFilmToClient(film) {
   return {
     id: film['id'],
