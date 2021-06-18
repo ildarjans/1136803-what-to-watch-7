@@ -4,11 +4,9 @@ import UserBlock from '../user-block/user-block.jsx';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
-import {filmPropertyTypes, filmsPropTypes} from '../../prop-types/films.js';
+import {filmPropertyTypes, filmPropTypes} from '../../prop-types/films.js';
 
-function Review({id, films}) {
-  const film = films.find((filmItem) => filmItem.id === id);
-
+function Review({film, id}) {
   if (!film) {
     return <NotFoundPage/>;
   }
@@ -44,7 +42,7 @@ function Review({id, films}) {
 
 Review.propTypes = {
   id: filmPropertyTypes.id.isRequired,
-  films: filmsPropTypes.isRequired,
+  film: filmPropTypes.isRequired,
 };
 
 export default Review;
