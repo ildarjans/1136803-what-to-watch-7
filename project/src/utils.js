@@ -11,7 +11,7 @@ export function debounce(fn, delay) {
   return (...args) => {
     clearTimeout(timer);
     setTimeout(fn.bind(null, ...args), delay);
-  }
+  };
 }
 
 export function getFilmByID(films, id) {
