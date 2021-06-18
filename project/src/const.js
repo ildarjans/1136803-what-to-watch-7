@@ -11,6 +11,8 @@ export const DisplayCards = {
   MORE_LIKE_THIS: 4,
 };
 
+export const DEFAULT_GENRE_TYPE = 'All genres';
+
 export const genreTypes = [
   'All genres',
   'Comedies',

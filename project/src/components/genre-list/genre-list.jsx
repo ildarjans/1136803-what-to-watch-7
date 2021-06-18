@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import {genreTypes} from '../../const.js';
 import Genre from '../genre/genre.jsx';
 
-const DEFAULT_GENRE = 'All genres';
 
-function GenreList({activeGenre = DEFAULT_GENRE}) {
+function GenreList({activeGenre}) {
   return (
     <ul className="catalog__genres-list">
       {genreTypes.map((genre) => (

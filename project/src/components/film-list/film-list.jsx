@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import SmallFilmCard from '../small-film-card/small-film-card.jsx';
+import FilmCardSmall from '../film-card-small/film-card-small.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
 
 function FilmList({films}) {
@@ -7,7 +7,7 @@ function FilmList({films}) {
   return (
     <div className="catalog__films-list">
       {films.map((film) => (
-        <SmallFilmCard
+        <FilmCardSmall
           key={film.id}
           id={film.id}
           title={film.title}

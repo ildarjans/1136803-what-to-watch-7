@@ -1,10 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {AppRoute} from '../../const.js';
-import {Link} from 'react-router-dom';
 import {filmPropertyTypes} from '../../prop-types/films.js';
 
-function SmallFilmCard({id, title, previewImage, handleFilmCardHover}) {
+function FilmCardSmall({id, title, previewImage, handleFilmCardHover}) {
   const filmRoute = AppRoute.FILM.replace(':id', id);
   return (
     <article
@@ -21,11 +21,11 @@ function SmallFilmCard({id, title, previewImage, handleFilmCardHover}) {
   );
 }
 
-SmallFilmCard.propTypes = {
+FilmCardSmall.propTypes = {
   id: filmPropertyTypes.id.isRequired,
   title: filmPropertyTypes.title.isRequired,
   previewImage: filmPropertyTypes.previewImage.isRequired,
   handleFilmCardHover: PropTypes.func.isRequired,
 };
 
-export default SmallFilmCard;
+export default FilmCardSmall;
