@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {GENRES} from '../../consts.js';
+import {genreTypes} from '../../const.js';
 import Genre from '../genre/genre.jsx';
 
 const DEFAULT_GENRE = 'All genres';
@@ -8,7 +8,7 @@ const DEFAULT_GENRE = 'All genres';
 function GenreList({activeGenre = DEFAULT_GENRE}) {
   return (
     <ul className="catalog__genres-list">
-      {GENRES.map((genre) => (
+      {genreTypes.map((genre) => (
         <Genre key={genre} genre={genre} isActive={activeGenre === genre}/>
       ))}
     </ul>
@@ -16,7 +16,7 @@ function GenreList({activeGenre = DEFAULT_GENRE}) {
 }
 
 GenreList.propTypes = {
-  activeGenre: PropTypes.oneOf(GENRES).isRequired,
+  activeGenre: PropTypes.oneOf(genreTypes).isRequired,
 };
 
 export default GenreList;

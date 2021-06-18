@@ -1,14 +1,12 @@
 import React from 'react';
 import Header from '../header/header.jsx';
 import Footer from '../footer/footer.jsx';
-import Catalog from '../catalog/catalog.jsx';
 import UserBlock from '../user-block/user-block.jsx';
-import {getCardKeys} from '../../mock-utils.js';
-import {AMOUNT_MY_LIST_CARD, CatalogTitle, HeaderClass} from '../../consts.js';
+import FilmList from '../film-list/film-list.jsx';
+import {CatalogTitle, HeaderClass} from '../../const.js';
+import {filmsPropTypes} from '../../prop-types/films.js';
 
-const keyList = getCardKeys(AMOUNT_MY_LIST_CARD);
-
-function MyList() {
+function MyList({films}) {
   return (
     <div className="user-page">
       <Header specialClass={HeaderClass.USER_PAGE}>
@@ -16,11 +14,18 @@ function MyList() {
         <UserBlock/>
       </Header>
 
-      <Catalog title={CatalogTitle.MORE_LIKE_THIS} films={keyList}/>
+      <section className="catalog">
+        <h2 className="catalog__title visually-hidden">{CatalogTitle.MY_LIST}</h2>
+        <FilmList films={films}/>
+      </section>
 
       <Footer/>
     </div>
   );
 }
+
+MyList.propTypes = {
+  films: filmsPropTypes.isRequired,
+};
 
 export default MyList;

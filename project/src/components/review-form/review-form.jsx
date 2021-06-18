@@ -1,14 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Rating from '../rating/rating.jsx';
+import {filmPropertyTypes} from '../../prop-types/films.js';
 
-const DEFAULT_RATING = 7;
+function ReviewForm({rating}) {
+  const [review, setReview] = useState();
+  const [filmRating, setRating] = useState(rating);
 
-function ReviewForm() {
+  const handleTextareaChange = ({target}) => setReview(target.value);
+
+  const handleRatingChange = ({target}) => setRating(Number(target.value));
+
   return (
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form
+        action="#"
+        className="add-review__form"
+      >
 
-        <Rating rating={DEFAULT_RATING}/>
+        <Rating rating={filmRating} onRatingChange={handleRatingChange}/>
 
         <div className="add-review__text">
           <textarea
@@ -16,6 +25,8 @@ function ReviewForm() {
             name="review-text"
             id="review-text"
             placeholder="Review text"
+            value={review}
+            onChange={handleTextareaChange}
           />
           <div className="add-review__submit">
             <button className="add-review__btn" type="submit">Post</button>
@@ -25,5 +36,9 @@ function ReviewForm() {
     </div>
   );
 }
+
+ReviewForm.propTypes = {
+  rating: filmPropertyTypes.rating.isRequired,
+};
 
 export default ReviewForm;

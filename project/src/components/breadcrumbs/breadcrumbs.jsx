@@ -1,18 +1,28 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {filmPropertyTypes} from '../../prop-types/films.js';
+import {AppRoute} from '../../const.js';
 
-function Breadcrumbs() {
+function Breadcrumbs({id, title}) {
+  const filmRoute = AppRoute.FILM.replace(':id', id);
+  const addReviewRoute = AppRoute.REVIEW.replace(':id', id);
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+          <Link to={filmRoute} className="breadcrumbs__link">{title}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
+          <Link to={addReviewRoute} className="breadcrumbs__link">Add review</Link>
         </li>
       </ul>
     </nav>
   );
 }
+
+Breadcrumbs.propTypes = {
+  id: filmPropertyTypes.id,
+  title: filmPropertyTypes.title,
+};
 
 export default Breadcrumbs;

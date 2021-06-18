@@ -1,36 +1,45 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Catalog from '../catalog/catalog.jsx';
 import FilmCard from '../film-card/film-card.jsx';
 import GenreList from '../genre-list/genre-list.jsx';
 import Footer from '../footer/footer.jsx';
-import {getCardKeys} from '../../mock-utils.js';
-import {AMOUNT_MAIN_PAGE_CARDS, CatalogTitle} from '../../consts.js';
+import {filmsPropTypes} from '../../prop-types/films.js';
+import FilmList from '../film-list/film-list.jsx';
+import CatalogMoreBtn from '../catalog-more-btn/catalog-more-btn.jsx';
+import {CatalogTitle} from '../../const.js';
 
-const keyList = getCardKeys(AMOUNT_MAIN_PAGE_CARDS);
-
-function MainPage({title, genre, year}) {
+function MainPage({films}) {
+  const {
+    title,
+    genre,
+    year,
+    posterImage,
+    backgroundImage,
+  } = films[0];
   return (
     <>
-      <FilmCard title={title} genre={genre} year={year}/>
+      <FilmCard
+        title={title}
+        genre={genre}
+        year={year}
+        posterImage={posterImage}
+        backgroundImage={backgroundImage}
+      />
 
       <div className="page-content">
-
-        <Catalog title={CatalogTitle.CATALOG} films={keyList}>
+        <section className="catalog">
+          <h2 className="catalog__title visually-hidden">{CatalogTitle.CATALOG}</h2>
           <GenreList/>
-        </Catalog>
-
+          <FilmList films={films}/>
+          <CatalogMoreBtn/>
+        </section>
         <Footer/>
-
       </div>
     </>
   );
 }
 
 MainPage.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
+  films: filmsPropTypes.isRequired,
 };
 
 export default MainPage;

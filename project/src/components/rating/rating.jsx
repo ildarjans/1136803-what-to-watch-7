@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {RATING_STARS} from '../../consts.js';
 
-function Rating({rating}) {
+const ratingStars = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+function Rating({rating, onRatingChange}) {
   return (
     <div className="rating">
       <div className="rating__stars">
-        {RATING_STARS.map((star) => (
-          <>
+        {ratingStars.map((star, i) => (
+          <React.Fragment key={`${(star).toString(16)}`}>
             <input
               className="rating__input"
               id={`star-${star}`}
               type="radio"
               name="rating"
               value={star}
+              onChange={onRatingChange}
               checked={star === rating}
             />
-            <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
-          </>
+            <label key={`${((star + 1) ** 3).toString(16)}`} className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
+          </React.Fragment>
         ))}
       </div>
     </div>
@@ -26,6 +28,7 @@ function Rating({rating}) {
 
 Rating.propTypes = {
   rating: PropTypes.number.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
 };
 
 export default Rating;
