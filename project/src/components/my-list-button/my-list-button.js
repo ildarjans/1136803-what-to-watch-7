@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ButtonMyList() {
+function MyListButton() {
   return (
     <button className="btn btn--list film-card__button" type="button">
       <svg viewBox="0 0 19 20" width="19" height="20">
@@ -11,4 +11,4 @@ function ButtonMyList() {
   );
 }
 
-export default ButtonMyList;
+export default MyListButton;

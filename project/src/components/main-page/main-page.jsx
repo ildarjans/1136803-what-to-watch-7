@@ -2,10 +2,10 @@ import React from 'react';
 import FilmCard from '../film-card/film-card.jsx';
 import GenreList from '../genre-list/genre-list.jsx';
 import Footer from '../footer/footer.jsx';
-import {filmsPropTypes} from '../../prop-types/films.js';
 import FilmList from '../film-list/film-list.jsx';
 import CatalogMoreBtn from '../catalog-more-btn/catalog-more-btn.jsx';
-import {CatalogTitle} from '../../const.js';
+import {filmsPropTypes} from '../../prop-types/films.js';
+import {CatalogTitle, DEFAULT_GENRE_TYPE} from '../../const.js';
 
 function MainPage({films}) {
   const {
@@ -28,7 +28,7 @@ function MainPage({films}) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">{CatalogTitle.CATALOG}</h2>
-          <GenreList/>
+          <GenreList activeGenre={DEFAULT_GENRE_TYPE}/>
           <FilmList films={films}/>
           <CatalogMoreBtn/>
         </section>

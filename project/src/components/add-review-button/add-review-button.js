@@ -3,15 +3,15 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import {filmPropertyTypes} from '../../prop-types/films.js';
 
-function ButtonAddReview({id}) {
+function AddReviewButton({id}) {
   const reviewRoute = AppRoute.REVIEW.replace(':id', id);
   return (
     <Link to={reviewRoute} className="btn film-card__button">Add review</Link>
   );
 }
 
-ButtonAddReview.propTypes = {
+AddReviewButton.propTypes = {
   id: filmPropertyTypes.id.isRequired,
 };
 
-export default ButtonAddReview;
+export default AddReviewButton;

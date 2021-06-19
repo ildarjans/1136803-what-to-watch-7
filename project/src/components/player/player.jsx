@@ -1,9 +1,15 @@
 import React from 'react';
+import VideoPlayer from '../videoplayer/video-player.jsx';
+import {filmPropTypes} from '../../prop-types/films.js';
 
-function Player() {
+function Player({film}) {
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"/>
+      <VideoPlayer
+        src={film.videoLink}
+        poster={film.previewImage}
+        autoplay={false}
+      />
 
       <button type="button" className="player__exit">Exit</button>
 
@@ -23,7 +29,7 @@ function Player() {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{film.title}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -36,5 +42,9 @@ function Player() {
     </div>
   );
 }
+
+Player.propTypes = {
+  film: filmPropTypes.isRequired,
+};
 
 export default Player;

@@ -6,6 +6,10 @@ export function getRandomArrayElement(arr) {
   return arr[getRandomInteger(arr.length - 1)];
 }
 
+export function getFilmByID(films, id) {
+  return films.find((film) => film.id === id);
+}
+
 export function adaptFilmToClient(film) {
   return {
     id: film['id'],

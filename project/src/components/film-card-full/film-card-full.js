@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../header/header.jsx';
 import UserBlock from '../user-block/user-block.jsx';
-import ButtonPlay from '../button-play/button-play.js';
-import ButtonMyList from '../button-my-list/button-my-list.js';
-import ButtonAddReview from '../button-add-review/button-add-review.js';
+import PlayButton from '../play-button/play-button.js';
+import MyListButton from '../my-list-button/my-list-button.js';
+import AddReviewButton from '../add-review-button/add-review-button.js';
 import {HeaderClass, NumerableRating} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 
@@ -31,9 +31,9 @@ function FilmCardFull({film}) {
             </p>
 
             <div className="film-card__buttons">
-              <ButtonPlay/>
-              <ButtonMyList/>
-              <ButtonAddReview id={film.id}/>
+              <PlayButton/>
+              <MyListButton/>
+              <AddReviewButton id={film.id}/>
             </div>
           </div>
         </div>

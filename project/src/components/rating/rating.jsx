@@ -8,7 +8,7 @@ function Rating({rating, onRatingChange}) {
     <div className="rating">
       <div className="rating__stars">
         {ratingStars.map((star, i) => (
-          <React.Fragment key={`${(star).toString(16)}`}>
+          <React.Fragment key={star}>
             <input
               className="rating__input"
               id={`star-${star}`}
@@ -18,7 +18,7 @@ function Rating({rating, onRatingChange}) {
               onChange={onRatingChange}
               checked={star === rating}
             />
-            <label key={`${((star + 1) ** 3).toString(16)}`} className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
+            <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
           </React.Fragment>
         ))}
       </div>

@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from '../header/header.jsx';
 import UserBlock from '../user-block/user-block.jsx';
-import ButtonMyList from '../button-my-list/button-my-list.js';
-import ButtonPlay from '../button-play/button-play.js';
+import MyListButton from '../my-list-button/my-list-button.js';
+import PlayButton from '../play-button/play-button.js';
 import {HeaderClass} from '../../const.js';
 import {filmPropertyTypes} from '../../prop-types/films.js';
 
@@ -37,8 +37,8 @@ function FilmCard({title, genre, year, posterImage, backgroundImage}) {
             </p>
 
             <div className="film-card__buttons">
-              <ButtonPlay/>
-              <ButtonMyList/>
+              <PlayButton/>
+              <MyListButton/>
             </div>
           </div>
         </div>

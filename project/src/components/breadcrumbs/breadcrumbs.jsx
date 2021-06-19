@@ -21,8 +21,8 @@ function Breadcrumbs({id, title}) {
 }
 
 Breadcrumbs.propTypes = {
-  id: filmPropertyTypes.id,
-  title: filmPropertyTypes.title,
+  id: filmPropertyTypes.id.isRequired,
+  title: filmPropertyTypes.title.isRequired,
 };
 
 export default Breadcrumbs;

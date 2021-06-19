@@ -22,7 +22,7 @@ function Header({children, specialClass}) {
 
 Header.propTypes = {
   specialClass: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Header;
