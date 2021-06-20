@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import FilmCardSmall from '../film-card-small/film-card-small.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
-import {DELAY_VIDEO_PREVIEW} from '../../const.js';
+import {OPEN_PREVIEW_DELAY} from '../../const.js';
 
 function FilmList({films}) {
   const [id, setActiveCard] = useState();
   let delayTimer;
 
   const handleFilmCardMouseOver = (filmId) => {
-    delayTimer = setTimeout(() => setActiveCard(filmId), DELAY_VIDEO_PREVIEW);
+    delayTimer = setTimeout(() => setActiveCard(filmId), OPEN_PREVIEW_DELAY);
   };
 
   const handleFilmCardMouseOut = () => {
