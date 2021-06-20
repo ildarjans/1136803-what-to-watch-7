@@ -1,17 +1,15 @@
-export function getRandomInteger(max, min = 0) {
-  return Math.round(min + Math.random() * (max - min));
-}
+export const getRandomInteger = (max, min = 0) => Math.round(min + Math.random() * (max - min));
 
-export function getRandomArrayElement(arr) {
-  return arr[getRandomInteger(arr.length - 1)];
-}
+export const getRandomArrayElement = (arr) => arr[getRandomInteger(arr.length - 1)];
 
-export function getFilmByID(films, id) {
-  return films.find((film) => film.id === id);
-}
+export const getFilmByID = (films, id) => films.find((film) => film.id === id);
 
-export function adaptFilmToClient(film) {
-  return {
+export const extend = (obj1, obj2) => ({...{}, ...obj1, ...obj2});
+
+export const reduceFilmGenres = (acc, film) => acc.includes(film.genre) ? acc : [...acc, film.genre];
+
+export const adaptFilmToClient = (film) => (
+  {
     id: film['id'],
     title: film['name'],
     posterImage: film['poster_image'],
@@ -29,5 +27,5 @@ export function adaptFilmToClient(film) {
     genre: film['genre'],
     year: film['released'],
     isFavorite: film['is_favorite'],
-  };
-}
+  }
+)
