@@ -28,4 +28,4 @@ export const adaptFilmToClient = (film) => (
     year: film['released'],
     isFavorite: film['is_favorite'],
   }
-)
+);
