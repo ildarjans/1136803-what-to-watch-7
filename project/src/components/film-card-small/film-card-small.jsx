@@ -7,7 +7,6 @@ import {filmPropertyTypes} from '../../prop-types/films.js';
 
 function FilmCardSmall({id, title, previewImage, videoLink, hasVideo, onFilmCardMouseOver, onFilmCardMouseOut}) {
   const filmRoute = AppRoute.FILM.replace(':id', id);
-
   return (
     <article
       className="small-film-card catalog__films-card"
@@ -38,4 +37,4 @@ FilmCardSmall.propTypes = {
   onFilmCardMouseOut: PropTypes.func.isRequired,
 };
 
-export default FilmCardSmall;
+export default React.memo(FilmCardSmall);

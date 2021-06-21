@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import FilmCardSmall from '../film-card-small/film-card-small.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
 import {OPEN_PREVIEW_DELAY} from '../../const.js';
@@ -7,16 +7,16 @@ function FilmList({films}) {
   const [id, setActiveCard] = useState();
   let delayTimer;
 
-  const handleFilmCardMouseOver = (filmId) => {
+  const handleFilmCardMouseOver = useCallback((filmId) => {
     delayTimer = setTimeout(() => setActiveCard(filmId), OPEN_PREVIEW_DELAY);
-  };
+  }, [id, delayTimer]);
 
-  const handleFilmCardMouseOut = () => {
+  const handleFilmCardMouseOut = useCallback(() => {
     clearTimeout(delayTimer);
     if (id) {
       setActiveCard(null);
     }
-  };
+  }, [id, delayTimer]);
 
   useEffect(() => () => clearTimeout(delayTimer));
 
