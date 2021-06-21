@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Header from '../header/header.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs.jsx';
@@ -45,4 +46,8 @@ Review.propTypes = {
   film: filmPropTypes.isRequired,
 };
 
-export default Review;
+const mapStateToProps = (state, ownProps) => ({
+  film: state.filmsById[ownProps.id],
+});
+
+export default connect(mapStateToProps)(Review);
