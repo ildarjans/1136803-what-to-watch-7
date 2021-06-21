@@ -1,16 +1,7 @@
 import React, {useState} from 'react';
 import FilmCardSmall from '../film-card-small/film-card-small.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
-import {OPEN_PREVIEW_DELAY} from '../../const.js';
 
-const handleFilmCardMouseOver = (id, setActiveCard) => setTimeout(() => setActiveCard(id), OPEN_PREVIEW_DELAY);
-
-const handleFilmCardMouseOut = (delayTimer, hasVideo, setActiveCard) => {
-  clearTimeout(delayTimer);
-  if (hasVideo) {
-    setActiveCard(null);
-  }
-};
 
 function FilmList({films}) {
   const [id, setActiveCard] = useState();
@@ -25,9 +16,7 @@ function FilmList({films}) {
           hasVideo={id === film.id}
           image={film.previewImage}
           videoSrc={film.previewVideoLink}
-          onPlayVideo={setActiveCard}
-          onCardMouseOver={handleFilmCardMouseOver}
-          onCardMouseOut={handleFilmCardMouseOut}
+          onCardHover={setActiveCard}
         />
       ))}
     </div>

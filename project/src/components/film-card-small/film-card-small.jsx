@@ -2,20 +2,32 @@ import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../videoplayer/video-player.jsx';
-import {AppRoute} from '../../const.js';
+import {AppRoute, OPEN_PREVIEW_DELAY} from '../../const.js';
 import {filmPropertyTypes} from '../../prop-types/films.js';
 
-function FilmCardSmall({id, title, image, videoSrc, hasVideo, onPlayVideo, onCardMouseOver, onCardMouseOut}) {
+
+function FilmCardSmall({id, title, image, videoSrc, hasVideo, onCardHover}) {
   const filmRoute = AppRoute.FILM.replace(':id', id);
   let delayTimer;
+
+  const handleFilmCardMouseOver = () => {
+    delayTimer = setTimeout(() => onCardHover(id), OPEN_PREVIEW_DELAY);
+  };
+
+  const handleFilmCardMouseOut = () => {
+    clearTimeout(delayTimer);
+    if (hasVideo) {
+      onCardHover(null);
+    }
+  };
 
   useEffect(() => () => clearTimeout(delayTimer));
 
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => delayTimer = onCardMouseOver(id, onPlayVideo)}
-      onMouseOut={() => onCardMouseOut(delayTimer, hasVideo, onPlayVideo)}
+      onMouseOver={() => handleFilmCardMouseOver()}
+      onMouseOut={() => handleFilmCardMouseOut()}
     >
       <div className="small-film-card__image">
         {
@@ -37,9 +49,7 @@ FilmCardSmall.propTypes = {
   image: filmPropertyTypes.previewImage.isRequired,
   videoSrc: filmPropertyTypes.previewVideoLink.isRequired,
   hasVideo: PropTypes.bool,
-  onPlayVideo: PropTypes.func.isRequired,
-  onCardMouseOver: PropTypes.func.isRequired,
-  onCardMouseOut: PropTypes.func.isRequired,
+  onCardHover: PropTypes.func.isRequired,
 };
 
 export default React.memo(FilmCardSmall);
