@@ -1,23 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../videoplayer/video-player.jsx';
 import {AppRoute} from '../../const.js';
 import {filmPropertyTypes} from '../../prop-types/films.js';
 
-function FilmCardSmall({id, title, previewImage, videoLink, hasVideo, onFilmCardMouseOver, onFilmCardMouseOut}) {
+function FilmCardSmall({id, title, image, videoSrc, hasVideo, onPlayVideo, onCardMouseOver, onCardMouseOut}) {
   const filmRoute = AppRoute.FILM.replace(':id', id);
+  let delayTimer;
+
+  useEffect(() => () => clearTimeout(delayTimer));
+
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => onFilmCardMouseOver(id)}
-      onMouseOut={() => onFilmCardMouseOut()}
+      onMouseOver={() => delayTimer = onCardMouseOver(id, onPlayVideo)}
+      onMouseOut={() => onCardMouseOut(delayTimer, hasVideo, onPlayVideo)}
     >
       <div className="small-film-card__image">
         {
           hasVideo ?
-            <VideoPlayer src={videoLink} poster={previewImage} autoplay/> :
-            <img src={previewImage} alt={title} width="280" height="175"/>
+            <VideoPlayer src={videoSrc} poster={image} autoplay/> :
+            <img src={image} alt={title} width="280" height="175"/>
         }
       </div>
       <h3 className="small-film-card__title">
@@ -30,11 +34,12 @@ function FilmCardSmall({id, title, previewImage, videoLink, hasVideo, onFilmCard
 FilmCardSmall.propTypes = {
   id: filmPropertyTypes.id.isRequired,
   title: filmPropertyTypes.title.isRequired,
-  previewImage: filmPropertyTypes.previewImage.isRequired,
-  videoLink: filmPropertyTypes.previewVideoLink.isRequired,
+  image: filmPropertyTypes.previewImage.isRequired,
+  videoSrc: filmPropertyTypes.previewVideoLink.isRequired,
   hasVideo: PropTypes.bool,
-  onFilmCardMouseOver: PropTypes.func.isRequired,
-  onFilmCardMouseOut: PropTypes.func.isRequired,
+  onPlayVideo: PropTypes.func.isRequired,
+  onCardMouseOver: PropTypes.func.isRequired,
+  onCardMouseOut: PropTypes.func.isRequired,
 };
 
 export default React.memo(FilmCardSmall);
