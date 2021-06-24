@@ -1,10 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import FilmCardFull from '../film-card-full/film-card-full.js';
 import {getFilmByID} from '../../utils.js';
-import {DisplayCards, CatalogTitle} from '../../const.js';
+import {CatalogTitle, DEFAULT_GENRE_TYPE, DisplayCards} from '../../const.js';
 import {filmPropertyTypes, filmsPropTypes} from '../../prop-types/films.js';
 
 function MoviePage({films, id}) {
@@ -33,4 +34,8 @@ MoviePage.propTypes = {
   films: filmsPropTypes.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  films: state.filmsByGenre[DEFAULT_GENRE_TYPE],
+});
+
+export default connect(mapStateToProps)(MoviePage);

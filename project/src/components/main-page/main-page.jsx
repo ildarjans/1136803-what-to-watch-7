@@ -1,11 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import FilmCard from '../film-card/film-card.jsx';
 import GenreList from '../genre-list/genre-list.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import CatalogMoreBtn from '../catalog-more-btn/catalog-more-btn.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
-import {CatalogTitle, DEFAULT_GENRE_TYPE} from '../../const.js';
+import {CatalogTitle} from '../../const.js';
 
 function MainPage({films}) {
   const {
@@ -28,7 +29,7 @@ function MainPage({films}) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">{CatalogTitle.CATALOG}</h2>
-          <GenreList activeGenre={DEFAULT_GENRE_TYPE}/>
+          <GenreList/>
           <FilmList films={films}/>
           <CatalogMoreBtn/>
         </section>
@@ -42,4 +43,8 @@ MainPage.propTypes = {
   films: filmsPropTypes.isRequired,
 };
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  films: state.filmsByGenre[state.genre],
+});
+
+export default connect(mapStateToProps)(MainPage);

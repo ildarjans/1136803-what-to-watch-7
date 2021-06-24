@@ -13,7 +13,7 @@ export const DisplayCards = {
 
 export const DEFAULT_GENRE_TYPE = 'All genres';
 
-export const DELAY_VIDEO_PREVIEW = 1000;
+export const OPEN_PREVIEW_DELAY = 1000;
 
 export const genreTypes = [
   'All genres',

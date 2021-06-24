@@ -7,35 +7,23 @@ import SignIn from '../sign-in/sign-in.jsx';
 import Player from '../player/player.jsx';
 import Review from '../review/review.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
-import {getFilmByID} from '../../utils.js';
 import {AppRoute} from '../../const.js';
 import {browserHistory} from '../../browser-history.js';
-import {filmsPropTypes} from '../../prop-types/films.js';
 
-function App({films}) {
+function App() {
   return (
     <Router history={browserHistory}>
       <Switch>
-        <Route exact path={AppRoute.ROOT} render={() => <MainPage films={films}/>}/>
+        <Route exact path={AppRoute.ROOT} component={MainPage}/>
         <Route exact path={AppRoute.LOGIN} component={SignIn}/>
-        <Route exact path={AppRoute.FAVORITES} render={() => <MyList films={films}/>}/>
-        <Route exact path={AppRoute.FILM} render={({match}) => <MoviePage films={films} id={match.params.id}/>}/>
-        <Route exact path={AppRoute.REVIEW} render={({match}) => (
-          <Review film={getFilmByID(films, match.params.id)} id={match.params.id}/>
-        )}
-        />
-        <Route exact path={AppRoute.PLAYER} render={({match}) => (
-          <Player film={getFilmByID(films, match.params.id)}/>
-        )}
-        />
+        <Route exact path={AppRoute.FAVORITES} component={MyList}/>
+        <Route exact path={AppRoute.FILM} render={({match}) => <MoviePage id={match.params.id}/>}/>
+        <Route exact path={AppRoute.REVIEW} render={({match}) => <Review id={match.params.id}/>}/>
+        <Route exact path={AppRoute.PLAYER} render={({match}) => <Player id={match.params.id}/>}/>
         <Route component={NotFoundPage}/>
       </Switch>
     </Router>
   );
 }
-
-App.propTypes = {
-  films: filmsPropTypes.isRequired,
-};
 
 export default App;
