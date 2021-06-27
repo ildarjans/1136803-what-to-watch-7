@@ -7,6 +7,7 @@ import FilmList from '../film-list/film-list.jsx';
 import CatalogMoreBtn from '../catalog-more-btn/catalog-more-btn.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
 import {CatalogTitle} from '../../const.js';
+import {selectFilmsByGenre} from '../../selectors/selectors.js';
 
 function MainPage({films}) {
   const {
@@ -44,7 +45,7 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: state.filmsByGenre[state.genre],
+  films: selectFilmsByGenre(state),
 });
 
 export default connect(mapStateToProps)(MainPage);
