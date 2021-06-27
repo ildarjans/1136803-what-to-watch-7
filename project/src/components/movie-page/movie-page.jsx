@@ -1,12 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import FilmCardFull from '../film-card-full/film-card-full.js';
 import {getFilmByID} from '../../utils.js';
-import {CatalogTitle, DEFAULT_GENRE_TYPE, DisplayCards} from '../../const.js';
+import {CatalogTitle, DisplayCards} from '../../const.js';
 import {filmPropertyTypes, filmsPropTypes} from '../../prop-types/films.js';
+import {selectFilmsByGenre, selectRouteId} from '../../selectors/selectors.js';
 
 function MoviePage({films, id}) {
   const film = getFilmByID(films, id);
@@ -34,8 +36,9 @@ MoviePage.propTypes = {
   films: filmsPropTypes.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  films: state.filmsByGenre[DEFAULT_GENRE_TYPE],
+const mapStateToProps = (state, ownProps) => ({
+  films: selectFilmsByGenre(state),
+  id: selectRouteId(ownProps),
 });
 
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps)(withRouter(MoviePage));

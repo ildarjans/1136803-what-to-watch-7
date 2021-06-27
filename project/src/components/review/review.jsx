@@ -1,4 +1,5 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Header from '../header/header.jsx';
 import UserBlock from '../user-block/user-block.jsx';
@@ -6,6 +7,7 @@ import Breadcrumbs from '../breadcrumbs/breadcrumbs.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import {filmPropertyTypes, filmPropTypes} from '../../prop-types/films.js';
+import {selectFilmById, selectRouteId} from '../../selectors/selectors.js';
 
 function Review({film, id}) {
   if (!film) {
@@ -47,7 +49,8 @@ Review.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  film: state.filmsById[ownProps.id],
+  id: selectRouteId(ownProps),
+  film: selectFilmById(state, ownProps),
 });
 
-export default connect(mapStateToProps)(Review);
+export default connect(mapStateToProps)(withRouter(Review));
