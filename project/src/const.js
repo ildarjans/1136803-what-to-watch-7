@@ -43,6 +43,19 @@ export const AppRoute = {
   PLAYER: '/player/:id',
 };
 
+export const ApiRoute = {
+  FILMS: '/films',
+  FILM: '/films/:id',
+  SIMILAR: '/films/:id/similar',
+  PROMO: '/promo',
+  GET_FAVORITE: '/favorite',
+  POST_FAVORITE: '/favorite/:film_id/:status',
+  GET_COMMENTS: '/comments/:film_id',
+  POST_COMMENTS: '/comments/:film_id',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export const HeaderClass = {
   FILM_CARD: 'film-card__head',
   USER_PAGE: 'user-page__head',
