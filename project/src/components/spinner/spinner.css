@@ -1,0 +1,101 @@
+:root {
+  --spin-height: 2px;
+  --dimension: 32px;
+}
+
+@keyframes spinner-animation {
+  0% {
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--dimension);
+  height: var(--dimension);
+  transform: translate(-50%, -50%);
+}
+
+.spin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: var(--spin-height);
+  width: 25%;
+  background: #666;
+  opacity: 0.3;
+  transform-origin: -100% 0;
+}
+
+.spin:nth-child(1) {
+  transform: translate(100%, 0) rotate(0deg);
+  animation: spinner-animation .8s calc(1s / 15) infinite;
+}
+
+.spin:nth-child(2) {
+  transform: translate(100%, 0) rotate(30deg);
+  animation: spinner-animation .8s calc(2s / 15) infinite;
+}
+
+.spin:nth-child(3) {
+  transform: translate(100%, 0) rotate(60deg);
+  animation: spinner-animation .8s calc(3s / 15) infinite;
+}
+
+.spin:nth-child(4) {
+  transform: translate(100%, 0) rotate(90deg);
+  animation: spinner-animation .8s calc(4s / 15) infinite;
+}
+
+.spin:nth-child(5) {
+  transform: translate(100%, 0) rotate(120deg);
+  animation: spinner-animation .8s calc(5s / 15) infinite;
+}
+
+.spin:nth-child(6) {
+  transform: translate(100%, 0) rotate(120deg);
+  animation: spinner-animation .8s calc(6s / 15) infinite;
+}
+
+.spin:nth-child(7) {
+  transform: translate(100%, 0) rotate(150deg);
+  animation: spinner-animation .8s calc(7s / 15) infinite;
+}
+
+.spin:nth-child(8) {
+  transform: translate(100%, 0) rotate(180deg);
+  animation: spinner-animation .8s calc(8s / 15) infinite;
+}
+
+.spin:nth-child(9) {
+  transform: translate(100%, 0) rotate(210deg);
+  animation: spinner-animation .8s calc(9s / 15) infinite;
+}
+
+.spin:nth-child(10) {
+  transform: translate(100%, 0) rotate(240deg);
+  animation: spinner-animation .8s calc(10s / 15) infinite;
+}
+
+.spin:nth-child(11) {
+  transform: translate(100%, 0) rotate(270deg);
+  animation: spinner-animation .8s calc(11s / 15) infinite;
+}
+
+.spin:nth-child(12) {
+  transform: translate(100%, 0) rotate(300deg);
+  animation: spinner-animation .8s calc(12s / 15) infinite;
+}
+
+.spin:nth-child(13) {
+  transform: translate(100%, 0) rotate(330deg);
+  animation: spinner-animation .8s calc(13s / 15) infinite;
+}
