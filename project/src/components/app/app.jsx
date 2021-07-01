@@ -17,9 +17,9 @@ function App() {
         <Route exact path={AppRoute.ROOT} component={MainPage}/>
         <Route exact path={AppRoute.LOGIN} component={SignIn}/>
         <Route exact path={AppRoute.FAVORITES} component={MyList}/>
-        <Route exact path={AppRoute.FILM} render={({match}) => <MoviePage id={match.params.id}/>}/>
-        <Route exact path={AppRoute.REVIEW} render={({match}) => <Review id={match.params.id}/>}/>
-        <Route exact path={AppRoute.PLAYER} render={({match}) => <Player id={match.params.id}/>}/>
+        <Route exact path={AppRoute.FILM} component={MoviePage}/>
+        <Route exact path={AppRoute.REVIEW} component={Review}/>
+        <Route exact path={AppRoute.PLAYER} component={Player}/>
         <Route component={NotFoundPage}/>
       </Switch>
     </Router>

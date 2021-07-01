@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const filmPropertyTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   title: PropTypes.string,
   posterImage: PropTypes.string,
   previewImage: PropTypes.string,
