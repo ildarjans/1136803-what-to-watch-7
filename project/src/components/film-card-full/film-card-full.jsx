@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../header/header.jsx';
-import UserBlock from '../user-block/user-block.jsx';
 import PlayButton from '../play-button/play-button.js';
 import MyListButton from '../my-list-button/my-list-button.js';
 import AddReviewButton from '../add-review-button/add-review-button.js';
@@ -18,9 +17,7 @@ function FilmCardFull({film}) {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header specialClass={HeaderClass.FILM_CARD}>
-          <UserBlock/>
-        </Header>
+        <Header specialClass={HeaderClass.FILM_CARD}/>
 
         <div className="film-card__wrap">
           <div className="film-card__desc">

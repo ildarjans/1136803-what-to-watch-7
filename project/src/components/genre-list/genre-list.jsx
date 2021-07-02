@@ -1,8 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Genre from '../genre/genre.jsx';
 import {ActionCreator} from '../../store/action.js';
+import {selectAllGenres, selectCurrentGenre} from '../../selectors/selectors.js';
+import {availableGenresPropTypes} from '../../prop-types/process.js';
+import {funcPropTypes, stringPropTypes} from '../../prop-types/common.js';
 
 
 function GenreList({genres, activeGenre, onChangeGenre}) {
@@ -21,14 +23,14 @@ function GenreList({genres, activeGenre, onChangeGenre}) {
 }
 
 GenreList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onChangeGenre: PropTypes.func.isRequired,
+  genres: availableGenresPropTypes.isRequired,
+  activeGenre: stringPropTypes.isRequired,
+  onChangeGenre: funcPropTypes.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  genres: Object.keys(state.filmsByGenre),
-  activeGenre: state.genre,
+  genres: selectAllGenres(state),
+  activeGenre: selectCurrentGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -44,6 +44,7 @@ export const AppRoute = {
 };
 
 export const ApiRoute = {
+  ROOT: '/',
   FILMS: '/films',
   FILM: '/films/:id',
   SIMILAR: '/films/:id/similar',
@@ -61,6 +62,11 @@ export const HeaderClass = {
   USER_PAGE: 'user-page__head',
 };
 
+export const LogoClass = {
+  HEADER: 'logo__link logo__link',
+  FOOTER: 'logo__link logo__link--light',
+};
+
 export const NumerableRating = {
   0: RatingTitle.BAD,
   1: RatingTitle.BAD,
@@ -74,3 +80,9 @@ export const NumerableRating = {
   9: RatingTitle.VERY_GOOD,
   10: RatingTitle.AWESOME,
 };
+
+export const AuthStatus = {
+  AUTHORIZED: 'AUTHORIZED',
+  NO_AUTHORIZED: 'NO_AUTHORIZED',
+};
+

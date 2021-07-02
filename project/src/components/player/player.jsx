@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import VideoPlayer from '../videoplayer/video-player.jsx';
 import {filmPropTypes} from '../../prop-types/films.js';
-import {selectFilmById} from '../../selectors/selectors.js';
+import {selectFilmById, selectFilmIdFromRoute} from '../../selectors/selectors.js';
 
 function Player({film}) {
   return (
@@ -51,7 +51,7 @@ Player.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  film: selectFilmById(state, ownProps),
+  film: selectFilmById(state, selectFilmIdFromRoute(ownProps)),
 });
 
 export default connect(mapStateToProps)(withRouter(Player));

@@ -1,19 +1,17 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Header from '../header/header.jsx';
-import UserBlock from '../user-block/user-block.jsx';
+import {withRouter} from 'react-router-dom';
+import HeaderWithAuthBlock from '../header-with-auth-block/header-with-auth-block.jsx';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
+import {selectFilmById, selectNormalizedFilmId} from '../../selectors/selectors.js';
 import {filmPropertyTypes, filmPropTypes} from '../../prop-types/films.js';
-import {selectFilmById, selectRouteId} from '../../selectors/selectors.js';
 
 function Review({film, id}) {
   if (!film) {
     return <NotFoundPage/>;
   }
-
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -22,10 +20,10 @@ function Review({film, id}) {
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
-        <Header>
+
+        <HeaderWithAuthBlock>
           <Breadcrumbs id={id} title={film.title}/>
-          <UserBlock/>
-        </Header>
+        </HeaderWithAuthBlock>
 
         <div className="film-card__poster film-card__poster--small">
           <img
@@ -49,8 +47,8 @@ Review.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  id: selectRouteId(ownProps),
-  film: selectFilmById(state, ownProps),
+  film: selectFilmById(state, selectNormalizedFilmId(ownProps)),
+  id: selectNormalizedFilmId(ownProps),
 });
 
 export default connect(mapStateToProps)(withRouter(Review));
