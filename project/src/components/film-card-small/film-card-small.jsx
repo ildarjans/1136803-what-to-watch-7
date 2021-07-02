@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import VideoPlayer from '../videoplayer/video-player.jsx';
 import {AppRoute, OPEN_PREVIEW_DELAY} from '../../const.js';
 import {filmPropertyTypes} from '../../prop-types/films.js';
+import {booleanPropTypes, funcPropTypes} from '../../prop-types/common.js';
 
 
 function FilmCardSmall({id, title, image, videoSrc, hasVideo, onCardHover}) {
@@ -48,8 +48,8 @@ FilmCardSmall.propTypes = {
   title: filmPropertyTypes.title.isRequired,
   image: filmPropertyTypes.previewImage.isRequired,
   videoSrc: filmPropertyTypes.previewVideoLink.isRequired,
-  hasVideo: PropTypes.bool,
-  onCardHover: PropTypes.func.isRequired,
+  hasVideo: booleanPropTypes.isRequired,
+  onCardHover: funcPropTypes.isRequired,
 };
 
 export default React.memo(FilmCardSmall);
