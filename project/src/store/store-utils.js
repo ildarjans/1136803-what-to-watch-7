@@ -18,3 +18,5 @@ export const getFilmsLists = (films) => (
     return acc;
   }, [{}, {[DEFAULT_GENRE_TYPE]: []}])
 );
+
+export const getFavoriteList = (films) => films.map(adaptFilmToClient);
