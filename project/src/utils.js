@@ -10,7 +10,7 @@ export const reduceFilmGenres = (acc, film) => acc.includes(film.genre) ? acc : 
 
 export const adaptFilmToClient = (film) => (
   {
-    id: film['id'],
+    id: film['id'].toString(),
     title: film['name'],
     posterImage: film['poster_image'],
     previewImage: film['preview_image'],
@@ -32,7 +32,7 @@ export const adaptFilmToClient = (film) => (
 
 export const adaptUserToClient = (user) => (
   {
-    id: user['id'],
+    id: user['id'].toString(),
     email: user['email'],
     name: user['name'],
     avatarUrl: user['avatar_url'],

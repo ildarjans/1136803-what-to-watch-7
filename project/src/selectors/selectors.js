@@ -1,7 +1,5 @@
 
-export const selectNormalizedFilmId = (props) => Number(props.id);
-
-export const selectFilmIdFromRoute = (props) => Number(props.match.params.id);
+export const selectFilmIdFromRoute = (props) => props.match.params.id;
 
 export const selectFilmsByGenre = ({filmsByGenre, currentGenre}) => filmsByGenre[currentGenre];
 
