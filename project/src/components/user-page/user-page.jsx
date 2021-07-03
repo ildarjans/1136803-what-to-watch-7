@@ -11,7 +11,7 @@ function UserPage({onSubmit}) {
   return (
     <div className="user-page">
 
-      <Header specialClass={HeaderClass.USER_PAGE}>
+      <Header className={HeaderClass.USER_PAGE}>
         <h1 className="page-title user-page__title">Sign in</h1>
       </Header>
 

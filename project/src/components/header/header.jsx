@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import {LogoClass} from '../../const.js';
 
-function Header({children, specialClass}) {
+function Header({children, className}) {
   return (
-    <header className={`page-header ${specialClass}`}>
-
+    <header className={`page-header ${className}`}>
       <Logo specialClass={LogoClass.HEADER}/>
-
       {children}
-
     </header>
   );
 }
 
 Header.propTypes = {
-  specialClass: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.node,
 };
 

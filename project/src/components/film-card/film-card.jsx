@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderWithAuthBlock from '../header-with-auth-block/header-with-auth-block.jsx';
+import AuthHeader from '../auth-header/auth-header.jsx';
 import MyListButton from '../my-list-button/my-list-button.js';
 import PlayButton from '../play-button/play-button.js';
 import {HeaderClass} from '../../const.js';
@@ -14,7 +14,7 @@ function FilmCard({title, genre, year, posterImage, backgroundImage}) {
 
       <h1 className="visually-hidden">WTW</h1>
 
-      <HeaderWithAuthBlock specialClass={HeaderClass.FILM_CARD}/>
+      <AuthHeader specialClass={HeaderClass.FILM_CARD}/>
 
       <div className="film-card__wrap">
         <div className="film-card__info">

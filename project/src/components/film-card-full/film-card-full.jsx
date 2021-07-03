@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../header/header.jsx';
+import AuthHeader from '../auth-header/auth-header.jsx';
 import PlayButton from '../play-button/play-button.js';
 import MyListButton from '../my-list-button/my-list-button.js';
 import AddReviewButton from '../add-review-button/add-review-button.js';
@@ -17,7 +17,7 @@ function FilmCardFull({film}) {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header specialClass={HeaderClass.FILM_CARD}/>
+        <AuthHeader className={HeaderClass.FILM_CARD}/>
 
         <div className="film-card__wrap">
           <div className="film-card__desc">
