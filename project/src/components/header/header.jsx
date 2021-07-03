@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
 import {LogoClass} from '../../const.js';
-import {nodePropTypes, stringPropTypes} from '../../prop-types/common.js';
 
 function Header({children, specialClass}) {
   return (
@@ -16,8 +16,8 @@ function Header({children, specialClass}) {
 }
 
 Header.propTypes = {
-  specialClass: stringPropTypes,
-  children: nodePropTypes,
+  specialClass: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Header;

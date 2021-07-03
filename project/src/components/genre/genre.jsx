@@ -1,5 +1,5 @@
 import React from 'react';
-import {booleanPropTypes, funcPropTypes, stringPropTypes} from '../../prop-types/common.js';
+import PropTypes from 'prop-types'
 
 const ACTIVE_CLASSNAME = 'catalog__genres-item--active';
 
@@ -15,9 +15,9 @@ function Genre({genre, isActive, onGenreClick}) {
 }
 
 Genre.propTypes = {
-  genre: stringPropTypes.isRequired,
-  isActive: booleanPropTypes.isRequired,
-  onGenreClick: funcPropTypes.isRequired,
+  genre: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  onGenreClick: PropTypes.func.isRequired,
 };
 
 export default Genre;

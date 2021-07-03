@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import Footer from '../footer/footer.jsx';
 import Header from '../header/header.jsx';
 import SignInForm from '../sign-in-form/sign-in-form.jsx';
 import {loginUser} from '../../middleware/thunk-api.js';
 import {HeaderClass} from '../../const.js';
-import {funcPropTypes} from '../../prop-types/common.js';
 
 function UserPage({onSubmit}) {
   return (
@@ -26,7 +26,7 @@ function UserPage({onSubmit}) {
 }
 
 UserPage.propTypes = {
-  onSubmit: funcPropTypes.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

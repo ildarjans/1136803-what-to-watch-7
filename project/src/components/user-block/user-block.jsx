@@ -1,10 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {selectUser} from '../../selectors/selectors.js';
 import {logoutUser} from '../../middleware/thunk-api.js';
 import {userPropTypes} from '../../prop-types/user.js';
-import {funcPropTypes} from '../../prop-types/common.js';
 import {AppRoute} from '../../const.js';
 
 function UserBlock({user, onSignOut}) {
@@ -24,7 +24,7 @@ function UserBlock({user, onSignOut}) {
 
 UserBlock.propTypes = {
   user: userPropTypes.isRequired,
-  onSignOut: funcPropTypes.isRequired,
+  onSignOut: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

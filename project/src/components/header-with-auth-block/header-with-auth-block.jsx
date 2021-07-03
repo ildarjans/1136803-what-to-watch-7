@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../header/header.jsx';
 import UserBlock from '../user-block/user-block.jsx';
 import GuestBlock from '../guest-block/guest-block.jsx';
 import {selectAuthorizationStatus} from '../../selectors/selectors.js';
 import {authorizationStatusPropTypes} from '../../prop-types/user.js';
 import {AuthStatus} from '../../const.js';
-import {nodePropTypes} from '../../prop-types/common.js';
 
 
 function HeaderWithAuthBlock({authorizationStatus, children, ...restProps}) {
@@ -24,7 +24,7 @@ function HeaderWithAuthBlock({authorizationStatus, children, ...restProps}) {
 }
 
 HeaderWithAuthBlock.propTypes = {
-  children: nodePropTypes,
+  children: PropTypes.node,
   authorizationStatus: authorizationStatusPropTypes.isRequired,
 };
 

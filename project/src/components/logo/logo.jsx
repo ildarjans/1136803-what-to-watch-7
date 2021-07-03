@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {AppRoute} from '../../const.js';
-import {stringPropTypes} from '../../prop-types/common.js';
 
 
 function Logo({specialClass}) {
@@ -17,7 +17,7 @@ function Logo({specialClass}) {
 }
 
 Logo.propTypes = {
-  specialClass: stringPropTypes.isRequired,
+  specialClass: PropTypes.string.isRequired,
 };
 
 export default Logo;

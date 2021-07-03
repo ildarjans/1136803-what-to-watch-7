@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 import SignInMessage from '../sign-in-message/sign-in-message.jsx';
-import {funcPropTypes} from '../../prop-types/common.js';
 
 const EMAIL_REGEX = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
 const PASSWORD_REGEX = /\s/;
@@ -76,7 +76,7 @@ function SignInForm({onSubmit}) {
 }
 
 SignInForm.propTypes = {
-  onSubmit: funcPropTypes.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SignInForm;
