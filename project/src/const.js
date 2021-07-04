@@ -62,11 +62,6 @@ export const HeaderClass = {
   USER_PAGE: 'user-page__head',
 };
 
-export const LogoClass = {
-  HEADER: 'logo__link logo__link',
-  FOOTER: 'logo__link logo__link--light',
-};
-
 export const NumerableRating = {
   0: RatingTitle.BAD,
   1: RatingTitle.BAD,
