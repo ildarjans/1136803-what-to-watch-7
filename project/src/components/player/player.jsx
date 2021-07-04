@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import VideoPlayer from '../videoplayer/video-player.jsx';
@@ -47,7 +48,7 @@ function Player({film}) {
 }
 
 Player.propTypes = {
-  film: filmPropTypes.isRequired,
+  film: PropTypes.shape(filmPropTypes).isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({

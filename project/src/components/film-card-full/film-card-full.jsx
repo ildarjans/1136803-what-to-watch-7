@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import PlayButton from '../play-button/play-button.js';
 import MyListButton from '../my-list-button/my-list-button.js';
@@ -93,7 +94,7 @@ function FilmCardFull({film}) {
 }
 
 FilmCardFull.propTypes = {
-  film: filmPropTypes.isRequired,
+  film: PropTypes.shape(filmPropTypes).isRequired,
 };
 
 export default FilmCardFull;

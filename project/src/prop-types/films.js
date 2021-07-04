@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const filmPropertyTypes = {
+export const filmPropTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   posterImage: PropTypes.string,
@@ -20,6 +20,4 @@ export const filmPropertyTypes = {
   isFavorite: PropTypes.bool,
 };
 
-export const filmPropTypes = PropTypes.shape(filmPropertyTypes);
-
-export const filmsPropTypes = PropTypes.arrayOf(filmPropTypes);
+export const filmsPropTypes = PropTypes.arrayOf(PropTypes.shape(filmPropTypes).isRequired);

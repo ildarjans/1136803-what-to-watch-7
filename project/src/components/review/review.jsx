@@ -1,12 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import {selectFilmById} from '../../selectors/selectors.js';
-import {filmPropertyTypes, filmPropTypes} from '../../prop-types/films.js';
+import {filmPropTypes} from '../../prop-types/films.js';
 
 function Review({film, id}) {
   if (!film) {
@@ -42,8 +43,8 @@ function Review({film, id}) {
 }
 
 Review.propTypes = {
-  id: filmPropertyTypes.id.isRequired,
-  film: filmPropTypes.isRequired,
+  id: filmPropTypes.id.isRequired,
+  film: PropTypes.shape(filmPropTypes).isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({

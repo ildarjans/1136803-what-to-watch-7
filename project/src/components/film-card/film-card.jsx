@@ -3,7 +3,7 @@ import AuthHeader from '../auth-header/auth-header.jsx';
 import MyListButton from '../my-list-button/my-list-button.js';
 import PlayButton from '../play-button/play-button.js';
 import {HeaderClass} from '../../const.js';
-import {filmPropertyTypes} from '../../prop-types/films.js';
+import {filmPropTypes} from '../../prop-types/films.js';
 
 function FilmCard({title, genre, year, posterImage, backgroundImage}) {
   return (
@@ -45,11 +45,11 @@ function FilmCard({title, genre, year, posterImage, backgroundImage}) {
 }
 
 FilmCard.propTypes = {
-  title: filmPropertyTypes.title.isRequired,
-  genre: filmPropertyTypes.genre.isRequired,
-  year: filmPropertyTypes.year.isRequired,
-  posterImage: filmPropertyTypes.posterImage.isRequired,
-  backgroundImage: filmPropertyTypes.backgroundImage.isRequired,
+  title: filmPropTypes.title.isRequired,
+  genre: filmPropTypes.genre.isRequired,
+  year: filmPropTypes.year.isRequired,
+  posterImage: filmPropTypes.posterImage.isRequired,
+  backgroundImage: filmPropTypes.backgroundImage.isRequired,
 };
 
 export default FilmCard;

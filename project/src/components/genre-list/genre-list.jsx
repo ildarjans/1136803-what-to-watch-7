@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import Genre from '../genre/genre.jsx';
 import {ActionCreator} from '../../store/action.js';
 import {selectAllGenres, selectCurrentGenre} from '../../selectors/selectors.js';
-import {availableGenresPropTypes} from '../../prop-types/process.js';
 
 
 function GenreList({genres, activeGenre, onChangeGenre}) {
@@ -23,7 +22,7 @@ function GenreList({genres, activeGenre, onChangeGenre}) {
 }
 
 GenreList.propTypes = {
-  genres: availableGenresPropTypes.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   activeGenre: PropTypes.string.isRequired,
   onChangeGenre: PropTypes.func.isRequired,
 };

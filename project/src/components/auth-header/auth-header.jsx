@@ -39,7 +39,7 @@ AuthHeader.propTypes = {
   children: PropTypes.node,
   authorizationStatus: PropTypes.string.isRequired,
   onSignOut: PropTypes.func.isRequired,
-  user: userPropTypes.isRequired,
+  user: PropTypes.shape(userPropTypes),
 };
 
 const mapStateToProps = (state) => ({

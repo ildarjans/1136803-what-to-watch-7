@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import VideoPlayer from '../videoplayer/video-player.jsx';
 import {AppRoute, OPEN_PREVIEW_DELAY} from '../../const.js';
-import {filmPropertyTypes} from '../../prop-types/films.js';
+import {filmPropTypes} from '../../prop-types/films.js';
 
 
 function FilmCardSmall({id, title, image, videoSrc, hasVideo, onCardHover}) {
@@ -44,10 +44,10 @@ function FilmCardSmall({id, title, image, videoSrc, hasVideo, onCardHover}) {
 }
 
 FilmCardSmall.propTypes = {
-  id: filmPropertyTypes.id.isRequired,
-  title: filmPropertyTypes.title.isRequired,
-  image: filmPropertyTypes.previewImage.isRequired,
-  videoSrc: filmPropertyTypes.previewVideoLink.isRequired,
+  id: filmPropTypes.id.isRequired,
+  title: filmPropTypes.title.isRequired,
+  image: filmPropTypes.previewImage.isRequired,
+  videoSrc: filmPropTypes.previewVideoLink.isRequired,
   hasVideo: PropTypes.bool.isRequired,
   onCardHover: PropTypes.func.isRequired,
 };

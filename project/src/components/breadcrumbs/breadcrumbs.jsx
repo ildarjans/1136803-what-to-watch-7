@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {filmPropertyTypes} from '../../prop-types/films.js';
+import {filmPropTypes} from '../../prop-types/films.js';
 import {AppRoute} from '../../const.js';
 
 function Breadcrumbs({id, title}) {
@@ -21,8 +21,8 @@ function Breadcrumbs({id, title}) {
 }
 
 Breadcrumbs.propTypes = {
-  id: filmPropertyTypes.id.isRequired,
-  title: filmPropertyTypes.title.isRequired,
+  id: filmPropTypes.id.isRequired,
+  title: filmPropTypes.title.isRequired,
 };
 
 export default Breadcrumbs;

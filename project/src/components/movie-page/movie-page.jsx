@@ -7,7 +7,7 @@ import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import FilmCardFull from '../film-card-full/film-card-full.jsx';
 import {getFilmByID} from '../../utils.js';
 import {CatalogTitle, DisplayCards} from '../../const.js';
-import {filmPropertyTypes, filmsPropTypes} from '../../prop-types/films.js';
+import {filmPropTypes, filmsPropTypes} from '../../prop-types/films.js';
 import {selectFilmsByGenre, selectFilmIdFromRoute} from '../../selectors/selectors.js';
 
 function MoviePage({films, id}) {
@@ -32,7 +32,7 @@ function MoviePage({films, id}) {
 }
 
 MoviePage.propTypes = {
-  id: filmPropertyTypes.id.isRequired,
+  id: filmPropTypes.id.isRequired,
   films: filmsPropTypes.isRequired,
 };
 
