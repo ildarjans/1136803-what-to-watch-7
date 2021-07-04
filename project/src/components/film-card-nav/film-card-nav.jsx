@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import FilmCardOverview from './film-card-overview.jsx';
-import FilmCardDetails from './film-card-details.jsx';
-import FilmCardReview from './film-card-review.jsx';
+import FilmCardOverview from '../film-card-overview/film-card-overview.jsx';
+import FilmCardDetails from '../film-card-details/film-card-details.jsx';
+import FilmCardReview from '../film-card-review/film-card-review.jsx';
 import {filmPropTypes} from '../../prop-types/films.js';
 import {FilmCardTabName} from '../../const.js';
 
