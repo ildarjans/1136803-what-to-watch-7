@@ -1,15 +1,11 @@
 import React, {useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import SignInMessage from '../sign-in-message/sign-in-message.jsx';
 
 const EMAIL_REGEX = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/;
 const PASSWORD_REGEX = /\s/;
 
-const INVALID_EMAIL_MESSAGE = 'Please enter a valid email address';
-const INVALID_PASSWORD_MESSAGE = 'Please enter password without whitespaces';
-
-const validateEmail = (ref) => EMAIL_REGEX.test(ref.current.value);
-const validatePassword = (ref) => ref.current.value.length > 0 && !PASSWORD_REGEX.test(ref.current.value);
+const validateEmail = (value) => EMAIL_REGEX.test(value);
+const validatePassword = (value) => value.length > 0 && !PASSWORD_REGEX.test(value);
 
 function SignInForm({onSubmit}) {
   const [isValidEmail, setEmailValidationStatus] = useState(true);
@@ -17,11 +13,9 @@ function SignInForm({onSubmit}) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
-  const invalidMessage = isValidEmail ? INVALID_PASSWORD_MESSAGE : INVALID_EMAIL_MESSAGE;
-
   const handleFormSubmit = () => {
-    const validEmail = validateEmail(loginRef);
-    const validPassword = validatePassword(passwordRef);
+    const validEmail = validateEmail(loginRef.current.value);
+    const validPassword = validatePassword(passwordRef.current.value);
     setEmailValidationStatus(validEmail);
     setPasswordValidationStatus(validPassword);
     if (validEmail && validPassword) {
@@ -40,10 +34,19 @@ function SignInForm({onSubmit}) {
         evt.preventDefault();
         handleFormSubmit();
       }}
+      noValidate
     >
+
       {
-        !isValidEmail || !isValidPassword ? <SignInMessage text={invalidMessage}/> : ''
+        (!isValidEmail || !isValidPassword) &&
+        (
+          <div className="sign-in__message">
+            {!isValidEmail && <p>Please enter a valid email address</p>}
+            {!isValidPassword && <p>Please enter password without whitespaces</p>}
+          </div>
+        )
       }
+
       <div className="sign-in__fields">
         <div className="sign-in__field">
           <input
