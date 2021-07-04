@@ -40,3 +40,10 @@ export const adaptUserToClient = (user) => (
   }
 );
 
+export const getFilmDurationInHoursAndMinutes = (durationInMinutes) => {
+  if (durationInMinutes < 60) {
+    return `${durationInMinutes}m`;
+  }
+  return `${Math.floor(durationInMinutes / 60)}h ${durationInMinutes % 60}m`;
+};
+
