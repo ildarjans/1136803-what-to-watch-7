@@ -9,12 +9,8 @@ import {reducer} from './store/reducer.js';
 import createAPI from './services/api.js';
 import {checkAuthUser, fetchFavorites, fetchFilms} from './middleware/thunk-api.js';
 import {redirect} from './middleware/redirect.js';
-import {ActionCreator} from './store/action.js';
-import {AuthStatus} from './const.js';
 
-const api = createAPI(() => (
-  store.dispatch(ActionCreator.setAuthorizationStatus(AuthStatus.NO_AUTHORIZED))),
-);
+const api = createAPI();
 
 const store = createStore(
   reducer,
