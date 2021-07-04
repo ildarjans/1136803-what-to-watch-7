@@ -81,3 +81,9 @@ export const AuthStatus = {
   NO_AUTHORIZED: 'NO_AUTHORIZED',
 };
 
+export const FilmCardTabName = {
+  OVERVIEW: 'OVERVIEW',
+  DETAILS: 'DETAILS',
+  REVIEWS: 'REVIEWS',
+};
+
