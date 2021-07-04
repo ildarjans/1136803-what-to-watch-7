@@ -5,10 +5,10 @@ import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import FilmCardFull from '../film-card-full/film-card-full.jsx';
-import {getFilmByID} from '../../utils.js';
-import {CatalogTitle, DisplayCards} from '../../const.js';
+import {getFilmByID, getFilmsMoreLikeThis} from '../../utils.js';
+import {CatalogTitle} from '../../const.js';
 import {filmPropTypes, filmsPropTypes} from '../../prop-types/films.js';
-import {selectFilmsByGenre, selectFilmIdFromRoute} from '../../selectors/selectors.js';
+import {selectFilmIdFromRoute, selectFilmsByGenre} from '../../selectors/selectors.js';
 
 function MoviePage({films, id}) {
   const film = getFilmByID(films, id);
@@ -23,7 +23,7 @@ function MoviePage({films, id}) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">{CatalogTitle.MORE_LIKE_THIS}</h2>
-          <FilmList films={films.slice(DisplayCards.MORE_LIKE_THIS)}/>
+          <FilmList films={getFilmsMoreLikeThis(films, film)}/>
         </section>
         <Footer/>
       </div>
