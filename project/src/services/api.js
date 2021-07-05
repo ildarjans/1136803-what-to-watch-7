@@ -3,28 +3,19 @@ import axios from 'axios';
 const URL = 'https://7.react.pages.academy/wtw';
 const TIMEOUT = 5000;
 
-const HttpErrorCode = {
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-};
 
-const token = localStorage.getItem('token') ?? '';
-
-export default (onUnauthorized) => {
+export default () => {
   const api = axios.create({
     baseURL: URL,
     timeout: TIMEOUT,
     headers: {
-      'x-token': token,
+      'x-token': localStorage.getItem('token') ?? '',
     },
   });
 
   const onSuccess = (response) => response;
 
   const onFail = (err) => {
-    if (err.response.status === HttpErrorCode.UNAUTHORIZED) {
-      onUnauthorized();
-    }
     throw err;
   };
 

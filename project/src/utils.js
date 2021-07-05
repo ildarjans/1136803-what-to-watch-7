@@ -1,3 +1,5 @@
+import {DisplayCards} from './const.js';
+
 export const getRandomInteger = (max, min = 0) => Math.round(min + Math.random() * (max - min));
 
 export const getRandomArrayElement = (arr) => arr[getRandomInteger(arr.length - 1)];
@@ -10,7 +12,7 @@ export const reduceFilmGenres = (acc, film) => acc.includes(film.genre) ? acc : 
 
 export const adaptFilmToClient = (film) => (
   {
-    id: film['id'],
+    id: film['id'].toString(),
     title: film['name'],
     posterImage: film['poster_image'],
     previewImage: film['preview_image'],
@@ -32,7 +34,7 @@ export const adaptFilmToClient = (film) => (
 
 export const adaptUserToClient = (user) => (
   {
-    id: user['id'],
+    id: user['id'].toString(),
     email: user['email'],
     name: user['name'],
     avatarUrl: user['avatar_url'],
@@ -40,3 +42,15 @@ export const adaptUserToClient = (user) => (
   }
 );
 
+export const getFilmDurationInHoursAndMinutes = (durationInMinutes) => {
+  if (durationInMinutes < 60) {
+    return `${durationInMinutes}m`;
+  }
+  return `${Math.floor(durationInMinutes / 60)}h ${durationInMinutes % 60}m`;
+};
+
+export const getFilmsMoreLikeThis = (films, filmSample) => (
+  films.filter((film) => (
+    film.genre === filmSample.genre && film.id !== filmSample.id),
+  ).slice(0, DisplayCards.MORE_LIKE_THIS)
+);

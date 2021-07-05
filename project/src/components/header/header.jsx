@@ -1,23 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logo from '../logo/logo.jsx';
-import {LogoClass} from '../../const.js';
-import {nodePropTypes, stringPropTypes} from '../../prop-types/common.js';
 
-function Header({children, specialClass}) {
+function Header({children, className}) {
   return (
-    <header className={`page-header ${specialClass}`}>
-
-      <Logo specialClass={LogoClass.HEADER}/>
-
+    <header className={`page-header ${className}`}>
+      <Logo className={'logo__link logo__link'}/>
       {children}
-
     </header>
   );
 }
 
 Header.propTypes = {
-  specialClass: stringPropTypes,
-  children: nodePropTypes,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Header;

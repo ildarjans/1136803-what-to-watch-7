@@ -1,10 +1,12 @@
 import React from 'react';
-import Header from '../header/header.jsx';
+import PropTypes from 'prop-types';
+import AuthHeader from '../auth-header/auth-header.jsx';
 import PlayButton from '../play-button/play-button.js';
 import MyListButton from '../my-list-button/my-list-button.js';
 import AddReviewButton from '../add-review-button/add-review-button.js';
-import {HeaderClass, NumerableRating} from '../../const.js';
+import {HeaderClass} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
+import FilmCardNav from '../film-card-nav/film-card-nav.jsx';
 
 
 function FilmCardFull({film}) {
@@ -17,7 +19,7 @@ function FilmCardFull({film}) {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <Header specialClass={HeaderClass.FILM_CARD}/>
+        <AuthHeader className={HeaderClass.FILM_CARD}/>
 
         <div className="film-card__wrap">
           <div className="film-card__desc">
@@ -48,43 +50,7 @@ function FilmCardFull({film}) {
           </div>
 
           <div className="film-card__desc">
-            <nav className="film-nav film-card__nav">
-              <ul className="film-nav__list">
-                <li className="film-nav__item film-nav__item--active">
-                  <a href="#" className="film-nav__link">Overview</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#" className="film-nav__link">Details</a>
-                </li>
-                <li className="film-nav__item">
-                  <a href="#" className="film-nav__link">Reviews</a>
-                </li>
-              </ul>
-            </nav>
-
-            <div className="film-rating">
-              <div className="film-rating__score">{film.rating}</div>
-              <p className="film-rating__meta">
-                <span className="film-rating__level">{NumerableRating[Math.floor(film.rating)]}</span>
-                <span className="film-rating__count">{film.scoresCount} ratings</span>
-              </p>
-            </div>
-
-            <div className="film-card__text">
-              {film.description.split('\n').map((text) => <p key={text}>{text}</p>)}
-
-              <p className="film-card__director">
-                <strong>
-                  Director: {film.director}
-                </strong>
-              </p>
-
-              <p className="film-card__starring">
-                <strong>
-                  {film.starring.join(', ')}
-                </strong>
-              </p>
-            </div>
+            <FilmCardNav film={film}/>
           </div>
         </div>
       </div>
@@ -93,7 +59,7 @@ function FilmCardFull({film}) {
 }
 
 FilmCardFull.propTypes = {
-  film: filmPropTypes.isRequired,
+  film: PropTypes.shape(filmPropTypes).isRequired,
 };
 
 export default FilmCardFull;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Rating from '../rating/rating.jsx';
-import {filmPropertyTypes} from '../../prop-types/films.js';
+import {filmPropTypes} from '../../prop-types/films.js';
 
 function ReviewForm({rating}) {
   const [review, setReview] = useState();
@@ -38,7 +38,7 @@ function ReviewForm({rating}) {
 }
 
 ReviewForm.propTypes = {
-  rating: filmPropertyTypes.rating.isRequired,
+  rating: filmPropTypes.rating.isRequired,
 };
 
 export default ReviewForm;

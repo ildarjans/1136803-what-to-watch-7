@@ -1,6 +1,5 @@
 import React from 'react';
-
-import {funcPropTypes, numberPropTypes} from '../../prop-types/common.js';
+import PropTypes from 'prop-types';
 
 const ratingStars = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
@@ -28,8 +27,8 @@ function Rating({rating, onRatingChange}) {
 }
 
 Rating.propTypes = {
-  rating: numberPropTypes.isRequired,
-  onRatingChange: funcPropTypes.isRequired,
+  rating: PropTypes.number.isRequired,
+  onRatingChange: PropTypes.func.isRequired,
 };
 
 export default Rating;

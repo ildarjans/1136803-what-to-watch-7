@@ -1,15 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {AppRoute, AuthStatus} from '../../const.js';
-import {booleanPropTypes, funcPropTypes, stringPropTypes} from '../../prop-types/common.js';
 import {selectAuthorizationStatus} from '../../selectors/selectors.js';
 
 
-function PrivateRoute({authorizationStatus, isExact, path, render}) {
+function PrivateRoute({authorizationStatus, exact, path, render}) {
   return (
     <Route
-      exact={isExact}
+      exact={exact}
       path={path}
       render={(props) => (
         authorizationStatus === AuthStatus.AUTHORIZED ?
@@ -21,10 +21,10 @@ function PrivateRoute({authorizationStatus, isExact, path, render}) {
 }
 
 PrivateRoute.propTypes = {
-  authorizationStatus: stringPropTypes.isRequired,
-  path: stringPropTypes.isRequired,
-  isExact: booleanPropTypes.isRequired,
-  render: funcPropTypes.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  exact: PropTypes.bool.isRequired,
+  render: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
