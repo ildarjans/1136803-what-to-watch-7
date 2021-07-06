@@ -10,11 +10,11 @@ import {userPropTypes} from '../../prop-types/user.js';
 
 
 function AuthHeader({authorizationStatus, onSignOut, user, children, ...restProps}) {
-  const isAuth = authorizationStatus === AuthStatus.AUTHORIZED;
+  const isAuthorized = authorizationStatus === AuthStatus.AUTHORIZED;
   return (
     <Header {...restProps}>
       {children}
-      {isAuth && (
+      {isAuthorized && (
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -26,7 +26,7 @@ function AuthHeader({authorizationStatus, onSignOut, user, children, ...restProp
           </li>
         </ul>
       )}
-      {!isAuth && (
+      {!isAuthorized && (
         <div className="user-block">
           <Link to={AppRoute.LOGIN} className="user-block__link">Sign in</Link>
         </div>
