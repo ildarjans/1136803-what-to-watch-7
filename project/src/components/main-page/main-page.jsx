@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import FilmCard from '../film-card/film-card.jsx';
 import GenreList from '../genre-list/genre-list.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
-import CatalogMoreBtn from '../catalog-more-btn/catalog-more-btn.jsx';
 import {filmsPropTypes} from '../../prop-types/films.js';
-import {CatalogTitle} from '../../const.js';
+import {CatalogTitle, DisplayCards} from '../../const.js';
 import {selectFilmsByGenre} from '../../selectors/selectors.js';
 
 function MainPage({films}) {
+  const [filmsContainerSize, expandFilmsContainerSize] = useState(DisplayCards.MAIN_PAGE);
   const {
     title,
     genre,
@@ -17,6 +17,7 @@ function MainPage({films}) {
     posterImage,
     backgroundImage,
   } = films[0];
+
   return (
     <>
       <FilmCard
@@ -31,8 +32,19 @@ function MainPage({films}) {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">{CatalogTitle.CATALOG}</h2>
           <GenreList/>
-          <FilmList films={films}/>
-          <CatalogMoreBtn/>
+          <FilmList films={films.slice(0, filmsContainerSize)}/>
+          {
+            films.length > filmsContainerSize &&
+            <div className="catalog__more">
+              <button
+                className="catalog__button"
+                type="button"
+                onClick={() => expandFilmsContainerSize(filmsContainerSize + DisplayCards.MAIN_PAGE)}
+              >
+                Show more
+              </button>
+            </div>
+          }
         </section>
         <Footer/>
       </div>

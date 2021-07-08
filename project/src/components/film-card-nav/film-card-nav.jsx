@@ -5,10 +5,15 @@ import FilmCardOverview from '../film-card-overview/film-card-overview.jsx';
 import FilmCardDetails from '../film-card-details/film-card-details.jsx';
 import FilmCardReview from '../film-card-review/film-card-review.jsx';
 import {filmPropTypes} from '../../prop-types/films.js';
-import {FilmCardTabName} from '../../const.js';
 
 
 const ACTIVE_CLASSNAME = 'film-nav__item--active';
+
+export const FilmCardTabName = {
+  OVERVIEW: 'OVERVIEW',
+  DETAILS: 'DETAILS',
+  REVIEWS: 'REVIEWS',
+};
 
 function FilmCardNav({film}) {
   const [activeTab, setActiveTab] = useState(FilmCardTabName.OVERVIEW);
