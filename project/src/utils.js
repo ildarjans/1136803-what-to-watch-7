@@ -54,3 +54,13 @@ export const getFilmsMoreLikeThis = (films, filmSample) => (
     film.genre === filmSample.genre && film.id !== filmSample.id),
   ).slice(0, DisplayCards.MORE_LIKE_THIS)
 );
+
+export const getChunksArray = (arr, chunks = 2) => {
+  const arrCopy = [...arr];
+  const chunksArray = [];
+  const chunkSize = arr.length / chunks;
+  while (arrCopy.length) {
+    chunksArray.push(arrCopy.splice(0, chunkSize));
+  }
+  return chunksArray;
+};
