@@ -51,3 +51,31 @@ export const fetchFavorites = () => (dispatch, _getState, api) => {
     .then(({data}) => dispatch(ActionCreator.favoritesLoadingSuccess(data)))
     .catch((err) => dispatch(ActionCreator.favoritesLoadingFail(err)));
 };
+
+export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.similarFilmsLoadingStart());
+  return api
+    .get(ApiRoute.SIMILAR.replace(':id', id))
+    .then(({data}) => dispatch(ActionCreator.similarFilmsLoadingSuccess(data)))
+    .catch((err) => dispatch(ActionCreator.similarFilmsLoadingFail(err)));
+};
+
+export const fetchReviews = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.reviewsLoadingStart());
+  return api
+    .get(ApiRoute.GET_COMMENTS.replace(':film_id', id))
+    .then(({data}) => dispatch(ActionCreator.reviewsLoadingSuccess(data)))
+    .catch((err) => dispatch(ActionCreator.reviewsLoadingFail(err)));
+};
+export const postReview = (id, {rating, comment}) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.reviewUploadingStart());
+  return api
+    .post(ApiRoute.POST_COMMENT.replace(':film_id0', id), {rating, comment})
+    .then(({data}) => dispatch(ActionCreator.reviewsLoadingSuccess(data)))
+    .then(() => dispatch(ActionCreator.reviewUploadingSuccess()))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FILM.replace(':id', id))))
+    .catch((err) => {
+      dispatch(ActionCreator.reviewUploadingFail(err));
+      dispatch(ActionCreator.redirectToRoute(AppRoute.REVIEW.replace(':id', id)));
+    });
+};

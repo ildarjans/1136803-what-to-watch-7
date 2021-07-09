@@ -1,7 +1,7 @@
 import {AuthStatus, DEFAULT_GENRE_TYPE} from '../const.js';
 import {ActionType} from './action.js';
-import {adaptUserToClient, extend} from '../utils.js';
-import {getFavoriteList, getFilmsLists} from './store-utils.js';
+import {adaptFilmToClient, adaptUserToClient, extend} from '../utils.js';
+import {getFavoriteFilms, getFilmsLists} from './store-utils.js';
 
 const initialState = {
   currentGenre: DEFAULT_GENRE_TYPE,
@@ -10,12 +10,20 @@ const initialState = {
   filmsByGenre: {},
   favoriteList: [],
   waitingAuthorizationResponse: false,
+  waitingReviewsResponse: false,
+  waitingPostFilmReviewResponse: false,
   waitingFilmsResponse: false,
   waitingFavoritesResponse: false,
+  waitingSimilarFilmsResponse: false,
   authorizationError: null,
+  fetchReviewsError: null,
   fetchFilmsError: null,
   fetchFavoritesError: null,
+  fetchSimilarFilmsError: null,
+  postFilmReviewErrorMessage: '',
   user: {},
+  similarFilms: [],
+  reviews: [],
 };
 
 export const reducer = (state = initialState, action) => {
@@ -94,13 +102,66 @@ export const reducer = (state = initialState, action) => {
     case (ActionType.FAVORITES_LOADING_SUCCESS): {
       return extend(state, {
         waitingFavoritesResponse: false,
-        favoriteList: getFavoriteList(action.payload),
+        favoriteList: getFavoriteFilms(action.payload),
       });
     }
     case (ActionType.FAVORITES_LOADING_FAIL): {
       return extend(state, {
         waitingFavoritesResponse: false,
         fetchFavoritesError: action.payload,
+      });
+    }
+    case (ActionType.SIMILAR_FILMS_LOADING_START): {
+      return extend(state, {
+        waitingSimilarFilmsResponse: true,
+        fetchSimilarFilmsError: null,
+      });
+    }
+    case (ActionType.SIMILAR_FILMS_LOADING_SUCCESS): {
+      return extend(state, {
+        waitingSimilarFilmsResponse: false,
+        similarFilms: action.payload.map(adaptFilmToClient),
+      });
+    }
+    case (ActionType.SIMILAR_FILMS_LOADING_FAIL): {
+      return extend(state, {
+        waitingSimilarFilmsResponse: false,
+        fetchSimilarFilmsError: action.payload,
+      });
+    }
+    case (ActionType.REVIEWS_LOADING_START): {
+      return extend(state, {
+        waitingReviewsResponse: true,
+        fetchReviewsError: null,
+      });
+    }
+    case (ActionType.REVIEWS_LOADING_SUCCESS): {
+      return extend(state, {
+        waitingReviewsResponse: false,
+        reviews: action.payload,
+      });
+    }
+    case (ActionType.REVIEWS_LOADING_FAIL): {
+      return extend(state, {
+        waitingReviewsResponse: false,
+        fetchReviewsError: action.payload,
+      });
+    }
+    case (ActionType.REVIEW_UPLOADING_START): {
+      return extend(state, {
+        waitingPostFilmReviewResponse: true,
+        postFilmReviewErrorMessage: '',
+      });
+    }
+    case (ActionType.REVIEW_UPLOADING_SUCCESS): {
+      return extend(state, {
+        waitingPostFilmReviewResponse: false,
+      });
+    }
+    case (ActionType.REVIEW_UPLOADING_FAIL): {
+      return extend(state, {
+        waitingPostFilmReviewResponse: false,
+        postFilmReviewErrorMessage: action.payload.message,
       });
     }
   }
