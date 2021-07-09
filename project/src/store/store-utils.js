@@ -19,4 +19,4 @@ export const getFilmsLists = (films) => (
   }, [{}, {[DEFAULT_GENRE_TYPE]: []}])
 );
 
-export const getFavoriteList = (films) => films.map(adaptFilmToClient);
+export const getFavoriteFilms = (films) => films.map(adaptFilmToClient);
