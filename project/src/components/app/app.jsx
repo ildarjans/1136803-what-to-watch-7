@@ -5,7 +5,7 @@ import MoviePage from '../movie-page/movie-page.jsx';
 import MyList from '../my-list/my-list.jsx';
 import UserPage from '../user-page/user-page.jsx';
 import Player from '../player/player.jsx';
-import Review from '../review/review.jsx';
+import Review from '../add-review-page/add-review-page.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import {AppRoute} from '../../const.js';
 import {browserHistory} from '../../browser-history.js';

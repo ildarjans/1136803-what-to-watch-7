@@ -52,7 +52,7 @@ export const ApiRoute = {
   GET_FAVORITE: '/favorite',
   POST_FAVORITE: '/favorite/:film_id/:status',
   GET_COMMENTS: '/comments/:film_id',
-  POST_COMMENTS: '/comments/:film_id',
+  POST_COMMENT: '/comments/:film_id',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };

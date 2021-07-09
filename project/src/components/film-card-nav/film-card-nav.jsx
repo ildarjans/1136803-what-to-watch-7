@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import FilmCardOverview from '../film-card-overview/film-card-overview.jsx';
 import FilmCardDetails from '../film-card-details/film-card-details.jsx';
-import FilmCardReview from '../film-card-review/film-card-review.jsx';
+import FilmCardReview from '../film-card-reviews/film-card-reviews.jsx';
 import {filmPropTypes} from '../../prop-types/films.js';
 
 
@@ -53,7 +53,7 @@ function FilmCardNav({film}) {
 
       {activeTab === FilmCardTabName.OVERVIEW && <FilmCardOverview film={film}/>}
       {activeTab === FilmCardTabName.DETAILS && <FilmCardDetails film={film}/>}
-      {activeTab === FilmCardTabName.REVIEWS && <FilmCardReview/>}
+      {activeTab === FilmCardTabName.REVIEWS && <FilmCardReview id={film.id}/>}
 
     </>
   );
