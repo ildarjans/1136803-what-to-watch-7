@@ -14,7 +14,7 @@ const monthNames = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 const getReviewDateString = (dateStr) => {
