@@ -5,14 +5,14 @@ import FilmReview from '../film-review/film-review.jsx';
 import {fetchReviews} from '../../middleware/thunk-api.js';
 import {reviewPropTypes} from '../../prop-types/reviews.js';
 import {selectReviews} from '../../selectors/selectors.js';
-import {getChunksArray} from '../../utils.js';
+import {chunkArray} from '../../utils.js';
 
 
 const COLUMNS_COUNT = 2;
 
 function FilmCardReviews({id, reviews, fetchFilmReviews}) {
   useEffect(() => fetchFilmReviews(id), []);
-  const [firstColumn, secondColumn] = getChunksArray(reviews, COLUMNS_COUNT);
+  const [firstColumn, secondColumn] = chunkArray([...reviews], COLUMNS_COUNT);
 
   return reviews.length > 0 && (
     <div className="film-card__reviews film-card__row">
