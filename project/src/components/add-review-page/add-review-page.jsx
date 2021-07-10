@@ -8,9 +8,9 @@ import ReviewForm from '../review-form/review-form.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import {selectFilmById, selectPostReviewErrorMessage} from '../../selectors/selectors.js';
 import {filmPropTypes} from '../../prop-types/films.js';
-import {postReview} from '../../middleware/thunk-api.js';
+import {addReview} from '../../middleware/thunk-api.js';
 
-function AddReviewPage({film, id, onPostReview, postErrorMessage}) {
+function AddReviewPage({film, id, onSubmitReviewForm, addReviewErrorMessage}) {
   if (!film) {
     return <NotFoundPage/>;
   }
@@ -37,7 +37,7 @@ function AddReviewPage({film, id, onPostReview, postErrorMessage}) {
         </div>
       </div>
 
-      <ReviewForm id={id} onSubmitReviewForm={onPostReview} postErrorMessage={postErrorMessage}/>
+      <ReviewForm id={id} onSubmit={onSubmitReviewForm} errorMessage={addReviewErrorMessage}/>
 
     </section>
   );
@@ -46,19 +46,19 @@ function AddReviewPage({film, id, onPostReview, postErrorMessage}) {
 AddReviewPage.propTypes = {
   id: filmPropTypes.id.isRequired,
   film: PropTypes.shape(filmPropTypes).isRequired,
-  onPostReview: PropTypes.func.isRequired,
-  postErrorMessage: PropTypes.string.isRequired,
+  onSubmitReviewForm: PropTypes.func.isRequired,
+  addReviewErrorMessage: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({
   film: selectFilmById(state, ownProps.id),
   id: ownProps.id,
-  postErrorMessage: selectPostReviewErrorMessage(state),
+  addReviewErrorMessage: selectPostReviewErrorMessage(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onPostReview(id, review) {
-    dispatch(postReview(id, review));
+  onSubmitReviewForm(id, review) {
+    dispatch(addReview(id, review));
   },
 });
 
