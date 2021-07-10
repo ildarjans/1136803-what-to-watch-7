@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import {reviewPropTypes} from '../../prop-types/reviews.js';
 
 const monthNames = [
-  'January', 'February', 'March',
-  'April', 'May', 'June',
-  'July', 'August', 'September',
-  'October', 'November', 'December',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
 
 const getReviewDateString = (dateStr) => {
