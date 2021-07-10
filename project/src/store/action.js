@@ -2,23 +2,23 @@ export const ActionType = {
   AUTHORIZATION_SUCCESS: 'AUTHORIZATION_SUCCESS',
   AUTHORIZATION_FAIL: 'AUTHORIZATION_FAIL',
   CHANGE_CURRENT_GENRE: 'CHANGE_CURRENT_GENRE',
-  REVIEWS_LOADING_START: 'REVIEWS_LOADING_START',
-  REVIEWS_LOADING_SUCCESS: 'REVIEWS_LOADING_SUCCESS',
-  REVIEWS_LOADING_FAIL: 'REVIEWS_LOADING_FAIL',
-  REVIEW_UPLOADING_START: 'REVIEW_UPLOADING_START',
-  REVIEW_UPLOADING_SUCCESS: 'REVIEW_UPLOADING_SUCCESS',
-  REVIEW_UPLOADING_FAIL: 'REVIEW_UPLOADING_FAIL',
+  FETCH_REVIEWS_START: 'FETCH_REVIEWS_START',
+  FETCH_REVIEWS_SUCCESS: 'FETCH_REVIEWS_SUCCESS',
+  FETCH_REVIEWS_FAIL: 'FETCH_REVIEWS_FAIL',
+  ADD_REVIEW_START: 'ADD_REVIEW_START',
+  ADD_REVIEW_SUCCESS: 'ADD_REVIEW_SUCCESS',
+  ADD_REVIEW_FAIL: 'ADD_REVIEW_FAIL',
   LOGOUT_USER_SUCCESS: 'LOGOUT_USER_SUCCESS',
   LOGOUT_USER_FAIL: 'LOGOUT_USER_FAIL',
-  FAVORITES_LOADING_START: 'FAVORITES_LOADING_START',
-  FAVORITES_LOADING_SUCCESS: 'FAVORITES_LOADING_SUCCESS',
-  FAVORITES_LOADING_FAIL: 'FAVORITES_LOADING_FAIL',
-  FILMS_LOADING_START: 'FILMS_LOADING_START',
-  FILMS_LOADING_SUCCESS: 'FILMS_LOADING_SUCCESS',
-  FILMS_LOADING_FAIL: 'FILMS_LOADING_FAIL',
-  SIMILAR_FILMS_LOADING_START: 'SIMILAR_FILMS_LOADING_START',
-  SIMILAR_FILMS_LOADING_SUCCESS: 'SIMILAR_FILMS_LOADING_SUCCESS',
-  SIMILAR_FILMS_LOADING_FAIL: 'SIMILAR_FILMS_LOADING_FAIL',
+  FETCH_FAVORITES_START: 'FETCH_FAVORITES_START',
+  FETCH_FAVORITES_SUCCESS: 'FETCH_FAVORITES_SUCCESS',
+  FETCH_FAVORITES_FAIL: 'FETCH_FAVORITES_FAIL',
+  FETCH_FILMS_START: 'FETCH_FILMS_START',
+  FETCH_FILMS_SUCCESS: 'FETCH_FILMS_SUCCESS',
+  FETCH_FILMS_FAIL: 'FETCH_FILMS_FAIL',
+  FETCH_SIMILAR_FILMS_START: 'FETCH_SIMILAR_FILMS_START',
+  FETCH_SIMILAR_FILMS_SUCCESS: 'FETCH_SIMILAR_FILMS_SUCCESS',
+  FETCH_SIMILAR_FILMS_FAIL: 'FETCH_SIMILAR_FILMS_FAIL',
   SEND_AUTHORIZATION_REQUEST: 'SEND_AUTHORIZATION_REQUEST',
   SET_AUTHORIZATION_STATUS: 'SET_AUTHORIZATION_STATUS',
   SET_USER_LOGIN_PROFILE: 'SET_USER_LOGIN_PROFILE',
@@ -30,15 +30,15 @@ export const ActionCreator = {
     type: ActionType.CHANGE_CURRENT_GENRE,
     payload: genre,
   }),
-  filmsLoadingStart: () => ({
-    type: ActionType.FILMS_LOADING_START,
+  fetchFilmsStart: () => ({
+    type: ActionType.FETCH_FILMS_START,
   }),
-  filmsLoadingSuccess: (films) => ({
-    type: ActionType.FILMS_LOADING_SUCCESS,
+  fetchFilmsSuccess: (films) => ({
+    type: ActionType.FETCH_FILMS_SUCCESS,
     payload: films,
   }),
-  filmsLoadingFail: (err) => ({
-    type: ActionType.FILMS_LOADING_FAIL,
+  fetchFilmsFail: (err) => ({
+    type: ActionType.FETCH_FILMS_FAIL,
     payload: err,
   }),
   authorizationSuccess: () => ({
@@ -59,15 +59,15 @@ export const ActionCreator = {
     type: ActionType.SET_USER_LOGIN_PROFILE,
     payload: userInfo,
   }),
-  similarFilmsLoadingStart: () => ({
-    type: ActionType.SIMILAR_FILMS_LOADING_START,
+  fetchSimilarFilmsStart: () => ({
+    type: ActionType.FETCH_SIMILAR_FILMS_START,
   }),
-  similarFilmsLoadingSuccess: (films) => ({
-    type: ActionType.SIMILAR_FILMS_LOADING_SUCCESS,
+  fetchSimilarFilmsSuccess: (films) => ({
+    type: ActionType.FETCH_SIMILAR_FILMS_SUCCESS,
     payload: films,
   }),
-  similarFilmsLoadingFail: (err) => ({
-    type: ActionType.SIMILAR_FILMS_LOADING_FAIL,
+  fetchSimilarFilmsFail: (err) => ({
+    type: ActionType.FETCH_SIMILAR_FILMS_FAIL,
     payload: err,
   }),
   redirectToRoute: (url) => ({
@@ -81,36 +81,36 @@ export const ActionCreator = {
     type: ActionType.LOGOUT_USER_FAIL,
     payload: err,
   }),
-  favoritesLoadingStart: () => ({
-    type: ActionType.FAVORITES_LOADING_START,
+  fetchFavoritesStart: () => ({
+    type: ActionType.FETCH_FAVORITES_START,
   }),
-  favoritesLoadingSuccess: (films) => ({
-    type: ActionType.FAVORITES_LOADING_SUCCESS,
+  fetchFavoritesSuccess: (films) => ({
+    type: ActionType.FETCH_FAVORITES_SUCCESS,
     payload: films,
   }),
-  favoritesLoadingFail: (err) => ({
-    type: ActionType.FAVORITES_LOADING_FAIL,
+  fetchFavoritesFail: (err) => ({
+    type: ActionType.FETCH_FAVORITES_FAIL,
     payload: err,
   }),
-  reviewsLoadingStart: () => ({
-    type: ActionType.REVIEWS_LOADING_START,
+  fetchReviewsStart: () => ({
+    type: ActionType.FETCH_REVIEWS_START,
   }),
-  reviewsLoadingSuccess: (reviews) => ({
-    type: ActionType.REVIEWS_LOADING_SUCCESS,
+  fetchReviewsSuccess: (reviews) => ({
+    type: ActionType.FETCH_REVIEWS_SUCCESS,
     payload: reviews,
   }),
-  reviewsLoadingFail: (err) => ({
-    type: ActionType.REVIEWS_LOADING_FAIL,
+  fetchReviewsFail: (err) => ({
+    type: ActionType.FETCH_REVIEWS_FAIL,
     payload: err,
   }),
-  reviewUploadingStart: () => ({
-    type: ActionType.REVIEW_UPLOADING_START,
+  addReviewStart: () => ({
+    type: ActionType.ADD_REVIEW_START,
   }),
-  reviewUploadingSuccess: () => ({
-    type: ActionType.REVIEW_UPLOADING_SUCCESS,
+  addReviewSuccess: () => ({
+    type: ActionType.ADD_REVIEW_SUCCESS,
   }),
-  reviewUploadingFail: (err) => ({
-    type: ActionType.REVIEW_UPLOADING_FAIL,
+  addReviewFail: (err) => ({
+    type: ActionType.ADD_REVIEW_FAIL,
     payload: err,
   }),
 };
