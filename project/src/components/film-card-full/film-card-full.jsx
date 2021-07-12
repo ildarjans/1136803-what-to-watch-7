@@ -4,12 +4,12 @@ import AuthHeader from '../auth-header/auth-header.jsx';
 import PlayButton from '../play-button/play-button.js';
 import MyListButton from '../my-list-button/my-list-button.js';
 import AddReviewButton from '../add-review-button/add-review-button.js';
-import {HeaderClass} from '../../const.js';
+import {AuthStatus, HeaderClass} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 import FilmCardNav from '../film-card-nav/film-card-nav.jsx';
 
 
-function FilmCardFull({film}) {
+function FilmCardFull({film, authorizationStatus}) {
   return (
     <section className="film-card film-card--full">
       <div className="film-card__hero">
@@ -32,7 +32,7 @@ function FilmCardFull({film}) {
             <div className="film-card__buttons">
               <PlayButton/>
               <MyListButton/>
-              <AddReviewButton id={film.id}/>
+              {authorizationStatus === AuthStatus.AUTHORIZED && <AddReviewButton id={film.id}/>}
             </div>
           </div>
         </div>
@@ -60,6 +60,7 @@ function FilmCardFull({film}) {
 
 FilmCardFull.propTypes = {
   film: PropTypes.shape(filmPropTypes).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export default FilmCardFull;

@@ -1,7 +1,7 @@
 import {AuthStatus, DEFAULT_GENRE_TYPE} from '../const.js';
 import {ActionType} from './action.js';
-import {adaptUserToClient, extend} from '../utils.js';
-import {getFavoriteList, getFilmsLists} from './store-utils.js';
+import {adaptFilmToClient, adaptUserToClient, extend} from '../utils.js';
+import {getFavoriteFilms, getFilmsLists} from './store-utils.js';
 
 const initialState = {
   currentGenre: DEFAULT_GENRE_TYPE,
@@ -10,25 +10,33 @@ const initialState = {
   filmsByGenre: {},
   favoriteList: [],
   waitingAuthorizationResponse: false,
+  waitingReviewsResponse: false,
+  waitingAddReviewResponse: false,
   waitingFilmsResponse: false,
   waitingFavoritesResponse: false,
+  waitingSimilarFilmsResponse: false,
   authorizationError: null,
+  fetchReviewsError: null,
   fetchFilmsError: null,
   fetchFavoritesError: null,
+  fetchSimilarFilmsError: null,
+  postFilmReviewErrorMessage: '',
   user: {},
+  similarFilms: [],
+  reviews: [],
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case (ActionType.CHANGE_CURRENT_GENRE):
       return extend(state, {currentGenre: action.payload});
-    case (ActionType.FILMS_LOADING_START): {
+    case (ActionType.FETCH_FILMS_START): {
       return extend(state, {
         waitingFilmsResponse: true,
         fetchFilmsError: null,
       });
     }
-    case (ActionType.FILMS_LOADING_SUCCESS): {
+    case (ActionType.FETCH_FILMS_SUCCESS): {
       const [filmsList, filmsByGenre] = getFilmsLists(action.payload);
       return extend(state, {
         filmsList,
@@ -36,7 +44,7 @@ export const reducer = (state = initialState, action) => {
         waitingFilmsResponse: false,
       });
     }
-    case (ActionType.FILMS_LOADING_FAIL): {
+    case (ActionType.FETCH_FILMS_FAIL): {
       return extend(state, {
         fetchFilmsError: action.payload,
         waitingFilmsResponse: false,
@@ -85,22 +93,75 @@ export const reducer = (state = initialState, action) => {
         authorizationError: action.payload,
       });
     }
-    case (ActionType.FAVORITES_LOADING_START): {
+    case (ActionType.FETCH_FAVORITES_START): {
       return extend(state, {
         waitingFavoritesResponse: true,
         fetchFavoritesError: null,
       });
     }
-    case (ActionType.FAVORITES_LOADING_SUCCESS): {
+    case (ActionType.FETCH_FAVORITES_SUCCESS): {
       return extend(state, {
         waitingFavoritesResponse: false,
-        favoriteList: getFavoriteList(action.payload),
+        favoriteList: getFavoriteFilms(action.payload),
       });
     }
-    case (ActionType.FAVORITES_LOADING_FAIL): {
+    case (ActionType.FETCH_FAVORITES_FAIL): {
       return extend(state, {
         waitingFavoritesResponse: false,
         fetchFavoritesError: action.payload,
+      });
+    }
+    case (ActionType.FETCH_SIMILAR_FILMS_START): {
+      return extend(state, {
+        waitingSimilarFilmsResponse: true,
+        fetchSimilarFilmsError: null,
+      });
+    }
+    case (ActionType.FETCH_SIMILAR_FILMS_SUCCESS): {
+      return extend(state, {
+        waitingSimilarFilmsResponse: false,
+        similarFilms: action.payload.map(adaptFilmToClient),
+      });
+    }
+    case (ActionType.FETCH_SIMILAR_FILMS_FAIL): {
+      return extend(state, {
+        waitingSimilarFilmsResponse: false,
+        fetchSimilarFilmsError: action.payload,
+      });
+    }
+    case (ActionType.FETCH_REVIEWS_START): {
+      return extend(state, {
+        waitingReviewsResponse: true,
+        fetchReviewsError: null,
+      });
+    }
+    case (ActionType.FETCH_REVIEWS_SUCCESS): {
+      return extend(state, {
+        waitingReviewsResponse: false,
+        reviews: action.payload,
+      });
+    }
+    case (ActionType.FETCH_REVIEWS_FAIL): {
+      return extend(state, {
+        waitingReviewsResponse: false,
+        fetchReviewsError: action.payload,
+      });
+    }
+    case (ActionType.ADD_REVIEW_START): {
+      return extend(state, {
+        waitingAddReviewResponse: true,
+        postFilmReviewErrorMessage: '',
+      });
+    }
+    case (ActionType.ADD_REVIEW_SUCCESS): {
+      return extend(state, {
+        waitingAddFilmReviewResponse: false,
+      });
+    }
+    case (ActionType.ADD_REVIEW_FAIL): {
+      return extend(state, {
+        waitingAddFilmReviewResponse: false,
+        postFilmReviewErrorMessage: action.payload.message,
       });
     }
   }

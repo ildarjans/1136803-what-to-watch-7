@@ -45,14 +45,14 @@ export const AppRoute = {
 
 export const ApiRoute = {
   ROOT: '/',
-  FILMS: '/films',
-  FILM: '/films/:id',
-  SIMILAR: '/films/:id/similar',
-  PROMO: '/promo',
-  GET_FAVORITE: '/favorite',
-  POST_FAVORITE: '/favorite/:film_id/:status',
-  GET_COMMENTS: '/comments/:film_id',
-  POST_COMMENTS: '/comments/:film_id',
+  FETCH_FILMS: '/films',
+  FETCH_FILM: '/films/:id',
+  FETCH_SIMILAR_FILMS: '/films/:id/similar',
+  FETCH_PROMO: '/promo',
+  FETCH_FAVORITES: '/favorite',
+  ADD_TO_FAVORITES: '/favorite/:film_id/:status',
+  FETCH_REVIEWS: '/comments/:film_id',
+  ADD_REVIEW: '/comments/:film_id',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };

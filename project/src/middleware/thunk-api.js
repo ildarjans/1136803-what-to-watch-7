@@ -2,11 +2,11 @@ import {ApiRoute, AppRoute} from '../const.js';
 import {ActionCreator} from '../store/action.js';
 
 export const fetchFilms = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.filmsLoadingStart());
+  dispatch(ActionCreator.fetchFilmsStart());
   return api
-    .get(ApiRoute.FILMS)
-    .then(({data}) => dispatch(ActionCreator.filmsLoadingSuccess(data)))
-    .catch((err) => dispatch(ActionCreator.filmsLoadingFail(err)));
+    .get(ApiRoute.FETCH_FILMS)
+    .then(({data}) => dispatch(ActionCreator.fetchFilmsSuccess(data)))
+    .catch((err) => dispatch(ActionCreator.fetchFilmsFail(err)));
 };
 
 export const checkAuthUser = () => (dispatch, _getState, api) => {
@@ -45,9 +45,38 @@ export const logoutUser = () => (dispatch, _getState, api) => (
 );
 
 export const fetchFavorites = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.favoritesLoadingStart());
+  dispatch(ActionCreator.fetchFavoritesStart());
   return api
-    .get(ApiRoute.GET_FAVORITE)
-    .then(({data}) => dispatch(ActionCreator.favoritesLoadingSuccess(data)))
-    .catch((err) => dispatch(ActionCreator.favoritesLoadingFail(err)));
+    .get(ApiRoute.FETCH_FAVORITES)
+    .then(({data}) => dispatch(ActionCreator.fetchFavoritesSuccess(data)))
+    .catch((err) => dispatch(ActionCreator.fetchFavoritesFail(err)));
+};
+
+export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.fetchSimilarFilmsStart());
+  return api
+    .get(ApiRoute.FETCH_SIMILAR_FILMS.replace(':id', id))
+    .then(({data}) => dispatch(ActionCreator.fetchSimilarFilmsSuccess(data)))
+    .catch((err) => dispatch(ActionCreator.fetchSimilarFilmsFail(err)));
+};
+
+export const fetchReviews = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.fetchReviewsStart());
+  return api
+    .get(ApiRoute.FETCH_REVIEWS.replace(':film_id', id))
+    .then(({data}) => dispatch(ActionCreator.fetchReviewsSuccess(data)))
+    .catch((err) => dispatch(ActionCreator.fetchReviewsFail(err)));
+};
+
+export const addReview = (id, {rating, comment}) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.addReviewStart());
+  return api
+    .post(ApiRoute.ADD_REVIEW.replace(':film_id', id), {rating, comment})
+    .then(({data}) => dispatch(ActionCreator.fetchReviewsSuccess(data)))
+    .then(() => dispatch(ActionCreator.addReviewSuccess()))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FILM.replace(':id', id))))
+    .catch((err) => {
+      dispatch(ActionCreator.addReviewFail(err));
+      dispatch(ActionCreator.redirectToRoute(AppRoute.REVIEW.replace(':id', id)));
+    });
 };

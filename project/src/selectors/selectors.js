@@ -14,3 +14,7 @@ export const selectUser = ({user}) => user;
 export const selectCurrentGenre = ({currentGenre}) => currentGenre;
 
 export const selectAllGenres = ({filmsByGenre}) => Object.keys(filmsByGenre);
+
+export const selectReviews = ({reviews}) => reviews;
+
+export const selectPostReviewErrorMessage = ({postFilmReviewErrorMessage}) => postFilmReviewErrorMessage;
