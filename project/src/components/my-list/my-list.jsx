@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
-import {selectFavoriteList} from '../../selectors/selectors.js';
+import {selectFavoritesList} from '../../selectors/selectors.js';
 import {CatalogTitle, HeaderClass} from '../../const.js';
 import {filmsPropTypes} from '../../prop-types/films.js';
 
@@ -29,7 +29,7 @@ MyList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  films: selectFavoriteList(state),
+  films: selectFavoritesList(state),
 });
 
 export default connect(mapStateToProps)(MyList);

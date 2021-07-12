@@ -3,8 +3,7 @@ import {extend} from '../../utils.js';
 import {getFavoriteFilms} from '../store-utils.js';
 
 const initialState = {
-  // TODO rename to favoritesList
-  favoriteList: [],
+  favoritesList: [],
   waitingFavoritesResponse: false,
   fetchFavoritesError: null,
 };
@@ -20,7 +19,7 @@ export const favoritesReducer = (state = initialState, action) => {
     case (ActionType.FETCH_FAVORITES_SUCCESS): {
       return extend(state, {
         waitingFavoritesResponse: false,
-        favoriteList: getFavoriteFilms(action.payload),
+        favoritesList: getFavoriteFilms(action.payload),
       });
     }
     case (ActionType.FETCH_FAVORITES_FAIL): {

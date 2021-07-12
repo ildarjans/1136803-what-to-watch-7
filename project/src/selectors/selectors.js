@@ -5,7 +5,7 @@ export const selectFilmsByGenre = ({FILMS, PROCESS}) => FILMS.filmsByGenre[PROCE
 
 export const selectFilmById = ({FILMS}, id) => FILMS.filmsList[id];
 
-export const selectFavoriteList = ({FAVORITES}) => FAVORITES.favoriteList;
+export const selectFavoritesList = ({FAVORITES}) => FAVORITES.favoritesList;
 
 export const selectAuthorizationStatus = ({USER}) => USER.authorizationStatus;
 
