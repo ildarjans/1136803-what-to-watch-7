@@ -9,7 +9,12 @@ import FilmCardFull from '../film-card-full/film-card-full.jsx';
 import {getFilmByID, getFilmsMoreLikeThis} from '../../utils.js';
 import {CatalogTitle} from '../../const.js';
 import {filmPropTypes, filmsPropTypes} from '../../prop-types/films.js';
-import {selectAuthorizationStatus, selectFilmIdFromRoute, selectFilmsByGenre} from '../../selectors/selectors.js';
+import {
+  selectAuthorizationStatus,
+  selectFilmIdFromRoute,
+  selectFilmsByGenre,
+  selectSimilarFilms
+} from '../../selectors/selectors.js';
 import {fetchSimilarFilms} from '../../middleware/thunk-api.js';
 
 function MoviePage({films, id, authorizationStatus, fetchSimilarFilmsById, similarFilms}) {
@@ -50,7 +55,7 @@ const mapStateToProps = (state, ownProps) => ({
   films: selectFilmsByGenre(state),
   id: selectFilmIdFromRoute(ownProps),
   authorizationStatus: selectAuthorizationStatus(state),
-  similarFilms: state.similarFilms,
+  similarFilms: selectSimilarFilms(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

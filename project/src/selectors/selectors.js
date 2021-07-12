@@ -18,3 +18,5 @@ export const selectAllGenres = ({FILMS}) => Object.keys(FILMS.filmsByGenre);
 export const selectReviews = ({REVIEWS}) => REVIEWS.reviews;
 
 export const selectPostReviewErrorMessage = ({REVIEWS}) => REVIEWS.postFilmReviewErrorMessage;
+
+export const selectSimilarFilms = ({SIMILAR_FILMS}) => SIMILAR_FILMS.similarFilms;
