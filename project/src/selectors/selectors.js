@@ -1,20 +1,20 @@
 
 export const selectFilmIdFromRoute = (props) => props.match.params.id;
 
-export const selectFilmsByGenre = ({filmsByGenre, currentGenre}) => filmsByGenre[currentGenre];
+export const selectFilmsByGenre = ({FILMS, PROCESS}) => FILMS.filmsByGenre[PROCESS.currentGenre];
 
-export const selectFilmById = ({filmsList}, id) => filmsList[id];
+export const selectFilmById = ({FILMS}, id) => FILMS.filmsList[id];
 
-export const selectFavoriteList = ({favoriteList}) => favoriteList;
+export const selectFavoriteList = ({FAVORITES}) => FAVORITES.favoriteList;
 
-export const selectAuthorizationStatus = ({authorizationStatus}) => authorizationStatus;
+export const selectAuthorizationStatus = ({USER}) => USER.authorizationStatus;
 
-export const selectUser = ({user}) => user;
+export const selectUser = ({USER}) => USER.user;
 
-export const selectCurrentGenre = ({currentGenre}) => currentGenre;
+export const selectCurrentGenre = ({PROCESS}) => PROCESS.currentGenre;
 
-export const selectAllGenres = ({filmsByGenre}) => Object.keys(filmsByGenre);
+export const selectAllGenres = ({FILMS}) => Object.keys(FILMS.filmsByGenre);
 
-export const selectReviews = ({reviews}) => reviews;
+export const selectReviews = ({REVIEWS}) => REVIEWS.reviews;
 
-export const selectPostReviewErrorMessage = ({postFilmReviewErrorMessage}) => postFilmReviewErrorMessage;
+export const selectPostReviewErrorMessage = ({REVIEWS}) => REVIEWS.postFilmReviewErrorMessage;

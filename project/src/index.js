@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import App from './components/app/app';
-import {reducer} from './store/reducer.js';
+import {rootReducer} from './store/root-reducer.js';
 import createAPI from './services/api.js';
 import {checkAuthUser, fetchFavorites, fetchFilms} from './middleware/thunk-api.js';
 import {redirect} from './middleware/redirect.js';
@@ -13,7 +13,7 @@ import {redirect} from './middleware/redirect.js';
 const api = createAPI();
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
     applyMiddleware(redirect),

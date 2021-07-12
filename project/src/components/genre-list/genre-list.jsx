@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Genre from '../genre/genre.jsx';
-import {ActionCreator} from '../../store/action.js';
 import {selectAllGenres, selectCurrentGenre} from '../../selectors/selectors.js';
+import {changeGenre} from '../../store/process/process-action.js';
 
 
 function GenreList({genres, activeGenre, onChangeGenre}) {
@@ -34,7 +34,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeGenre: (genre) => {
-    dispatch(ActionCreator.changeGenre(genre));
+    dispatch(changeGenre(genre));
   },
 });
 
