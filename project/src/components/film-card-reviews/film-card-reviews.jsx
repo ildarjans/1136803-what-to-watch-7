@@ -11,16 +11,16 @@ import {chunkArray} from '../../utils.js';
 const COLUMNS_COUNT = 2;
 
 function FilmCardReviews({id, reviews, fetchFilmReviews}) {
-  useEffect(() => fetchFilmReviews(id), []);
+  useEffect(() => fetchFilmReviews(id), [id]);
   const [firstColumn, secondColumn] = chunkArray([...reviews], COLUMNS_COUNT);
 
-  return reviews.length > 0 && (
+  return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {firstColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
+        {firstColumn && firstColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
       </div>
       <div className="film-card__reviews-col">
-        {secondColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
+        {secondColumn && secondColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
       </div>
     </div>
   );
