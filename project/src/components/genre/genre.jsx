@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const.js';
 
 const ACTIVE_CLASSNAME = 'catalog__genres-item--active';
 
@@ -9,7 +11,7 @@ function Genre({genre, isActive, onGenreClick}) {
       className={`catalog__genres-item ${isActive ? ACTIVE_CLASSNAME : ''}`}
       onClick={() => onGenreClick(genre)}
     >
-      <a href="#" className="catalog__genres-link">{genre}</a>
+      <Link to={AppRoute.ROOT} className="catalog__genres-link">{genre}</Link>
     </li>
   );
 }
