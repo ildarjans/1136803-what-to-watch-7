@@ -5,24 +5,24 @@ import {fetchFilmsFail, fetchFilmsStart, fetchFilmsSuccess} from './films-action
 const initialState = {
   filmsList: [],
   filmsByGenre: {},
-  waitingFilmsResponse: false,
-  fetchFilmsError: null,
+  waitingResponse: false,
+  errorMessage: '',
 };
 
 export const filmsReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchFilmsStart, (state) => {
-      state.waitingFilmsResponse = true;
-      state.fetchFilmsError = null;
+      state.waitingResponse = true;
+      state.errorMessage = '';
     })
     .addCase(fetchFilmsSuccess, (state, action) => {
       const [filmsList, filmsByGenre] = getFilmsLists(action.payload);
       state.filmsList = filmsList;
       state.filmsByGenre = filmsByGenre;
-      state.waitingFilmsResponse = false;
+      state.waitingResponse = false;
     })
     .addCase(fetchFilmsFail, (state, action) => {
-      state.waitingFilmsResponse = false;
-      state.fetchFilmsError = action.payload;
+      state.waitingResponse = false;
+      state.errorMessage = action.payload.message;
     });
 });

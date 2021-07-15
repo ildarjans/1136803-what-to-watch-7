@@ -4,22 +4,22 @@ import {fetchFavoritesFail, fetchFavoritesStart, fetchFavoritesSuccess} from './
 
 const initialState = {
   favoritesList: [],
-  waitingFavoritesResponse: false,
-  fetchFavoritesError: null,
+  waitingResponse: false,
+  errorMessage: '',
 };
 
 export const favoritesReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchFavoritesStart, (state, action) => {
-      state.waitingFavoritesResponse = true;
-      state.fetchFavoritesError = null;
+      state.waitingResponse = true;
+      state.errorMessage = '';
     })
     .addCase(fetchFavoritesSuccess, (state, action) => {
-      state.waitingFavoritesResponse = false;
+      state.waitingResponse = false;
       state.favoritesList = getFavoriteFilms(action.payload);
     })
     .addCase(fetchFavoritesFail, (state, action) => {
-      state.waitingFavoritesResponse = false;
-      state.fetchFavoritesError = action.payload;
+      state.waitingResponse = false;
+      state.errorMessage = action.payload.message;
     });
 });
