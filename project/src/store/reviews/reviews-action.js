@@ -1,28 +1,21 @@
 import {ActionType} from '../action-type.js';
+import {createAction} from '@reduxjs/toolkit';
 
-export const fetchReviewsStart = () => ({
-  type: ActionType.FETCH_REVIEWS_START,
-});
+export const fetchReviewsStart = createAction(ActionType.FETCH_REVIEWS_START);
+export const addReviewStart = createAction(ActionType.ADD_REVIEW_START);
+export const addReviewSuccess = createAction(ActionType.ADD_REVIEW_SUCCESS);
 
-export const fetchReviewsSuccess = (reviews) => ({
-  type: ActionType.FETCH_REVIEWS_SUCCESS,
-  payload: reviews,
-});
+export const fetchReviewsSuccess = createAction(
+  ActionType.FETCH_REVIEWS_SUCCESS, (reviews) => ({
+    payload: reviews,
+  }));
 
-export const fetchReviewsFail = (err) => ({
-  type: ActionType.FETCH_REVIEWS_FAIL,
-  payload: err,
-});
+export const fetchReviewsFail = createAction(
+  ActionType.FETCH_REVIEWS_FAIL, (err) => ({
+    payload: err,
+  }));
 
-export const addReviewStart = () => ({
-  type: ActionType.ADD_REVIEW_START,
-});
-
-export const addReviewSuccess = () => ({
-  type: ActionType.ADD_REVIEW_SUCCESS,
-});
-
-export const addReviewFail = (err) => ({
-  type: ActionType.ADD_REVIEW_FAIL,
-  payload: err,
-});
+export const addReviewFail = createAction(
+  ActionType.ADD_REVIEW_FAIL, (err) => ({
+    payload: err,
+  }));

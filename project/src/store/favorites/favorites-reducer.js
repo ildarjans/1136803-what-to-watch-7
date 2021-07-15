@@ -1,6 +1,6 @@
-import {ActionType} from '../action-type.js';
-import {extend} from '../../utils.js';
+import {createReducer} from '@reduxjs/toolkit';
 import {getFavoriteFilms} from '../store-utils.js';
+import {fetchFavoritesFail, fetchFavoritesStart, fetchFavoritesSuccess} from './favorites-action.js';
 
 const initialState = {
   favoritesList: [],
@@ -8,26 +8,18 @@ const initialState = {
   fetchFavoritesError: null,
 };
 
-export const favoritesReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case (ActionType.FETCH_FAVORITES_START): {
-      return extend(state, {
-        waitingFavoritesResponse: true,
-        fetchFavoritesError: null,
-      });
-    }
-    case (ActionType.FETCH_FAVORITES_SUCCESS): {
-      return extend(state, {
-        waitingFavoritesResponse: false,
-        favoritesList: getFavoriteFilms(action.payload),
-      });
-    }
-    case (ActionType.FETCH_FAVORITES_FAIL): {
-      return extend(state, {
-        waitingFavoritesResponse: false,
-        fetchFavoritesError: action.payload,
-      });
-    }
-  }
-  return state;
-};
+export const favoritesReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(fetchFavoritesStart, (state, action) => {
+      state.waitingFavoritesResponse = true;
+      state.fetchFavoritesError = null;
+    })
+    .addCase(fetchFavoritesSuccess, (state, action) => {
+      state.waitingFavoritesResponse = false;
+      state.favoritesList = getFavoriteFilms(action.payload);
+    })
+    .addCase(fetchFavoritesFail, (state, action) => {
+      state.waitingFavoritesResponse = false;
+      state.fetchFavoritesError = action.payload;
+    });
+});

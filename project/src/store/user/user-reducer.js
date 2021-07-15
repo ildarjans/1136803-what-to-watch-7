@@ -1,6 +1,7 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action-type.js';
 import {AuthStatus} from '../../const.js';
-import {adaptUserToClient, extend} from '../../utils.js';
+import {adaptUserToClient} from '../../utils.js';
 
 const initialState = {
   authorizationStatus: AuthStatus.NO_AUTHORIZED,
@@ -8,51 +9,36 @@ const initialState = {
   user: {},
 };
 
-export const userReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case (ActionType.SEND_AUTHORIZATION_REQUEST): {
-      return extend(state, {
-        waitingAuthorizationResponse: true,
-        authorizationError: null,
-      });
-    }
-    case (ActionType.SET_AUTHORIZATION_STATUS): {
-      return extend(state, {
-        waitingAuthorizationResponse: false,
-        authorizationStatus: action.payload,
-      });
-    }
-    case (ActionType.AUTHORIZATION_SUCCESS): {
-      return extend(state, {
-        waitingAuthorizationResponse: false,
-        authorizationStatus: AuthStatus.AUTHORIZED,
-        authorizationError: null,
-      });
-    }
-    case (ActionType.AUTHORIZATION_FAIL): {
-      return extend(state, {
-        waitingAuthorizationResponse: false,
-        authorizationStatus: AuthStatus.NO_AUTHORIZED,
-        authorizationError: action.payload,
-        user: {},
-      });
-    }
-    case (ActionType.SET_USER_LOGIN_PROFILE): {
-      return extend(state, {
-        user: adaptUserToClient(action.payload),
-      });
-    }
-    case (ActionType.LOGOUT_USER_SUCCESS): {
-      return extend(state, {
-        authorizationStatus: AuthStatus.NO_AUTHORIZED,
-        user: {},
-      });
-    }
-    case (ActionType.LOGOUT_USER_FAIL): {
-      return extend(state, {
-        authorizationError: action.payload,
-      });
-    }
-  }
-  return state;
-};
+export const userReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(ActionType.SEND_AUTHORIZATION_REQUEST, (state, action) => {
+      state.waitingAuthorizationResponse = true;
+      state.authorizationError = null;
+    })
+    .addCase(ActionType.SET_AUTHORIZATION_STATUS, (state, action) => {
+      state.waitingAuthorizationResponse = false;
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(ActionType.AUTHORIZATION_SUCCESS, (state, action) => {
+      state.waitingAuthorizationResponse = false;
+      state.authorizationError = null;
+      state.authorizationStatus = AuthStatus.AUTHORIZED;
+    })
+    .addCase(ActionType.AUTHORIZATION_FAIL, (state, action) => {
+      state.waitingAuthorizationResponse = false;
+      state.authorizationStatus = AuthStatus.NO_AUTHORIZED;
+      state.authorizationError = action.payload;
+      state.user = {};
+    })
+    .addCase(ActionType.SET_USER_LOGIN_PROFILE, (state, action) => {
+      state.user = adaptUserToClient(action.payload);
+    })
+    .addCase(ActionType.LOGOUT_USER_SUCCESS, (state, action) => {
+      state.authorizationStatus = AuthStatus.NO_AUTHORIZED;
+      state.user = {};
+    })
+    .addCase(ActionType.LOGOUT_USER_FAIL, (state, action) => {
+      state.authorizationError = action.payload;
+    });
+});
+

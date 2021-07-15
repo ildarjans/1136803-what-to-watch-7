@@ -1,33 +1,28 @@
+import {createAction} from '@reduxjs/toolkit';
 import {ActionType} from '../action-type.js';
 
-export const authorizationSuccess = () => ({
-  type: ActionType.AUTHORIZATION_SUCCESS,
-});
+export const authorizationSuccess = createAction(ActionType.AUTHORIZATION_SUCCESS);
 
-export const authorizationFail = (err) => ({
-  type: ActionType.AUTHORIZATION_FAIL,
-  payload: err,
-});
+export const logoutUserSuccess = createAction(ActionType.LOGOUT_USER_SUCCESS);
 
-export const sendAuthorizationRequest = () => ({
-  type: ActionType.SEND_AUTHORIZATION_REQUEST,
-});
+export const sendAuthorizationRequest = createAction(ActionType.SEND_AUTHORIZATION_REQUEST);
 
-export const setAuthorizationStatus = (authStatus) => ({
-  type: ActionType.SET_AUTHORIZATION_STATUS,
-  payload: authStatus,
-});
+export const authorizationFail = createAction(
+  ActionType.AUTHORIZATION_FAIL, (err) => ({
+    payload: err,
+  }));
 
-export const setUserLoginProfile = (userInfo) => ({
-  type: ActionType.SET_USER_LOGIN_PROFILE,
-  payload: userInfo,
-});
+export const setAuthorizationStatus = createAction(
+  ActionType.SET_AUTHORIZATION_STATUS, (authStatus) => ({
+    payload: authStatus,
+  }));
 
-export const logoutUserSuccess = () => ({
-  type: ActionType.LOGOUT_USER_SUCCESS,
-});
+export const setUserLoginProfile = createAction(
+  ActionType.SET_USER_LOGIN_PROFILE, (userInfo) => ({
+    payload: userInfo,
+  }));
 
-export const logoutUserFail = (err) => ({
-  type: ActionType.LOGOUT_USER_FAIL,
-  payload: err,
-});
+export const logoutUserFail = createAction(
+  ActionType.LOGOUT_USER_FAIL, (err) => ({
+    payload: err,
+  }));

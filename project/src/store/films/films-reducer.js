@@ -1,6 +1,6 @@
-import {ActionType} from '../action-type.js';
+import {createReducer} from '@reduxjs/toolkit';
 import {getFilmsLists} from '../store-utils.js';
-import {extend} from '../../utils.js';
+import {fetchFilmsFail, fetchFilmsStart, fetchFilmsSuccess} from './films-action.js';
 
 const initialState = {
   filmsList: [],
@@ -9,28 +9,20 @@ const initialState = {
   fetchFilmsError: null,
 };
 
-export const filmsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case (ActionType.FETCH_FILMS_START): {
-      return extend(state, {
-        waitingFilmsResponse: true,
-        fetchFilmsError: null,
-      });
-    }
-    case (ActionType.FETCH_FILMS_SUCCESS): {
+export const filmsReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(fetchFilmsStart, (state) => {
+      state.waitingFilmsResponse = true;
+      state.fetchFilmsError = null;
+    })
+    .addCase(fetchFilmsSuccess, (state, action) => {
       const [filmsList, filmsByGenre] = getFilmsLists(action.payload);
-      return extend(state, {
-        filmsList,
-        filmsByGenre,
-        waitingFilmsResponse: false,
-      });
-    }
-    case (ActionType.FETCH_FILMS_FAIL): {
-      return extend(state, {
-        fetchFilmsError: action.payload,
-        waitingFilmsResponse: false,
-      });
-    }
-  }
-  return state;
-};
+      state.filmsList = filmsList;
+      state.filmsByGenre = filmsByGenre;
+      state.waitingFilmsResponse = false;
+    })
+    .addCase(fetchFilmsFail, (state, action) => {
+      state.waitingFilmsResponse = false;
+      state.fetchFilmsError = action.payload;
+    });
+});

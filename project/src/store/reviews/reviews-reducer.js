@@ -1,5 +1,5 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action-type.js';
-import {extend} from '../../utils.js';
 
 const initialState = {
   waitingReviewsResponse: false,
@@ -9,43 +9,30 @@ const initialState = {
   reviews: [],
 };
 
-export const reviewsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case (ActionType.FETCH_REVIEWS_START): {
-      return extend(state, {
-        waitingReviewsResponse: true,
-        fetchReviewsError: null,
-      });
-    }
-    case (ActionType.FETCH_REVIEWS_SUCCESS): {
-      return extend(state, {
-        waitingReviewsResponse: false,
-        reviews: action.payload,
-      });
-    }
-    case (ActionType.FETCH_REVIEWS_FAIL): {
-      return extend(state, {
-        waitingReviewsResponse: false,
-        fetchReviewsError: action.payload,
-      });
-    }
-    case (ActionType.ADD_REVIEW_START): {
-      return extend(state, {
-        waitingAddReviewResponse: true,
-        postFilmReviewErrorMessage: '',
-      });
-    }
-    case (ActionType.ADD_REVIEW_SUCCESS): {
-      return extend(state, {
-        waitingAddFilmReviewResponse: false,
-      });
-    }
-    case (ActionType.ADD_REVIEW_FAIL): {
-      return extend(state, {
-        waitingAddFilmReviewResponse: false,
-        postFilmReviewErrorMessage: action.payload.message,
-      });
-    }
-  }
-  return state;
-};
+export const reviewsReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(ActionType.FETCH_REVIEWS_START, (state) => {
+      state.waitingReviewsResponse = true;
+      state.fetchReviewsError = null;
+    })
+    .addCase(ActionType.FETCH_REVIEWS_SUCCESS, (state, action) => {
+      state.waitingReviewsResponse = false;
+      state.reviews = action.payload;
+    })
+    .addCase(ActionType.FETCH_REVIEWS_FAIL, (state, action) => {
+      state.waitingReviewsResponse = false;
+      state.fetchReviewsError = action.payload;
+    })
+    .addCase(ActionType.ADD_REVIEW_START, (state, action) => {
+      state.waitingAddReviewResponse = false;
+      state.postFilmReviewErrorMessage = '';
+    })
+    .addCase(ActionType.ADD_REVIEW_SUCCESS, (state, action) => {
+      state.waitingAddFilmReviewResponse = false;
+    })
+    .addCase(ActionType.ADD_REVIEW_FAIL, (state, action) => {
+      state.waitingAddFilmReviewResponse = false;
+      state.postFilmReviewErrorMessage = action.payload.message;
+    });
+});
+

@@ -1,5 +1,6 @@
+import {createReducer} from '@reduxjs/toolkit';
 import {ActionType} from '../action-type.js';
-import {adaptFilmToClient, extend} from '../../utils.js';
+import {adaptFilmToClient} from '../../utils.js';
 
 const initialState = {
   waitingSimilarFilmsResponse: false,
@@ -7,26 +8,18 @@ const initialState = {
   similarFilms: [],
 };
 
-export const similarFilmsReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case (ActionType.FETCH_SIMILAR_FILMS_START): {
-      return extend(state, {
-        waitingSimilarFilmsResponse: true,
-        fetchSimilarFilmsError: null,
-      });
-    }
-    case (ActionType.FETCH_SIMILAR_FILMS_SUCCESS): {
-      return extend(state, {
-        waitingSimilarFilmsResponse: false,
-        similarFilms: action.payload.map(adaptFilmToClient),
-      });
-    }
-    case (ActionType.FETCH_SIMILAR_FILMS_FAIL): {
-      return extend(state, {
-        waitingSimilarFilmsResponse: false,
-        fetchSimilarFilmsError: action.payload,
-      });
-    }
-  }
-  return state;
-};
+export const similarFilmsReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(ActionType.FETCH_SIMILAR_FILMS_START, (state, action) => {
+      state.waitingSimilarFilmsResponse = true;
+      state.fetchSimilarFilmsError = null;
+    })
+    .addCase(ActionType.FETCH_SIMILAR_FILMS_SUCCESS, (state, action) => {
+      state.waitingSimilarFilmsResponse = false;
+      state.similarFilms = action.payload.map(adaptFilmToClient);
+    })
+    .addCase(ActionType.FETCH_SIMILAR_FILMS_FAIL, (state, action) => {
+      state.waitingSimilarFilmsResponse = false;
+      state.fetchSimilarFilmsError = action.payload;
+    });
+});
