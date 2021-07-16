@@ -1,12 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Genre from '../genre/genre.jsx';
 import {selectAllGenres, selectCurrentGenre} from '../../selectors/selectors.js';
 import {changeGenre} from '../../store/process/process-action.js';
 
 
-function GenreList({genres, activeGenre, onChangeGenre}) {
+function GenreList() {
+  const genres = useSelector(selectAllGenres);
+  const activeGenre = useSelector(selectCurrentGenre);
+  const dispatch = useDispatch();
+  const onChangeGenre = (genre) => dispatch(changeGenre(genre));
+
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre) => (
@@ -21,21 +25,4 @@ function GenreList({genres, activeGenre, onChangeGenre}) {
   );
 }
 
-GenreList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  activeGenre: PropTypes.string.isRequired,
-  onChangeGenre: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  genres: selectAllGenres(state),
-  activeGenre: selectCurrentGenre(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeGenre: (genre) => {
-    dispatch(changeGenre(genre));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(GenreList);
+export default GenreList;

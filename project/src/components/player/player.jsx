@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import VideoPlayer from '../videoplayer/video-player.jsx';
-import {filmPropTypes} from '../../prop-types/films.js';
-import {selectFilmById, selectFilmIdFromRoute} from '../../selectors/selectors.js';
+import {selectFilmById} from '../../selectors/selectors.js';
 
-function Player({film}) {
+function Player() {
+  const {id} = useParams();
+  const film = useSelector((state) => selectFilmById(state, id));
   return (
     <div className="player">
       <VideoPlayer
@@ -47,12 +47,4 @@ function Player({film}) {
   );
 }
 
-Player.propTypes = {
-  film: PropTypes.shape(filmPropTypes).isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => ({
-  film: selectFilmById(state, selectFilmIdFromRoute(ownProps)),
-});
-
-export default connect(mapStateToProps)(withRouter(Player));
+export default Player;

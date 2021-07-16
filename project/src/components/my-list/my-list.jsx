@@ -1,13 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
 import {selectFavoritesList} from '../../selectors/selectors.js';
 import {CatalogTitle, HeaderClass} from '../../const.js';
-import {filmsPropTypes} from '../../prop-types/films.js';
 
-function MyList({films}) {
+function MyList() {
+  const films = useSelector(selectFavoritesList);
   return (
     <div className="user-page">
       <AuthHeader specialClass={HeaderClass.USER_PAGE}>
@@ -24,12 +24,4 @@ function MyList({films}) {
   );
 }
 
-MyList.propTypes = {
-  films: filmsPropTypes.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  films: selectFavoritesList(state),
-});
-
-export default connect(mapStateToProps)(MyList);
+export default MyList;

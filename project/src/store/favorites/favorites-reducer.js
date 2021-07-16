@@ -10,7 +10,7 @@ const initialState = {
 
 export const favoritesReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchFavoritesStart, (state, action) => {
+    .addCase(fetchFavoritesStart, (state) => {
       state.waitingResponse = true;
       state.errorMessage = '';
     })
