@@ -57,7 +57,7 @@ export const getFilmsMoreLikeThis = (films, filmSample) => (
 
 export const chunkArray = (arr, chunks = 2) => {
   const chunksArray = [];
-  const chunkSize = arr.length / chunks;
+  const chunkSize = Math.round(arr.length / chunks);
   while (arr.length) {
     chunksArray.push(arr.splice(0, chunkSize));
   }

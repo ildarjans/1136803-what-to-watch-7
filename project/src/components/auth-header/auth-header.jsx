@@ -1,15 +1,18 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {logoutUser} from '../../middleware/thunk-api.js';
 import Header from '../header/header.jsx';
 import {selectAuthorizationStatus, selectUser} from '../../selectors/selectors.js';
 import {AppRoute, AuthStatus} from '../../const.js';
-import {userPropTypes} from '../../prop-types/user.js';
 
 
-function AuthHeader({authorizationStatus, onSignOut, user, children, ...restProps}) {
+function AuthHeader({children, ...restProps}) {
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const onSignOut = () => dispatch(logoutUser());
   const isAuthorized = authorizationStatus === AuthStatus.AUTHORIZED;
   return (
     <Header {...restProps}>
@@ -37,20 +40,6 @@ function AuthHeader({authorizationStatus, onSignOut, user, children, ...restProp
 
 AuthHeader.propTypes = {
   children: PropTypes.node,
-  authorizationStatus: PropTypes.string.isRequired,
-  onSignOut: PropTypes.func.isRequired,
-  user: PropTypes.shape(userPropTypes),
 };
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: selectAuthorizationStatus(state),
-  user: selectUser(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSignOut() {
-    dispatch(logoutUser());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthHeader);
+export default AuthHeader;

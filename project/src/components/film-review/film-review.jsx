@@ -24,6 +24,7 @@ const getReviewDateString = (dateStr) => {
   const year = dateObj.getFullYear();
   return `${month} ${date}, ${year}`;
 };
+const getDateString = (dateStr) => dateStr.split('T')[0];
 
 function FilmReview({review}) {
   return (
@@ -33,7 +34,7 @@ function FilmReview({review}) {
 
         <footer className="review__details">
           <cite className="review__author">{review.user.name}</cite>
-          <time className="review__date" dateTime="2015-11-18">{getReviewDateString(review.date)}</time>
+          <time className="review__date" dateTime={getDateString(review.date)}>{getReviewDateString(review.date)}</time>
         </footer>
       </blockquote>
 
@@ -47,4 +48,3 @@ FilmReview.propTypes = {
 };
 
 export default FilmReview;
-

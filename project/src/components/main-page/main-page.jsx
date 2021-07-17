@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 import FilmCard from '../film-card/film-card.jsx';
 import GenreList from '../genre-list/genre-list.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
-import {filmsPropTypes} from '../../prop-types/films.js';
 import {CatalogTitle, DisplayCards} from '../../const.js';
 import {selectFilmsByGenre} from '../../selectors/selectors.js';
 
-function MainPage({films}) {
+function MainPage() {
   const [filmsContainerSize, expandFilmsContainerSize] = useState(DisplayCards.MAIN_PAGE);
+  const films = useSelector(selectFilmsByGenre);
   const {
     title,
     genre,
@@ -52,12 +52,4 @@ function MainPage({films}) {
   );
 }
 
-MainPage.propTypes = {
-  films: filmsPropTypes.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  films: selectFilmsByGenre(state),
-});
-
-export default connect(mapStateToProps)(MainPage);
+export default MainPage;

@@ -1,18 +1,22 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import FilmCardFull from '../film-card-full/film-card-full.jsx';
 import {getFilmByID, getFilmsMoreLikeThis} from '../../utils.js';
 import {CatalogTitle} from '../../const.js';
-import {filmPropTypes, filmsPropTypes} from '../../prop-types/films.js';
-import {selectAuthorizationStatus, selectFilmIdFromRoute, selectFilmsByGenre} from '../../selectors/selectors.js';
+import {selectAuthorizationStatus, selectFilmsByGenre, selectSimilarFilms} from '../../selectors/selectors.js';
 import {fetchSimilarFilms} from '../../middleware/thunk-api.js';
 
-function MoviePage({films, id, authorizationStatus, fetchSimilarFilmsById, similarFilms}) {
+function MoviePage() {
+  const {id} = useParams();
+  const authorizationStatus = useSelector(selectAuthorizationStatus);
+  const films = useSelector(selectFilmsByGenre);
+  const similarFilms = useSelector(selectSimilarFilms);
+  const dispatch = useDispatch();
+  const fetchSimilarFilmsById = (filmId) => dispatch(fetchSimilarFilms(filmId));
   const film = getFilmByID(films, id);
 
   useEffect(() => {
@@ -38,23 +42,4 @@ function MoviePage({films, id, authorizationStatus, fetchSimilarFilmsById, simil
   );
 }
 
-MoviePage.propTypes = {
-  id: filmPropTypes.id.isRequired,
-  films: filmsPropTypes.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
-  similarFilms: filmsPropTypes,
-  fetchSimilarFilmsById: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => ({
-  films: selectFilmsByGenre(state),
-  id: selectFilmIdFromRoute(ownProps),
-  authorizationStatus: selectAuthorizationStatus(state),
-  similarFilms: state.similarFilms,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchSimilarFilmsById: (id) => dispatch(fetchSimilarFilms(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MoviePage));
+export default MoviePage;

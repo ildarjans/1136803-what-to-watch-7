@@ -1,26 +1,29 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 import FilmReview from '../film-review/film-review.jsx';
 import {fetchReviews} from '../../middleware/thunk-api.js';
-import {reviewPropTypes} from '../../prop-types/reviews.js';
 import {selectReviews} from '../../selectors/selectors.js';
 import {chunkArray} from '../../utils.js';
 
 
 const COLUMNS_COUNT = 2;
 
-function FilmCardReviews({id, reviews, fetchFilmReviews}) {
-  useEffect(() => fetchFilmReviews(id), []);
+function FilmCardReviews({id}) {
+  const reviews = useSelector(selectReviews);
+  const dispatch = useDispatch();
+  const fetchFilmReviews = (filmId) => dispatch(fetchReviews(filmId));
+
+  useEffect(() => fetchFilmReviews(id), [id]);
   const [firstColumn, secondColumn] = chunkArray([...reviews], COLUMNS_COUNT);
 
-  return reviews.length > 0 && (
+  return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {firstColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
+        {firstColumn && firstColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
       </div>
       <div className="film-card__reviews-col">
-        {secondColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
+        {secondColumn && secondColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
       </div>
     </div>
   );
@@ -28,18 +31,6 @@ function FilmCardReviews({id, reviews, fetchFilmReviews}) {
 
 FilmCardReviews.propTypes = {
   id: PropTypes.string.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.shape(reviewPropTypes)),
-  fetchFilmReviews: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  reviews: selectReviews(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchFilmReviews(id) {
-    dispatch(fetchReviews(id));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilmCardReviews);
+export default FilmCardReviews;

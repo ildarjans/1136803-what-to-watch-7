@@ -1,16 +1,22 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import {useDispatch, useSelector} from 'react-redux';
+import {useParams} from 'react-router-dom';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import {selectFilmById, selectPostReviewErrorMessage} from '../../selectors/selectors.js';
-import {filmPropTypes} from '../../prop-types/films.js';
 import {addReview} from '../../middleware/thunk-api.js';
 
-function AddReviewPage({film, id, onSubmitReviewForm, addReviewErrorMessage}) {
+function AddReviewPage() {
+  const {id} = useParams();
+  const film = useSelector((state) => selectFilmById(state, id));
+  const addReviewErrorMessage = useSelector(selectPostReviewErrorMessage);
+  const dispatch = useDispatch();
+  const onSubmitReviewForm = (filmId, review) => {
+    dispatch(addReview(filmId, review));
+  };
+
   if (!film) {
     return <NotFoundPage/>;
   }
@@ -43,23 +49,4 @@ function AddReviewPage({film, id, onSubmitReviewForm, addReviewErrorMessage}) {
   );
 }
 
-AddReviewPage.propTypes = {
-  id: filmPropTypes.id.isRequired,
-  film: PropTypes.shape(filmPropTypes).isRequired,
-  onSubmitReviewForm: PropTypes.func.isRequired,
-  addReviewErrorMessage: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state, ownProps) => ({
-  film: selectFilmById(state, ownProps.id),
-  id: ownProps.id,
-  addReviewErrorMessage: selectPostReviewErrorMessage(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmitReviewForm(id, review) {
-    dispatch(addReview(id, review));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(AddReviewPage));
+export default AddReviewPage;
