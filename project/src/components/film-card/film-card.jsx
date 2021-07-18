@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AuthHeader from '../auth-header/auth-header.jsx';
-import MyListButton from '../my-list-button/my-list-button.js';
+import MyListButton from '../my-list-button/my-list-button.jsx';
 import PlayButton from '../play-button/play-button.js';
 import {HeaderClass} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 
-function FilmCard({title, genre, year, posterImage, backgroundImage}) {
+function FilmCard({film}) {
   return (
     <section className="film-card">
       <div className="film-card__bg">
-        <img src={backgroundImage} alt={title}/>
+        <img src={film.backgroundImage} alt={film.title}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -20,22 +21,22 @@ function FilmCard({title, genre, year, posterImage, backgroundImage}) {
         <div className="film-card__info">
           <div className="film-card__poster">
             <img
-              src={posterImage}
-              alt={title} width="218"
+              src={film.posterImage}
+              alt={film.title} width="218"
               height="327"
             />
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{title}</h2>
+            <h2 className="film-card__title">{film.title}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{genre}</span>
-              <span className="film-card__year">{year}</span>
+              <span className="film-card__genre">{film.genre}</span>
+              <span className="film-card__year">{film.year}</span>
             </p>
 
             <div className="film-card__buttons">
-              <PlayButton/>
-              <MyListButton/>
+              <PlayButton id={film.id}/>
+              <MyListButton id={film.id} isFavorite={film.isFavorite}/>
             </div>
           </div>
         </div>
@@ -45,11 +46,7 @@ function FilmCard({title, genre, year, posterImage, backgroundImage}) {
 }
 
 FilmCard.propTypes = {
-  title: filmPropTypes.title.isRequired,
-  genre: filmPropTypes.genre.isRequired,
-  year: filmPropTypes.year.isRequired,
-  posterImage: filmPropTypes.posterImage.isRequired,
-  backgroundImage: filmPropTypes.backgroundImage.isRequired,
+  film: PropTypes.shape(filmPropTypes).isRequired,
 };
 
 export default FilmCard;
