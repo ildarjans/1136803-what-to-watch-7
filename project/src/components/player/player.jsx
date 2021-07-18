@@ -1,10 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {selectFilmById} from '../../selectors/selectors.js';
+import {AppRoute} from '../../const.js';
 
-
-const THROTTLE_DELAY = 1000;
 
 const TimeInSeconds = {
   HOUR: 3600,
@@ -21,20 +20,9 @@ const getElapsedTimeString = (currentTime, duration) => {
   return hours > 0 ? `-${hours}:${minutes}:${seconds}` : `-${minutes}:${seconds}`;
 };
 
-const throttle = (fn, timeDelay = THROTTLE_DELAY) => {
-  let timeout;
-  return (args) => {
-    if (!timeout) {
-      timeout = setTimeout(() => {
-        fn(args);
-        clearTimeout(timeout);
-      }, timeDelay);
-    }
-  };
-};
-
 function Player() {
   const videoRef = useRef();
+  const history = useHistory();
   const {id} = useParams();
   const film = useSelector((state) => selectFilmById(state, id));
   const [isPlaying, togglePlay] = useState(false);
@@ -45,7 +33,10 @@ function Player() {
   const handleVideoPlay = () => togglePlay(true);
   const handleVideoPause = () => togglePlay(false);
   const handleFullScreenButtonClick = () => videoRef.current.requestFullscreen();
-  const handleVideoTimeUpdate = throttle(({timeStamp}) => setPlayingProgress((timeStamp / 1000) / videoRef.current.duration * 100));
+  const handleExitButtonClick = () => history.push(AppRoute.FILM.replace(':id', id));
+  const handleVideoTimeUpdate = () => {
+    setPlayingProgress(videoRef.current.currentTime / videoRef.current.duration * 100);
+  };
 
   return (
     <div className="player">
@@ -60,7 +51,7 @@ function Player() {
         onTimeUpdate={handleVideoTimeUpdate}
       />
 
-      <button type="button" className="player__exit">Exit</button>
+      <button onClick={handleExitButtonClick} type="button" className="player__exit">Exit</button>
 
       <div className="player__controls">
         <div className="player__controls-row">
