@@ -23,10 +23,6 @@ export const reviewsReducer = createReducer(initialState, (builder) => {
       state.waitingFetchResponse = false;
       state.fetchErrorMessage = action.payload;
     })
-    .addCase(ActionType.ADD_REVIEW_START, (state, action) => {
-      state.waitingPostResponse = false;
-      state.postErrorMessage = '';
-    })
     .addCase(ActionType.ADD_REVIEW_SUCCESS, (state, action) => {
       state.waitingAddFilmReviewResponse = false;
     })
