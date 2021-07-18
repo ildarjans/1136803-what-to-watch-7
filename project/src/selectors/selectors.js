@@ -1,5 +1,5 @@
 
-export const selectFilmIdFromRoute = (props) => props.match.params.id;
+export const selectPromoFilm = ({FILMS}) => FILMS.promoFilm;
 
 export const selectFilmsByGenre = ({FILMS, PROCESS}) => FILMS.filmsByGenre[PROCESS.currentGenre];
 

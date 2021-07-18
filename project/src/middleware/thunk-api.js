@@ -1,6 +1,19 @@
 import {ApiRoute, AppRoute} from '../const.js';
-import {fetchFilmsFail, fetchFilmsStart, fetchFilmsSuccess} from '../store/films/films-action.js';
-import {fetchFavoritesFail, fetchFavoritesStart, fetchFavoritesSuccess} from '../store/favorites/favorites-action.js';
+import {
+  fetchFilmsFail,
+  fetchFilmsStart,
+  fetchFilmsSuccess,
+  fetchPromoFilmFail,
+  fetchPromoFilmSuccess,
+  updateFilm
+} from '../store/films/films-action.js';
+import {
+  addToFavoritesFail,
+  addToFavoritesSuccess,
+  fetchFavoritesFail,
+  fetchFavoritesStart,
+  fetchFavoritesSuccess
+} from '../store/favorites/favorites-action.js';
 import {redirectToRoute} from '../store/process/process-action.js';
 import {
   authorizationFail,
@@ -17,7 +30,6 @@ import {
 } from '../store/similar-films/similar-films-action.js';
 import {
   addReviewFail,
-  addReviewStart,
   addReviewSuccess,
   fetchReviewsFail,
   fetchReviewsStart,
@@ -91,9 +103,8 @@ export const fetchReviews = (id) => (dispatch, _getState, api) => {
     .catch(({message}) => dispatch(fetchReviewsFail(message)));
 };
 
-export const addReview = (id, {rating, comment}) => (dispatch, _getState, api) => {
-  dispatch(addReviewStart());
-  return api
+export const addReview = (id, {rating, comment}) => (dispatch, _getState, api) => (
+  api
     .post(ApiRoute.ADD_REVIEW.replace(':film_id', id), {rating, comment})
     .then(({data}) => dispatch(fetchReviewsSuccess(data)))
     .then(() => dispatch(addReviewSuccess()))
@@ -101,5 +112,20 @@ export const addReview = (id, {rating, comment}) => (dispatch, _getState, api) =
     .catch(({message}) => {
       dispatch(addReviewFail(message));
       dispatch(redirectToRoute(AppRoute.REVIEW.replace(':id', id)));
-    });
-};
+    })
+);
+
+export const fetchPromoFilm = () => (dispatch, _getState, api) => (
+  api
+    .get(ApiRoute.FETCH_PROMO)
+    .then(({data}) => dispatch(fetchPromoFilmSuccess(data)))
+    .catch(({message}) => dispatch(fetchPromoFilmFail(message)))
+);
+
+export const addToFavorites = (id, status) => (dispatch, _getState, api) => (
+  api
+    .post(ApiRoute.ADD_TO_FAVORITES.replace(':film_id', id).replace(':status', status))
+    .then(({data}) => dispatch(updateFilm(data)))
+    .then(() => dispatch(addToFavoritesSuccess()))
+    .catch(({message}) => dispatch(addToFavoritesFail(message)))
+);

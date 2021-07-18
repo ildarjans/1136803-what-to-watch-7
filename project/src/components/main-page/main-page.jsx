@@ -1,32 +1,26 @@
-import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import FilmCard from '../film-card/film-card.jsx';
 import GenreList from '../genre-list/genre-list.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
+import {selectFilmsByGenre, selectPromoFilm} from '../../selectors/selectors.js';
+import {fetchPromoFilm} from '../../middleware/thunk-api.js';
 import {CatalogTitle, DisplayCards} from '../../const.js';
-import {selectFilmsByGenre} from '../../selectors/selectors.js';
 
 function MainPage() {
   const [filmsContainerSize, expandFilmsContainerSize] = useState(DisplayCards.MAIN_PAGE);
   const films = useSelector(selectFilmsByGenre);
-  const {
-    title,
-    genre,
-    year,
-    posterImage,
-    backgroundImage,
-  } = films[0];
+  const promoFilm = useSelector(selectPromoFilm);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPromoFilm());
+  }, []);
 
   return (
     <>
-      <FilmCard
-        title={title}
-        genre={genre}
-        year={year}
-        posterImage={posterImage}
-        backgroundImage={backgroundImage}
-      />
+      {promoFilm.id && <FilmCard film={promoFilm}/>}
 
       <div className="page-content">
         <section className="catalog">
