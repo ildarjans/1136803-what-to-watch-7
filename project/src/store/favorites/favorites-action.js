@@ -13,3 +13,10 @@ export const fetchFavoritesFail = createAction(
   ActionType.FETCH_FAVORITES_FAIL, (err) => ({
     payload: err,
   }));
+
+export const addToFavoritesSuccess = createAction(ActionType.ADD_TO_FAVORITES_SUCCESS);
+
+export const addToFavoritesFail = createAction(
+  ActionType.ADD_TO_FAVORITES_FAIL, (err) => ({
+    payload: err,
+  }));

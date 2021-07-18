@@ -1,6 +1,12 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {getFavoriteFilms} from '../store-utils.js';
-import {fetchFavoritesFail, fetchFavoritesStart, fetchFavoritesSuccess} from './favorites-action.js';
+import {
+  addToFavoritesSuccess,
+  addToFavoritesFail,
+  fetchFavoritesStart,
+  fetchFavoritesSuccess,
+  fetchFavoritesFail
+} from './favorites-action.js';
 
 const initialState = {
   favoritesList: [],
@@ -19,6 +25,14 @@ export const favoritesReducer = createReducer(initialState, (builder) => {
       state.favoritesList = getFavoriteFilms(action.payload);
     })
     .addCase(fetchFavoritesFail, (state, action) => {
+      state.waitingResponse = false;
+      state.errorMessage = action.payload;
+    })
+    .addCase(addToFavoritesSuccess, (state, action) => {
+      state.waitingResponse = false;
+      state.errorMessage = '';
+    })
+    .addCase(addToFavoritesFail, (state, action) => {
       state.waitingResponse = false;
       state.errorMessage = action.payload;
     });
