@@ -8,7 +8,7 @@ function VideoPlayer({src, poster, autoplay}) {
       className="player__video"
       poster={poster}
       autoPlay={autoplay}
-      muted={autoplay}
+      muted
     />
   );
 }

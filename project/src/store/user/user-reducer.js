@@ -38,7 +38,7 @@ export const userReducer = createReducer(initialState, (builder) => {
       state.user = {};
     })
     .addCase(ActionType.LOGOUT_USER_FAIL, (state, action) => {
-      state.authorizationErrorMessage = action.payload.message;
+      state.authorizationErrorMessage = action.payload;
     });
 });
 

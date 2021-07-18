@@ -30,7 +30,7 @@ function FilmCardFull({film, authorizationStatus}) {
             </p>
 
             <div className="film-card__buttons">
-              <PlayButton/>
+              <PlayButton id={film.id}/>
               <MyListButton/>
               {authorizationStatus === AuthStatus.AUTHORIZED && <AddReviewButton id={film.id}/>}
             </div>
