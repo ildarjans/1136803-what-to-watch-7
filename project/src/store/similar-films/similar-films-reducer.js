@@ -20,6 +20,6 @@ export const similarFilmsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(ActionType.FETCH_SIMILAR_FILMS_FAIL, (state, action) => {
       state.waitingResponse = false;
-      state.errorMessage = action.payload.message;
+      state.errorMessage = action.payload;
     });
 });

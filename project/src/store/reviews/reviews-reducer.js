@@ -21,7 +21,7 @@ export const reviewsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(ActionType.FETCH_REVIEWS_FAIL, (state, action) => {
       state.waitingFetchResponse = false;
-      state.fetchErrorMessage = action.payload.message;
+      state.fetchErrorMessage = action.payload;
     })
     .addCase(ActionType.ADD_REVIEW_START, (state, action) => {
       state.waitingPostResponse = false;
@@ -32,7 +32,7 @@ export const reviewsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(ActionType.ADD_REVIEW_FAIL, (state, action) => {
       state.waitingAddFilmReviewResponse = false;
-      state.postErrorMessage = action.payload.message;
+      state.postErrorMessage = action.payload;
     });
 });
 

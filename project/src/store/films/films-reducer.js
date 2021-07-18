@@ -23,6 +23,6 @@ export const filmsReducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFilmsFail, (state, action) => {
       state.waitingResponse = false;
-      state.errorMessage = action.payload.message;
+      state.errorMessage = action.payload;
     });
 });
