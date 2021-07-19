@@ -20,3 +20,7 @@ export const selectReviews = ({REVIEWS}) => REVIEWS.reviews;
 export const selectPostReviewErrorMessage = ({REVIEWS}) => REVIEWS.postErrorMessage;
 
 export const selectSimilarFilms = ({SIMILAR_FILMS}) => SIMILAR_FILMS.similarFilms;
+
+export const selectFilmResponseStatus = ({FILMS}) => FILMS.waitingResponse;
+
+export const selectFavoritesResponseStatus = ({FAVORITES}) => FAVORITES.waitingResponse;
