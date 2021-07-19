@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {useHistory, useParams} from 'react-router-dom';
+import Spinner from '../spinner/spinner.jsx';
 import {selectFilmById} from '../../selectors/selectors.js';
 import {AppRoute} from '../../const.js';
 
@@ -9,6 +10,8 @@ const TimeInSeconds = {
   HOUR: 3600,
   MINUTE: 60,
 };
+
+const STATE_TO_DISPLAY_SPINNER = 4;
 
 const padNumber = (num) => num < 10 ? `0${num}` : `${num}`;
 
@@ -27,6 +30,7 @@ function Player() {
   const film = useSelector((state) => selectFilmById(state, id));
   const [isPlaying, togglePlay] = useState(false);
   const [playingProgress, setPlayingProgress] = useState(0);
+  const [readyState, setReadyState] = useState(0);
 
   const handlePlayButtonClick = () => !isPlaying ? videoRef.current.play() : videoRef.current.pause();
   const handleVideoFrameClick = handlePlayButtonClick;
@@ -34,70 +38,77 @@ function Player() {
   const handleVideoPause = () => togglePlay(false);
   const handleFullScreenButtonClick = () => videoRef.current.requestFullscreen();
   const handleExitButtonClick = () => history.push(AppRoute.FILM.replace(':id', id));
+  const handleVideoLoadedData = () => setReadyState(videoRef.current.readyState);
   const handleVideoTimeUpdate = () => {
     setPlayingProgress(videoRef.current.currentTime / videoRef.current.duration * 100);
   };
 
   return (
-    <div className="player">
-      <video
-        ref={videoRef}
-        src={film.videoLink}
-        className="player__video"
-        poster={film.previewImage}
-        onPlay={handleVideoPlay}
-        onPause={handleVideoPause}
-        onClick={handleVideoFrameClick}
-        onTimeUpdate={handleVideoTimeUpdate}
-      />
+    <>
+      {readyState < STATE_TO_DISPLAY_SPINNER && <Spinner/>}
+      <div className="player">
+        <video
+          ref={videoRef}
+          src={film.videoLink}
+          className="player__video"
+          preload="none"
+          poster={film.previewImage}
+          onPlay={handleVideoPlay}
+          onPause={handleVideoPause}
+          onClick={handleVideoFrameClick}
+          onTimeUpdate={handleVideoTimeUpdate}
+          onLoadedData={handleVideoLoadedData}
+        />
 
-      <button onClick={handleExitButtonClick} type="button" className="player__exit">Exit</button>
 
-      <div className="player__controls">
-        <div className="player__controls-row">
-          <div className="player__time">
-            <progress className="player__progress" value={playingProgress} max="100"/>
-            <div className="player__toggler" style={{left: `${playingProgress}%`}}>Toggler</div>
+        <button onClick={handleExitButtonClick} type="button" className="player__exit">Exit</button>
+
+        <div className="player__controls">
+          <div className="player__controls-row">
+            <div className="player__time">
+              <progress className="player__progress" value={playingProgress} max="100"/>
+              <div className="player__toggler" style={{left: `${playingProgress}%`}}>Toggler</div>
+            </div>
+            <div className="player__time-value">
+              {
+                videoRef.current && getElapsedTimeString(videoRef.current.currentTime, videoRef.current.duration)
+              }
+            </div>
           </div>
-          <div className="player__time-value">
+
+          <div className="player__controls-row">
             {
-              videoRef.current && getElapsedTimeString(videoRef.current.currentTime, videoRef.current.duration)
+              isPlaying &&
+              <button onClick={handlePlayButtonClick} type="button" className="player__play">
+                <svg viewBox="0 0 14 21" width="14" height="21">
+                  <use xlinkHref="#pause"/>
+                </svg>
+                <span>Pause</span>
+              </button>
             }
+            {
+              !isPlaying &&
+              <button onClick={handlePlayButtonClick} type="button" className="player__play">
+                <svg viewBox="0 0 19 19" width="19" height="19">
+                  <use xlinkHref="#play-s"/>
+                </svg>
+                <span>Play</span>
+              </button>
+            }
+
+
+            <div className="player__name">{film.title}</div>
+
+            <button onClick={handleFullScreenButtonClick} type="button" className="player__full-screen">
+              <svg viewBox="0 0 27 27" width="27" height="27">
+                <use xlinkHref="#full-screen"/>
+              </svg>
+              <span>Full screen</span>
+            </button>
           </div>
-        </div>
-
-        <div className="player__controls-row">
-          {
-            isPlaying &&
-            <button onClick={handlePlayButtonClick} type="button" className="player__play">
-              <svg viewBox="0 0 14 21" width="14" height="21">
-                <use xlinkHref="#pause"/>
-              </svg>
-              <span>Pause</span>
-            </button>
-          }
-          {
-            !isPlaying &&
-            <button onClick={handlePlayButtonClick} type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s"/>
-              </svg>
-              <span>Play</span>
-            </button>
-          }
-
-
-          <div className="player__name">{film.title}</div>
-
-          <button onClick={handleFullScreenButtonClick} type="button" className="player__full-screen">
-            <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"/>
-            </svg>
-            <span>Full screen</span>
-          </button>
         </div>
       </div>
-    </div>
+    </>
 
   );
 }
