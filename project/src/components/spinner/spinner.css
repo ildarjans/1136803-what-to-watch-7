@@ -15,6 +15,11 @@
   }
 }
 
+.spinner-wrapper {
+  position: relative;
+  height: 300px;
+}
+
 .spinner {
   position: absolute;
   top: 50%;

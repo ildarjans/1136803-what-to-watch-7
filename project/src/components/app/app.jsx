@@ -5,11 +5,11 @@ import MoviePage from '../movie-page/movie-page.jsx';
 import MyList from '../my-list/my-list.jsx';
 import UserPage from '../user-page/user-page.jsx';
 import Player from '../player/player.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
 import AddReviewPage from '../add-review-page/add-review-page.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import {AppRoute} from '../../const.js';
 import {browserHistory} from '../../browser-history.js';
-import PrivateRoute from '../private-route/private-route.jsx';
 
 function App() {
   return (

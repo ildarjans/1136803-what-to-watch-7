@@ -5,39 +5,52 @@ import FilmList from '../film-list/film-list.jsx';
 import Footer from '../footer/footer.jsx';
 import NotFoundPage from '../not-found-page/not-found-page.jsx';
 import FilmCardFull from '../film-card-full/film-card-full.jsx';
-import {getFilmByID, getFilmsMoreLikeThis} from '../../utils.js';
-import {CatalogTitle} from '../../const.js';
-import {selectAuthorizationStatus, selectFilmsByGenre, selectSimilarFilms} from '../../selectors/selectors.js';
+import Spinner from '../spinner/spinner.jsx';
 import {fetchSimilarFilms} from '../../middleware/thunk-api.js';
+import {
+  selectAuthorizationStatus,
+  selectFilmById,
+  selectFilmResponseStatus,
+  selectSimilarFilms
+} from '../../selectors/selectors.js';
+import {getFilmsMoreLikeThis} from '../../utils.js';
+import {CatalogTitle} from '../../const.js';
+
 
 function MoviePage() {
   const {id} = useParams();
   const authorizationStatus = useSelector(selectAuthorizationStatus);
-  const films = useSelector(selectFilmsByGenre);
+  const film = useSelector((state) => selectFilmById(state, id));
   const similarFilms = useSelector(selectSimilarFilms);
+  const responseStatus = useSelector(selectFilmResponseStatus);
   const dispatch = useDispatch();
   const fetchSimilarFilmsById = (filmId) => dispatch(fetchSimilarFilms(filmId));
-  const film = getFilmByID(films, id);
 
   useEffect(() => {
     fetchSimilarFilmsById(id);
   }, [id]);
 
 
-  if (!film) {
+  if (!responseStatus && !film) {
     return <NotFoundPage/>;
   }
 
   return (
     <>
-      <FilmCardFull film={film} authorizationStatus={authorizationStatus}/>
-      <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">{CatalogTitle.MORE_LIKE_THIS}</h2>
-          <FilmList films={getFilmsMoreLikeThis(similarFilms, film)}/>
-        </section>
-        <Footer/>
-      </div>
+      {responseStatus && <Spinner/>}
+      {
+        !responseStatus &&
+        <>
+          <FilmCardFull film={film} authorizationStatus={authorizationStatus}/>
+          <div className="page-content">
+            <section className="catalog catalog--like-this">
+              <h2 className="catalog__title">{CatalogTitle.MORE_LIKE_THIS}</h2>
+              <FilmList films={getFilmsMoreLikeThis(similarFilms, film)}/>
+            </section>
+            <Footer/>
+          </div>
+        </>
+      }
     </>
   );
 }

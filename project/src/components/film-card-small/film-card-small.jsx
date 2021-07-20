@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import VideoPlayer from '../videoplayer/video-player.jsx';
+import VideoPlayer from '../video-player/video-player.jsx';
 import {AppRoute, OPEN_PREVIEW_DELAY} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 

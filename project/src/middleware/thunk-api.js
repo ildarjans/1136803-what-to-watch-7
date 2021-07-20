@@ -1,6 +1,19 @@
 import {ApiRoute, AppRoute} from '../const.js';
-import {fetchFilmsFail, fetchFilmsStart, fetchFilmsSuccess} from '../store/films/films-action.js';
-import {fetchFavoritesFail, fetchFavoritesStart, fetchFavoritesSuccess} from '../store/favorites/favorites-action.js';
+import {
+  fetchFilmsFail,
+  fetchFilmsStart,
+  fetchFilmsSuccess,
+  fetchPromoFilmFail,
+  fetchPromoFilmSuccess,
+  updateFilm
+} from '../store/films/films-action.js';
+import {
+  addToFavoritesFail,
+  addToFavoritesSuccess,
+  fetchFavoritesFail,
+  fetchFavoritesStart,
+  fetchFavoritesSuccess
+} from '../store/favorites/favorites-action.js';
 import {redirectToRoute} from '../store/process/process-action.js';
 import {
   authorizationFail,
@@ -17,7 +30,6 @@ import {
 } from '../store/similar-films/similar-films-action.js';
 import {
   addReviewFail,
-  addReviewStart,
   addReviewSuccess,
   fetchReviewsFail,
   fetchReviewsStart,
@@ -29,7 +41,7 @@ export const fetchFilms = () => (dispatch, _getState, api) => {
   return api
     .get(ApiRoute.FETCH_FILMS)
     .then(({data}) => dispatch(fetchFilmsSuccess(data)))
-    .catch((err) => dispatch(fetchFilmsFail(err)));
+    .catch(({message}) => dispatch(fetchFilmsFail(message)));
 };
 
 export const checkAuthUser = () => (dispatch, _getState, api) => {
@@ -38,7 +50,7 @@ export const checkAuthUser = () => (dispatch, _getState, api) => {
     .get(ApiRoute.LOGIN)
     .then(({data}) => dispatch(setUserLoginProfile(data)))
     .then(() => dispatch(authorizationSuccess()))
-    .catch((err) => dispatch(authorizationFail(err)));
+    .catch(({message}) => dispatch(authorizationFail(message)));
 };
 
 export const loginUser = ({email, password}) => (dispatch, _getState, api) => {
@@ -51,8 +63,8 @@ export const loginUser = ({email, password}) => (dispatch, _getState, api) => {
     })
     .then(() => dispatch(authorizationSuccess()))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
-    .catch((err) => {
-      dispatch(authorizationFail(err));
+    .catch(({message}) => {
+      dispatch(authorizationFail(message));
       dispatch(redirectToRoute(AppRoute.LOGIN));
     });
 };
@@ -64,7 +76,7 @@ export const logoutUser = () => (dispatch, _getState, api) => (
       localStorage.removeItem('token');
       dispatch(logoutUserSuccess());
     })
-    .catch((err) => dispatch(logoutUserFail(err)))
+    .catch(({message}) => dispatch(logoutUserFail(message)))
 );
 
 export const fetchFavorites = () => (dispatch, _getState, api) => {
@@ -72,7 +84,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => {
   return api
     .get(ApiRoute.FETCH_FAVORITES)
     .then(({data}) => dispatch(fetchFavoritesSuccess(data)))
-    .catch((err) => dispatch(fetchFavoritesFail(err)));
+    .catch(({message}) => dispatch(fetchFavoritesFail(message)));
 };
 
 export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => {
@@ -80,7 +92,7 @@ export const fetchSimilarFilms = (id) => (dispatch, _getState, api) => {
   return api
     .get(ApiRoute.FETCH_SIMILAR_FILMS.replace(':id', id))
     .then(({data}) => dispatch(fetchSimilarFilmsSuccess(data)))
-    .catch((err) => dispatch(fetchSimilarFilmsFail(err)));
+    .catch(({message}) => dispatch(fetchSimilarFilmsFail(message)));
 };
 
 export const fetchReviews = (id) => (dispatch, _getState, api) => {
@@ -88,18 +100,32 @@ export const fetchReviews = (id) => (dispatch, _getState, api) => {
   return api
     .get(ApiRoute.FETCH_REVIEWS.replace(':film_id', id))
     .then(({data}) => dispatch(fetchReviewsSuccess(data)))
-    .catch((err) => dispatch(fetchReviewsFail(err)));
+    .catch(({message}) => dispatch(fetchReviewsFail(message)));
 };
 
-export const addReview = (id, {rating, comment}) => (dispatch, _getState, api) => {
-  dispatch(addReviewStart());
-  return api
+export const addReview = (id, {rating, comment}) => (dispatch, _getState, api) => (
+  api
     .post(ApiRoute.ADD_REVIEW.replace(':film_id', id), {rating, comment})
     .then(({data}) => dispatch(fetchReviewsSuccess(data)))
     .then(() => dispatch(addReviewSuccess()))
     .then(() => dispatch(redirectToRoute(AppRoute.FILM.replace(':id', id))))
-    .catch((err) => {
-      dispatch(addReviewFail(err));
+    .catch(({message}) => {
+      dispatch(addReviewFail(message));
       dispatch(redirectToRoute(AppRoute.REVIEW.replace(':id', id)));
-    });
-};
+    })
+);
+
+export const fetchPromoFilm = () => (dispatch, _getState, api) => (
+  api
+    .get(ApiRoute.FETCH_PROMO)
+    .then(({data}) => dispatch(fetchPromoFilmSuccess(data)))
+    .catch(({message}) => dispatch(fetchPromoFilmFail(message)))
+);
+
+export const addToFavorites = (id, status) => (dispatch, _getState, api) => (
+  api
+    .post(ApiRoute.ADD_TO_FAVORITES.replace(':film_id', id).replace(':status', status))
+    .then(({data}) => dispatch(updateFilm(data)))
+    .then(() => dispatch(addToFavoritesSuccess()))
+    .catch(({message}) => dispatch(addToFavoritesFail(message)))
+);

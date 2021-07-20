@@ -1,24 +1,34 @@
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import Footer from '../footer/footer.jsx';
 import FilmList from '../film-list/film-list.jsx';
-import {selectFavoritesList} from '../../selectors/selectors.js';
+import Spinner from '../spinner/spinner.jsx';
+import {selectFavoritesList, selectFavoritesResponseStatus} from '../../selectors/selectors.js';
 import {CatalogTitle, HeaderClass} from '../../const.js';
+import {fetchFavorites} from '../../middleware/thunk-api.js';
 
 function MyList() {
   const films = useSelector(selectFavoritesList);
+  const responseStatus = useSelector(selectFavoritesResponseStatus);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, []);
+
   return (
     <div className="user-page">
-      <AuthHeader specialClass={HeaderClass.USER_PAGE}>
+      <AuthHeader className={HeaderClass.USER_PAGE}>
         <h1 className="page-title user-page__title">My list</h1>
       </AuthHeader>
 
+      {responseStatus && <Spinner/>}
+      {!responseStatus &&
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">{CatalogTitle.MY_LIST}</h2>
         <FilmList films={films}/>
-      </section>
-
+      </section>}
       <Footer/>
     </div>
   );
