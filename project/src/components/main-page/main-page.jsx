@@ -13,7 +13,7 @@ function MainPage() {
   const [filmsContainerSize, expandFilmsContainerSize] = useState(DisplayCards.MAIN_PAGE);
   const films = useSelector(selectFilmsByGenre);
   const promoFilm = useSelector(selectPromoFilm);
-  const responseStatus = useSelector(selectFilmResponseStatus);
+  const isLoadingFilm = useSelector(selectFilmResponseStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,12 +22,12 @@ function MainPage() {
 
   return (
     <>
-      {responseStatus && <Spinner/>} :
+      {isLoadingFilm && <Spinner/>} :
 
-      {!responseStatus && promoFilm.id && <FilmCard film={promoFilm}/>}
+      {!isLoadingFilm && promoFilm.id && <FilmCard film={promoFilm}/>}
 
       {
-        !responseStatus && (
+        !isLoadingFilm && (
           <div className="page-content">
             <section className="catalog">
               <h2 className="catalog__title visually-hidden">{CatalogTitle.CATALOG}</h2>

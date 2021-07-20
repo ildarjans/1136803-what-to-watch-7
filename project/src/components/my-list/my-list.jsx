@@ -10,7 +10,7 @@ import {fetchFavorites} from '../../middleware/thunk-api.js';
 
 function MyList() {
   const films = useSelector(selectFavoritesList);
-  const responseStatus = useSelector(selectFavoritesResponseStatus);
+  const isLoadingFavorites = useSelector(selectFavoritesResponseStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,8 +23,8 @@ function MyList() {
         <h1 className="page-title user-page__title">My list</h1>
       </AuthHeader>
 
-      {responseStatus && <Spinner/>}
-      {!responseStatus &&
+      {isLoadingFavorites && <Spinner/>}
+      {!isLoadingFavorites &&
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">{CatalogTitle.MY_LIST}</h2>
         <FilmList films={films}/>
