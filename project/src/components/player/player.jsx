@@ -13,7 +13,7 @@ const TimeInSeconds = {
 
 const STATE_TO_DISPLAY_SPINNER = 4;
 
-const padNumber = (num) => num < 10 ? `0${num}` : `${num}`;
+const padNumber = (num) => num.toString().padStart(2, '0');
 
 const getElapsedTimeString = (currentTime, duration) => {
   const timeElapsed = duration - currentTime;
@@ -33,7 +33,6 @@ function Player() {
   const [readyState, setReadyState] = useState(0);
 
   const handlePlayButtonClick = () => !isPlaying ? videoRef.current.play() : videoRef.current.pause();
-  const handleVideoFrameClick = handlePlayButtonClick;
   const handleVideoPlay = () => togglePlay(true);
   const handleVideoPause = () => togglePlay(false);
   const handleFullScreenButtonClick = () => videoRef.current.requestFullscreen();
@@ -45,8 +44,10 @@ function Player() {
 
   return (
     <>
-      {readyState < STATE_TO_DISPLAY_SPINNER && <Spinner/>}
-      <div className="player">
+      {!film && <Spinner/>}
+      {film && readyState < STATE_TO_DISPLAY_SPINNER && <Spinner/>}
+      {film &&
+        <div className="player">
         <video
           ref={videoRef}
           src={film.videoLink}
@@ -55,7 +56,6 @@ function Player() {
           poster={film.previewImage}
           onPlay={handleVideoPlay}
           onPause={handleVideoPause}
-          onClick={handleVideoFrameClick}
           onTimeUpdate={handleVideoTimeUpdate}
           onLoadedData={handleVideoLoadedData}
         />
@@ -77,24 +77,17 @@ function Player() {
           </div>
 
           <div className="player__controls-row">
-            {
-              isPlaying &&
-              <button onClick={handlePlayButtonClick} type="button" className="player__play">
+            <button onClick={handlePlayButtonClick} type="button" className="player__play">
+              {isPlaying ?
                 <svg viewBox="0 0 14 21" width="14" height="21">
                   <use xlinkHref="#pause"/>
-                </svg>
-                <span>Pause</span>
-              </button>
-            }
-            {
-              !isPlaying &&
-              <button onClick={handlePlayButtonClick} type="button" className="player__play">
+                </svg> :
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"/>
                 </svg>
-                <span>Play</span>
-              </button>
-            }
+              }
+              <span>{isPlaying ? 'Pause' : 'Play'}</span>
+            </button>
 
 
             <div className="player__name">{film.title}</div>
@@ -108,6 +101,7 @@ function Player() {
           </div>
         </div>
       </div>
+      }
     </>
 
   );
