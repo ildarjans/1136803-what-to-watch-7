@@ -14,7 +14,10 @@ export const fetchFilmsFail = createAction(
   }));
 
 export const fetchPromoFilmSuccess = createAction(ActionType.FETCH_PROMO_FILM_SUCCESS);
-export const fetchPromoFilmFail = createAction(ActionType.FETCH_PROMO_FILM_FAIL);
+export const fetchPromoFilmFail = createAction(
+  ActionType.FETCH_PROMO_FILM_FAIL, (err) => ({
+    payload: err,
+  }));
 
 export const updateFilm = createAction(
   ActionType.UPDATE_FILM, (film) => ({
