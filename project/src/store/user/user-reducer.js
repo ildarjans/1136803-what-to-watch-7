@@ -1,7 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {ActionType} from '../action-type.js';
 import {AuthStatus} from '../../const.js';
 import {adaptUserToClient} from '../../utils.js';
+import {
+  authorizationFail,
+  authorizationSuccess,
+  logoutUserFail,
+  logoutUserSuccess,
+  sendAuthorizationRequest,
+  setAuthorizationStatus,
+  setUserLoginProfile
+} from './user-action.js';
 
 const initialState = {
   authorizationStatus: AuthStatus.NO_AUTHORIZED,
@@ -12,32 +20,32 @@ const initialState = {
 
 export const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(ActionType.SEND_AUTHORIZATION_REQUEST, (state) => {
+    .addCase(sendAuthorizationRequest, (state) => {
       state.authorizationErrorMessage = '';
       state.waitingAuthorizationResponse = true;
     })
-    .addCase(ActionType.SET_AUTHORIZATION_STATUS, (state, action) => {
+    .addCase(setAuthorizationStatus, (state, action) => {
       state.waitingAuthorizationResponse = false;
       state.authorizationStatus = action.payload;
     })
-    .addCase(ActionType.AUTHORIZATION_SUCCESS, (state) => {
+    .addCase(authorizationSuccess, (state) => {
       state.authorizationStatus = AuthStatus.AUTHORIZED;
       state.waitingAuthorizationResponse = false;
     })
-    .addCase(ActionType.AUTHORIZATION_FAIL, (state, action) => {
-      state.authorizationErrorMessage = action.payload.message;
+    .addCase(authorizationFail, (state, action) => {
+      state.authorizationErrorMessage = action.payload;
       state.authorizationStatus = AuthStatus.NO_AUTHORIZED;
       state.waitingAuthorizationResponse = false;
       state.user = {};
     })
-    .addCase(ActionType.SET_USER_LOGIN_PROFILE, (state, action) => {
+    .addCase(setUserLoginProfile, (state, action) => {
       state.user = adaptUserToClient(action.payload);
     })
-    .addCase(ActionType.LOGOUT_USER_SUCCESS, (state) => {
+    .addCase(logoutUserSuccess, (state) => {
       state.authorizationStatus = AuthStatus.NO_AUTHORIZED;
       state.user = {};
     })
-    .addCase(ActionType.LOGOUT_USER_FAIL, (state, action) => {
+    .addCase(logoutUserFail, (state, action) => {
       state.authorizationErrorMessage = action.payload;
     });
 });

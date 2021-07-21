@@ -1,5 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {ActionType} from '../action-type.js';
+import {
+  addReviewFail,
+  addReviewSuccess,
+  fetchReviewsFail,
+  fetchReviewsStart,
+  fetchReviewsSuccess
+} from './reviews-action.js';
 
 const initialState = {
   waitingFetchResponse: false,
@@ -11,23 +17,23 @@ const initialState = {
 
 export const reviewsReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(ActionType.FETCH_REVIEWS_START, (state) => {
+    .addCase(fetchReviewsStart, (state) => {
       state.waitingFetchResponse = true;
       state.fetchErrorMessage = '';
     })
-    .addCase(ActionType.FETCH_REVIEWS_SUCCESS, (state, action) => {
+    .addCase(fetchReviewsSuccess, (state, action) => {
       state.waitingFetchResponse = false;
       state.reviews = action.payload;
     })
-    .addCase(ActionType.FETCH_REVIEWS_FAIL, (state, action) => {
+    .addCase(fetchReviewsFail, (state, action) => {
       state.waitingFetchResponse = false;
       state.fetchErrorMessage = action.payload;
     })
-    .addCase(ActionType.ADD_REVIEW_SUCCESS, (state, action) => {
-      state.waitingAddFilmReviewResponse = false;
+    .addCase(addReviewSuccess, (state, action) => {
+      state.waitingPostResponse = false;
     })
-    .addCase(ActionType.ADD_REVIEW_FAIL, (state, action) => {
-      state.waitingAddFilmReviewResponse = false;
+    .addCase(addReviewFail, (state, action) => {
+      state.waitingPostResponse = false;
       state.postErrorMessage = action.payload;
     });
 });
