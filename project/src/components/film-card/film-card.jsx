@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AuthHeader from '../auth-header/auth-header.jsx';
 import MyListButton from '../my-list-button/my-list-button.jsx';
-import PlayButton from '../play-button/play-button.js';
+import PlayButton from '../play-button/play-button.jsx';
 import {HeaderClass} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 
