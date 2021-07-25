@@ -10,6 +10,7 @@ function Genre({genre, isActive, onGenreClick}) {
     <li
       className={`catalog__genres-item ${isActive ? ACTIVE_CLASSNAME : ''}`}
       onClick={() => onGenreClick(genre)}
+      data-testid={'genre-item'}
     >
       <Link to={AppRoute.ROOT} className="catalog__genres-link">{genre}</Link>
     </li>

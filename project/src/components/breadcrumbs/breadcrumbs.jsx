@@ -10,10 +10,10 @@ function Breadcrumbs({id, title}) {
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <Link to={filmRoute} className="breadcrumbs__link">{title}</Link>
+          <Link to={filmRoute} className="breadcrumbs__link" data-testid={'film-link'}>{title}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <Link to={addReviewRoute} className="breadcrumbs__link">Add review</Link>
+          <Link to={addReviewRoute} className="breadcrumbs__link" data-testid={'add-review-link'}>Add review</Link>
         </li>
       </ul>
     </nav>
