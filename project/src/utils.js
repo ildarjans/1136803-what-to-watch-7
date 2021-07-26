@@ -50,9 +50,9 @@ export const getFilmDurationInHoursAndMinutes = (durationInMinutes) => {
 };
 
 export const getFilmsMoreLikeThis = (films, filmSample) => (
-  films.filter((film) => (
-    film.genre === filmSample.genre && film.id !== filmSample.id),
-  ).slice(0, DisplayCards.MORE_LIKE_THIS)
+  films
+    .filter((film) => (film.id !== filmSample.id))
+    .slice(0, DisplayCards.MORE_LIKE_THIS)
 );
 
 export const chunkArray = (arr, chunks = 2) => {
