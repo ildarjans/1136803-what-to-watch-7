@@ -329,7 +329,6 @@ describe('Component: MoviePage', () => {
       <Provider store={store}>
         <Router history={history}>
           <Route exact path={AppRoute.FILM} component={MoviePage}/>
-          <MoviePage/>
         </Router>
       </Provider>
     );
@@ -453,14 +452,13 @@ describe('Component: MoviePage', () => {
       <Provider store={store}>
         <Router history={history}>
           <Route exact path={AppRoute.FILM} component={MoviePage}/>
-          <MoviePage/>
         </Router>
       </Provider>
     );
     history.push('/film/69');
-    expect(screen.getByTestId('film-card-full')).not.toBeInTheDocument();
-    expect(screen.getByText(/more like this/i)).not.toBeInTheDocument();
-    expect(screen.getByText('Fantastic Beasts: The Crimes of Grindelwald')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('film-card-full')).not.toBeInTheDocument();
+    expect(screen.queryByText(/more like this/i)).not.toBeInTheDocument();
+    expect(screen.queryByText('Fantastic Beasts: The Crimes of Grindelwald')).not.toBeInTheDocument();
     expect(screen.getByText(/page not found/i)).toBeInTheDocument();
   });
 });
