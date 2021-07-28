@@ -11,7 +11,7 @@ import FilmCardNav from '../film-card-nav/film-card-nav.jsx';
 
 function FilmCardFull({film, authorizationStatus}) {
   return (
-    <section className="film-card film-card--full">
+    <section className="film-card film-card--full" data-testid={'film-card-full'}>
       <div className="film-card__hero">
         <div className="film-card__bg">
           <img src={film.backgroundImage} alt={film.title} data-testid={'bg-image'}/>
