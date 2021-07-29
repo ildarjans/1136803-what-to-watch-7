@@ -178,6 +178,8 @@ describe('Async actions', () => {
     const dispatch = jest.fn();
     const logoutUserLoader = logoutUser();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock
       .onDelete(ApiRoute.LOGOUT)
       .reply(200);
@@ -188,7 +190,10 @@ describe('Async actions', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGOUT_USER_SUCCESS,
         });
+        expect(Storage.prototype.removeItem).toHaveBeenCalledTimes(1);
+        expect(Storage.prototype.removeItem).toHaveBeenLastCalledWith('token');
       });
+
   });
   it('should failed API call to DELETE /logout', () => {
     const apiMock = new MockAdapter(api);
