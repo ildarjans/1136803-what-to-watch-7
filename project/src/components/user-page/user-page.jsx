@@ -18,7 +18,7 @@ function UserPage() {
       <div className="user-page">
 
         <Header className={HeaderClass.USER_PAGE}>
-          <h1 className="page-title user-page__title">Sign in</h1>
+          <h1 className="page-title user-page__title" data-testid={'sign-in'}>Sign in</h1>
         </Header>
 
         <div className="sign-in user-page__content">

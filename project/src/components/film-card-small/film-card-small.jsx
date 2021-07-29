@@ -28,6 +28,7 @@ function FilmCardSmall({id, title, image, videoSrc, hasVideo, onCardHover}) {
       className="small-film-card catalog__films-card"
       onMouseOver={() => handleFilmCardMouseOver()}
       onMouseOut={() => handleFilmCardMouseOut()}
+      data-testid={'small-card'}
     >
       <div className="small-film-card__image">
         {

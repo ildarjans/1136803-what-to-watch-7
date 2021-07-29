@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AuthHeader from '../auth-header/auth-header.jsx';
-import PlayButton from '../play-button/play-button.js';
+import PlayButton from '../play-button/play-button.jsx';
 import MyListButton from '../my-list-button/my-list-button.jsx';
-import AddReviewButton from '../add-review-button/add-review-button.js';
+import AddReviewButton from '../add-review-button/add-review-button.jsx';
 import {AuthStatus, HeaderClass} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 import FilmCardNav from '../film-card-nav/film-card-nav.jsx';
@@ -14,7 +14,7 @@ function FilmCardFull({film, authorizationStatus}) {
     <section className="film-card film-card--full">
       <div className="film-card__hero">
         <div className="film-card__bg">
-          <img src={film.backgroundImage} alt={film.title}/>
+          <img src={film.backgroundImage} alt={film.title} data-testid={'bg-image'}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -46,6 +46,7 @@ function FilmCardFull({film, authorizationStatus}) {
               alt={film.title}
               width="218"
               height="327"
+              data-testid={'poster-image'}
             />
           </div>
 

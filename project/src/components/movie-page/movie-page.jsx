@@ -22,7 +22,7 @@ function MoviePage() {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const film = useSelector((state) => selectFilmById(state, id));
   const similarFilms = useSelector(selectSimilarFilms);
-  const responseStatus = useSelector(selectFilmResponseStatus);
+  const isLoadingFilm = useSelector(selectFilmResponseStatus);
   const dispatch = useDispatch();
   const fetchSimilarFilmsById = (filmId) => dispatch(fetchSimilarFilms(filmId));
 
@@ -31,15 +31,15 @@ function MoviePage() {
   }, [id]);
 
 
-  if (!responseStatus && !film) {
+  if (!isLoadingFilm && !film) {
     return <NotFoundPage/>;
   }
 
   return (
     <>
-      {responseStatus && <Spinner/>}
+      {isLoadingFilm && <Spinner/>}
       {
-        !responseStatus &&
+        !isLoadingFilm &&
         <>
           <FilmCardFull film={film} authorizationStatus={authorizationStatus}/>
           <div className="page-content">
