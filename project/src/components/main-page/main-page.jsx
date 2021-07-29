@@ -40,6 +40,7 @@ function MainPage() {
                     className="catalog__button"
                     type="button"
                     onClick={() => expandFilmsContainerSize(filmsContainerSize + DisplayCards.MAIN_PAGE)}
+                    data-testid={'show-more'}
                   >
                     Show more
                   </button>

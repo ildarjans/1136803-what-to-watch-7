@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import VideoPlayer from '../video-player/video-player.jsx';
 import {AppRoute, OPEN_PREVIEW_DELAY} from '../../const.js';
 import {filmPropTypes} from '../../prop-types/films.js';
 
@@ -26,15 +25,15 @@ function FilmCardSmall({id, title, image, videoSrc, hasVideo, onCardHover}) {
   return (
     <article
       className="small-film-card catalog__films-card"
-      onMouseOver={() => handleFilmCardMouseOver()}
-      onMouseOut={() => handleFilmCardMouseOut()}
+      onMouseOver={handleFilmCardMouseOver}
+      onMouseOut={handleFilmCardMouseOut}
       data-testid={'small-card'}
     >
       <div className="small-film-card__image">
         {
           hasVideo ?
-            <VideoPlayer src={videoSrc} poster={image} autoplay/> :
-            <img src={image} alt={title} width="280" height="175"/>
+            <video src={videoSrc} className="player__video" poster={image} data-testid={'video'} autoPlay muted/> :
+            <img src={image} alt={title} width="280" height="175" data-testid={'image'}/>
         }
       </div>
       <h3 className="small-film-card__title">

@@ -1,11 +1,16 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import FilmCardNav from './film-card-nav.jsx';
+import userEvent from '@testing-library/user-event';
+
+const ACTIVE_CLASSNAME = 'film-nav__item--active';
 
 describe('Component: FilmCardNav', () => {
   it('Should render correctly', () => {
     const history = createMemoryHistory();
+
     const film = {
       'id': '1',
       'title': 'The Grand Budapest Hotel',
@@ -25,13 +30,19 @@ describe('Component: FilmCardNav', () => {
       'year': 2014,
       'isFavorite': false,
     };
-    const {getByText} = render(
+    render(
       <Router history={history}>
         <FilmCardNav film={film}/>
       </Router>
     );
-    expect(getByText(/overview/i)).toBeInTheDocument();
-    expect(getByText(/details/i)).toBeInTheDocument();
-    expect(getByText(/reviews/i)).toBeInTheDocument();
+    expect(screen.getByText(/overview/i)).toBeInTheDocument();
+    expect(screen.getByText(/details/i)).toBeInTheDocument();
+    expect(screen.getByText(/reviews/i)).toBeInTheDocument();
+
+    const [overviewLink, detailsLink] = screen.queryAllByRole('link');
+    userEvent.click(detailsLink);
+    expect(detailsLink.parentElement).toHaveClass(ACTIVE_CLASSNAME);
+    userEvent.click(overviewLink);
+    expect(overviewLink.parentElement).toHaveClass(ACTIVE_CLASSNAME);
   });
 });

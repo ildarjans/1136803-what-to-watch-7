@@ -19,10 +19,10 @@ function FilmCardReviews({id}) {
 
   return (
     <div className="film-card__reviews film-card__row">
-      <div className="film-card__reviews-col">
+      <div className="film-card__reviews-col" data-testid={'column-1'}>
         {firstColumn && firstColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
       </div>
-      <div className="film-card__reviews-col">
+      <div className="film-card__reviews-col" data-testid={'column-2'}>
         {secondColumn && secondColumn.map((review) => <FilmReview key={review.id} review={review}/>)}
       </div>
     </div>

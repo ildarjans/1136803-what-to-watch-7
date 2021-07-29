@@ -4,7 +4,7 @@ import Logo from '../logo/logo.jsx';
 
 function Header({children, className}) {
   return (
-    <header className={`page-header ${className}`}>
+    <header className={`page-header ${className ? className : ''}`}>
       <Logo className={'logo__link logo__link'}/>
       {children}
     </header>

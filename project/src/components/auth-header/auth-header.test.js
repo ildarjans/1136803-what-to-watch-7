@@ -1,14 +1,20 @@
 import {Router} from 'react-router-dom';
+import * as Redux from 'react-redux';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
-import {getNodeText, render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import AuthHeader from './auth-header.jsx';
+import userEvent from '@testing-library/user-event';
+import {AppRoute} from '../../const.js';
 
 describe('Component: AuthHeader', () => {
-
-  it('Should render correctly if authorized user', () => {
-    const createFakeStore = configureStore();
+  let createFakeStore;
+  const history = createMemoryHistory();
+  beforeEach(() => {
+    createFakeStore = configureStore();
+  });
+  it('Should render correctly if authorized user. Sing out action', () => {
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'AUTHORIZED',
@@ -21,44 +27,71 @@ describe('Component: AuthHeader', () => {
         }
       },
     });
-    const history = createMemoryHistory();
-    const { container} = render(
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch').mockReturnValue(dispatch);
+    render(
       <Provider store={store}>
         <Router history={history}>
           <AuthHeader/>
         </Router>
       </Provider>
     );
-    const userAvatar = container.querySelector('.user-block__avatar > img');
-    const userLink = container.querySelector('.user-block__link');
 
-    expect(userLink).toHaveAttribute('href', '/');
-    expect(userAvatar).toHaveAttribute('src', 'www.redjohn.com/img/avatar.jpg');
-    expect(getNodeText(userLink)).toMatch(/sign out/i);
+    const userAvatarImg = screen.getByAltText(/user avatar/i);
+    const singOutLink = screen.getByText(/sign out/i);
+
+    expect(singOutLink).toBeInTheDocument();
+    expect(singOutLink).toHaveAttribute('href', '/');
+    expect(userAvatarImg).toHaveAttribute('src', 'www.redjohn.com/img/avatar.jpg');
+
+    userEvent.click(singOutLink);
+    expect(useDispatch).toBeCalledTimes(1);
+    expect(dispatch).nthCalledWith(1, expect.any(Function));
+
+  });
+  it('Should render correctly if authorized user. Redirect action', () => {
+    const store = createFakeStore({
+      USER: {
+        authorizationStatus: 'AUTHORIZED',
+        user: {
+          id: '1',
+          email: 'example@hotmail.com',
+          name: 'Red John',
+          avatarUrl: 'www.redjohn.com/img/avatar.jpg',
+          token: '00faf9901',
+        }
+      },
+    });
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <AuthHeader/>
+        </Router>
+      </Provider>
+    );
+
+    userEvent.click(screen.getByAltText(/user avatar/i));
+    expect(history.location.pathname).toBe(AppRoute.FAVORITES);
+
   });
   it('Should render correctly if authorized user', () => {
-    const createFakeStore = configureStore();
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'NO_AUTHORIZED',
         user: {}
       },
     });
-    const history = createMemoryHistory();
-    const { container} = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <AuthHeader/>
         </Router>
       </Provider>
     );
-    const userLink = container.querySelector('.user-block__link');
 
-    expect(userLink).toHaveAttribute('href', '/login');
-    expect(getNodeText(userLink)).toMatch(/sign in/i);
+    expect(screen.getByText(/sign in/i)).toHaveAttribute('href', '/login');
   });
   it('Should render correctly with children if authorized user', () => {
-    const createFakeStore = configureStore();
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'AUTHORIZED',
@@ -71,8 +104,7 @@ describe('Component: AuthHeader', () => {
         }
       },
     });
-    const history = createMemoryHistory();
-    const {getByText} = render(
+    render(
       <Provider store={store}>
         <Router history={history}>
           <AuthHeader>
@@ -82,6 +114,6 @@ describe('Component: AuthHeader', () => {
       </Provider>
     );
 
-    expect(getByText('test child')).toBeInTheDocument();
+    expect(screen.getByText('test child')).toBeInTheDocument();
   });
 })

@@ -1,28 +1,36 @@
 import {Router} from 'react-router-dom';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {createMemoryHistory} from 'history';
 import Genre from './genre.jsx';
 
 describe('Component: Genre', () => {
   const activeClassName = 'catalog__genres-item--active';
+  const history = createMemoryHistory();
+  let handleGenreClick;
+  beforeEach(() => {
+    handleGenreClick = jest.fn();
+  });
   it('Should render correctly active genre', () => {
-    const history = createMemoryHistory();
-    const {getByText, getByTestId} = render(
+    render(
       <Router history={history}>
-        <Genre isActive={true} onGenreClick={() => {}} genre={'Drama'}/>
+        <Genre isActive={true} onGenreClick={handleGenreClick} genre={'Drama'}/>
       </Router>
     );
-    expect(getByText('Drama')).toBeInTheDocument();
-    expect(getByTestId('genre-item').classList.contains(activeClassName)).toBeTruthy();
+    expect(screen.getByText('Drama')).toBeInTheDocument();
+    expect(screen.getByTestId('genre-item')).toHaveClass(activeClassName);
+    userEvent.click(screen.getByTestId('genre-item'));
+    expect(handleGenreClick).toHaveBeenLastCalledWith('Drama')
   });
   it('Should render correctly simple genre', () => {
-    const history = createMemoryHistory();
-    const {getByText, getByTestId} = render(
+    render(
       <Router history={history}>
-        <Genre isActive={false} onGenreClick={() => {}} genre={'Comedy'}/>
+        <Genre isActive={false} onGenreClick={handleGenreClick} genre={'Comedy'}/>
       </Router>
     );
-    expect(getByText('Comedy')).toBeInTheDocument();
-    expect(getByTestId('genre-item').classList.contains(activeClassName)).toBeFalsy();
+    expect(screen.getByText('Comedy')).toBeInTheDocument();
+    expect(screen.getByTestId('genre-item')).not.toHaveClass(activeClassName);
+    userEvent.click(screen.getByTestId('genre-item'));
+    expect(handleGenreClick).toHaveBeenLastCalledWith('Comedy')
   });
 });

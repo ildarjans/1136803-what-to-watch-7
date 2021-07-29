@@ -58,6 +58,7 @@ function ReviewForm({id, onSubmit, errorMessage}) {
                   value={star}
                   onChange={handleInputChange}
                   disabled={posting}
+                  data-testid={`rating-star-${star}`}
                 />
                 <label className="rating__label" htmlFor={`star-${star}`}>Rating {star}</label>
               </React.Fragment>
@@ -73,12 +74,14 @@ function ReviewForm({id, onSubmit, errorMessage}) {
             placeholder="Review text"
             onChange={handleInputChange}
             disabled={posting}
+            data-testid={'comment'}
           />
           <div className="add-review__submit">
             <button
               className="add-review__btn"
               type="submit"
               disabled={!isValidForm || posting}
+              data-testid={'post-button'}
             >
               Post
             </button>
