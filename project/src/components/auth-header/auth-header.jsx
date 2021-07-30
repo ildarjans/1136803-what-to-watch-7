@@ -13,7 +13,7 @@ function AuthHeader({children, ...restProps}) {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const onSignOut = () => dispatch(logoutUser());
+  const handleUserBlockItemClick = () => dispatch(logoutUser());
   const handleUserAvatarClick = () => history.push(AppRoute.FAVORITES);
   const isAuthorized = authorizationStatus === AuthStatus.AUTHORIZED;
   return (
@@ -26,7 +26,7 @@ function AuthHeader({children, ...restProps}) {
               <img src={user.avatarUrl} alt="User avatar" width="63" height="63"/>
             </div>
           </li>
-          <li onClick={onSignOut} className="user-block__item">
+          <li onClick={handleUserBlockItemClick} className="user-block__item">
             <Link to={AppRoute.ROOT} className="user-block__link">Sign Out</Link>
           </li>
         </ul>

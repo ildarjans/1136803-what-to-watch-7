@@ -13,7 +13,7 @@ function AddReviewPage() {
   const film = useSelector((state) => selectFilmById(state, id));
   const addReviewErrorMessage = useSelector(selectPostReviewErrorMessage);
   const dispatch = useDispatch();
-  const onSubmitReviewForm = (filmId, review) => {
+  const handleReviewFormSubmit = (filmId, review) => {
     dispatch(addReview(filmId, review));
   };
 
@@ -43,7 +43,7 @@ function AddReviewPage() {
         </div>
       </div>
 
-      <ReviewForm id={id} onSubmit={onSubmitReviewForm} errorMessage={addReviewErrorMessage}/>
+      <ReviewForm id={id} onSubmit={handleReviewFormSubmit} errorMessage={addReviewErrorMessage}/>
 
     </section>
   );

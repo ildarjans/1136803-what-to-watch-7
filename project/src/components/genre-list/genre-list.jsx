@@ -9,7 +9,7 @@ function GenreList() {
   const genres = useSelector(selectAllGenres);
   const activeGenre = useSelector(selectCurrentGenre);
   const dispatch = useDispatch();
-  const onChangeGenre = (genre) => dispatch(changeGenre(genre));
+  const handleGenreClick = (genre) => dispatch(changeGenre(genre));
 
   return (
     <ul className="catalog__genres-list">
@@ -18,7 +18,7 @@ function GenreList() {
           key={genre}
           genre={genre}
           isActive={activeGenre === genre}
-          onGenreClick={onChangeGenre}
+          onGenreClick={handleGenreClick}
         />
       ))}
     </ul>

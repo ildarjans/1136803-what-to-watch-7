@@ -12,7 +12,7 @@ import {AppRoute, AuthStatus, HeaderClass} from '../../const.js';
 function UserPage() {
   const authorizationStatus = useSelector(selectAuthorizationStatus);
   const dispatch = useDispatch();
-  const handleSubmitForm = (authInfo) => dispatch(loginUser(authInfo));
+  const handleSingInFormSubmit = (authInfo) => dispatch(loginUser(authInfo));
   return authorizationStatus === AuthStatus.NO_AUTHORIZED ?
     (
       <div className="user-page">
@@ -22,7 +22,7 @@ function UserPage() {
         </Header>
 
         <div className="sign-in user-page__content">
-          <SignInForm onSubmit={handleSubmitForm}/>
+          <SignInForm onSubmit={handleSingInFormSubmit}/>
         </div>
 
         <Footer/>
