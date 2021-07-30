@@ -108,7 +108,7 @@ const adaptedFilm = {
   'isFavorite': false,
 };
 
-const filmsList = {
+const adaptedFilmsList = {
   1: {
     'id': '1',
     'title': 'The Grand Budapest Hotel',
@@ -168,7 +168,7 @@ const filmsList = {
   },
 };
 
-const filmsByGenre = {
+const adaptedFilmsByGenre = {
   'All genres': [
     {
       'id': '1',
@@ -561,8 +561,8 @@ describe('films reducer', () => {
     };
 
     const initialState = {
-      filmsList: filmsList,
-      filmsByGenre: filmsByGenre,
+      filmsList: adaptedFilmsList,
+      filmsByGenre: adaptedFilmsByGenre,
       promoFilm: adaptedFilm,
       waitingResponse: false,
       errorMessage: '',
