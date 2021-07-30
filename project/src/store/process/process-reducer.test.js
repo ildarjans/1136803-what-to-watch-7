@@ -7,13 +7,13 @@ describe('process action', () => {
   beforeEach(() => {
     state = {
       currentGenre: DEFAULT_GENRE_TYPE,
-    }
+    };
   });
   it('Without parameters return initial state', () => {
     expect(processReducer(undefined, {})).toEqual(state);
   });
   it('Action \'changeGenre\' return correct state', () => {
-    const payload = 'drama'
+    const payload = 'drama';
     const expectedState = {
       currentGenre: payload,
     };

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
@@ -39,20 +40,20 @@ describe('Component: FilmCardReviews', () => {
             rating: 7.2,
             comment: 'This is his story of hi-jacking, stealing, cheating, killing and finally drug dealing.',
             date: '2021-07-24T20:20:20.594Z',
-          }
+          },
         ],
-      }
+      },
     });
     render(
       <Provider store={store}>
         <Router history={history}>
           <FilmCardReviews id={'1'}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
-    expect(screen.getByTestId('column-1')).toBeInTheDocument()
-    expect(screen.getByTestId('column-2')).toBeInTheDocument()
-    expect(screen.getByText('However, juror Henry Fonda does not believe it to be as sure-fire as it appears.')).toBeInTheDocument()
-    expect(screen.getByText('This is his story of hi-jacking, stealing, cheating, killing and finally drug dealing.')).toBeInTheDocument()
+    expect(screen.getByTestId('column-1')).toBeInTheDocument();
+    expect(screen.getByTestId('column-2')).toBeInTheDocument();
+    expect(screen.getByText('However, juror Henry Fonda does not believe it to be as sure-fire as it appears.')).toBeInTheDocument();
+    expect(screen.getByText('This is his story of hi-jacking, stealing, cheating, killing and finally drug dealing.')).toBeInTheDocument();
   });
 });

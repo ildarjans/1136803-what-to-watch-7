@@ -13,7 +13,7 @@ describe('favorites action', () => {
       type: ActionType.FETCH_FAVORITES_START,
     };
     expect(fetchFavoritesStart()).toEqual(expectedAction);
-  })
+  });
   it('Action creator \'fetchFavoritesSuccess\' return correct action', () => {
     const payload = 'films array';
     const expectedAction = {

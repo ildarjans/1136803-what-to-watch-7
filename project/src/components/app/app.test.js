@@ -1,3 +1,4 @@
+import React from 'react';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -266,7 +267,7 @@ const initialGuestState = {
         rating: 7.2,
         comment: 'This is his story of hi-jacking, stealing, cheating, killing and finally drug dealing.',
         date: '2021-07-24T20:20:20.594Z',
-      }
+      },
     ],
   },
   SIMILAR_FILMS: {
@@ -315,7 +316,7 @@ const initialGuestState = {
   },
   USER: {
     authorizationStatus: 'NO_AUTHORIZED',
-    user: {}
+    user: {},
   },
 };
 
@@ -577,7 +578,7 @@ const initialAuthState = {
         rating: 7.2,
         comment: 'This is his story of hi-jacking, stealing, cheating, killing and finally drug dealing.',
         date: '2021-07-24T20:20:20.594Z',
-      }
+      },
     ],
   },
   SIMILAR_FILMS: {
@@ -632,7 +633,7 @@ const initialAuthState = {
       name: 'Red John',
       avatarUrl: 'www.redjohn.com/img/avatar.jpg',
       token: '00faf9901',
-    }
+    },
   },
 };
 
@@ -700,7 +701,7 @@ describe('App routing', () => {
         <Router history={history}>
           <App/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     history.push(AppRoute.REVIEW.replace(':id', '2'));
     expect(screen.getByText(/sign out/i)).toBeInTheDocument();
@@ -714,7 +715,7 @@ describe('App routing', () => {
         <Router history={history}>
           <App/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     history.push(AppRoute.FAVORITES);
     expect(screen.queryAllByText(/my list/i).length).toBe(2);

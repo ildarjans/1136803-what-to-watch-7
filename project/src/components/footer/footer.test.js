@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -10,8 +11,8 @@ describe('Component: Footer', () => {
     const {getByText} = render(
       <Router history={history}>
         <Footer/>
-      </Router>
+      </Router>,
     );
-    expect(getByText('© 2019 What to watch Ltd.')).toBeInTheDocument()
+    expect(getByText('© 2019 What to watch Ltd.')).toBeInTheDocument();
   });
 });

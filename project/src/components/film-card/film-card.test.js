@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import {render, screen} from '@testing-library/react';
@@ -31,7 +32,7 @@ describe('Component: FilmCard', () => {
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'NO_AUTHORIZED',
-        user: {}
+        user: {},
       },
     });
 
@@ -40,7 +41,7 @@ describe('Component: FilmCard', () => {
         <Router history={history}>
           <FilmCard film={film}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     expect(screen.getByText('WTW')).toBeInTheDocument();
     expect(screen.getByText('The Grand Budapest Hotel')).toBeInTheDocument();

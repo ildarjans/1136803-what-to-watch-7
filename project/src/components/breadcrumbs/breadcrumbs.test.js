@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -9,7 +10,7 @@ describe('Component: Breadcrumbs', () => {
     const {getByText, getByTestId} = render(
       <Router history={history}>
         <Breadcrumbs id={'1'} title={'Snatch'}/>
-      </Router>
+      </Router>,
     );
 
     expect(getByText('Snatch')).toBeInTheDocument();
@@ -17,4 +18,4 @@ describe('Component: Breadcrumbs', () => {
     expect(getByTestId('film-link')).toHaveAttribute('href', '/film/1');
     expect(getByTestId('add-review-link')).toHaveAttribute('href', '/film/1/review');
   });
-})
+});

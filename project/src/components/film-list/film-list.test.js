@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -68,7 +69,7 @@ describe('Component: FilmList', () => {
     const {container} = render(
       <Router history={history}>
         <FilmList films={films}/>
-      </Router>
+      </Router>,
     );
     const filmCards = container.querySelectorAll('[data-testid="small-card"]');
     expect(filmCards.length).toEqual(3);

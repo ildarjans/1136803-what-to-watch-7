@@ -1,3 +1,4 @@
+import React from 'react';
 import {Provider} from 'react-redux';
 import {Route, Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -48,7 +49,7 @@ describe('Component: VideoPlayer', () => {
     window.HTMLMediaElement.prototype._mock = {
       duration: 100,
       currentTime: 10,
-    }
+    };
     Object.defineProperty(window.HTMLMediaElement.prototype, 'duration', {
       get() {
         return this._mock.duration;
@@ -76,7 +77,7 @@ describe('Component: VideoPlayer', () => {
         <Router history={history}>
           <Route exact path={AppRoute.PLAYER} component={VideoPlayer}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/toggler/i)).toBeInTheDocument();
@@ -109,7 +110,7 @@ describe('Component: VideoPlayer', () => {
         <Router history={history}>
           <Route exact path={AppRoute.PLAYER} component={VideoPlayer}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     expect(screen.queryByTestId('spinner')).toBeInTheDocument();
     fireEvent(screen.getByTestId('video'), new Event('canplay'));
@@ -122,7 +123,7 @@ describe('Component: VideoPlayer', () => {
         <Router history={history}>
           <Route exact path={AppRoute.PLAYER} component={VideoPlayer}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.queryByTestId('progress')).toBeInTheDocument();

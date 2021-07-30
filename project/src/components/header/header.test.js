@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -9,7 +10,7 @@ describe('Component: Header', () => {
     const {container} = render(
       <Router history={history}>
         <Header className={'header-general'}/>
-      </Router>
+      </Router>,
     );
     const logo = container.querySelector('.logo');
     const header = container.querySelector('header');
@@ -23,7 +24,7 @@ describe('Component: Header', () => {
         <Header className={'header-special'}>
           <p>test example</p>
         </Header>
-      </Router>
+      </Router>,
     );
     const logo = container.querySelector('.logo');
     const header = container.querySelector('header');

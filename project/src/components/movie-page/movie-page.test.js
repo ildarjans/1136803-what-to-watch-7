@@ -1,3 +1,4 @@
+import React from 'react';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
@@ -91,13 +92,13 @@ describe('Component: MoviePage', () => {
               'starring': [
                 'Tilda Swinton',
                 'Billy Zane',
-                'Quentin Crisp'
+                'Quentin Crisp',
               ],
               'runTime': 94,
               'genre': 'Drama',
               'year': 1992,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Dramas': [
             {
@@ -154,13 +155,13 @@ describe('Component: MoviePage', () => {
               'starring': [
                 'Tilda Swinton',
                 'Billy Zane',
-                'Quentin Crisp'
+                'Quentin Crisp',
               ],
               'runTime': 94,
               'genre': 'Drama',
               'year': 1992,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Comedy': [
             {
@@ -258,13 +259,13 @@ describe('Component: MoviePage', () => {
             'starring': [
               'Tilda Swinton',
               'Billy Zane',
-              'Quentin Crisp'
+              'Quentin Crisp',
             ],
             'runTime': 94,
             'genre': 'Drama',
             'year': 1992,
-            'isFavorite': false
-          }
+            'isFavorite': false,
+          },
         },
         waitingResponse: false,
         errorMessage: '',
@@ -277,7 +278,7 @@ describe('Component: MoviePage', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
       SIMILAR_FILMS: {
         waitingResponse: false,
@@ -322,7 +323,7 @@ describe('Component: MoviePage', () => {
             'isFavorite': false,
           },
         ],
-      }
+      },
     });
 
     render(
@@ -330,7 +331,7 @@ describe('Component: MoviePage', () => {
         <Router history={history}>
           <Route exact path={AppRoute.FILM} component={MoviePage}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     history.push('/film/1');
     expect(screen.getByTestId('film-card-full')).toBeInTheDocument();
@@ -364,7 +365,7 @@ describe('Component: MoviePage', () => {
               'genre': 'Comedy',
               'year': 2014,
               'isFavorite': false,
-            },],
+            }],
           'Comedy': [
             {
               'id': '1',
@@ -419,7 +420,7 @@ describe('Component: MoviePage', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
       SIMILAR_FILMS: {
         waitingResponse: false,
@@ -445,7 +446,7 @@ describe('Component: MoviePage', () => {
             'isFavorite': false,
           },
         ],
-      }
+      },
     });
 
     render(
@@ -453,7 +454,7 @@ describe('Component: MoviePage', () => {
         <Router history={history}>
           <Route exact path={AppRoute.FILM} component={MoviePage}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     history.push('/film/69');
     expect(screen.queryByTestId('film-card-full')).not.toBeInTheDocument();

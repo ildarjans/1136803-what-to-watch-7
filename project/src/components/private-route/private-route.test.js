@@ -1,3 +1,4 @@
+import React from 'react';
 import {Provider} from 'react-redux';
 import {Route, Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -14,7 +15,7 @@ describe('Component: PrivateRoute', () => {
     const store = configureFakeStore({
       USER: {
         authorizationStatus: 'AUTHORIZED',
-      }
+      },
     });
 
     render(
@@ -23,17 +24,17 @@ describe('Component: PrivateRoute', () => {
           <Route path={'/login'}><h1>Welcome to public route</h1></Route>
           <PrivateRoute render={() => (<h1>Welcome to private route</h1>)} path={'/private'} exact/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
-    expect(screen.queryByText('Welcome to private route')).toBeInTheDocument()
-    expect(screen.queryByText('Welcome to public route')).not.toBeInTheDocument()
+    expect(screen.queryByText('Welcome to private route')).toBeInTheDocument();
+    expect(screen.queryByText('Welcome to public route')).not.toBeInTheDocument();
   });
   it('Should render correctly to guest user', () => {
     const store = configureFakeStore({
       USER: {
         authorizationStatus: 'NO_AUTHORIZED',
-      }
+      },
     });
     render(
       <Provider store={store}>
@@ -41,10 +42,10 @@ describe('Component: PrivateRoute', () => {
           <Route path={'/login'}><h1>Welcome to public route</h1></Route>
           <PrivateRoute render={() => (<h1>Welcome to private route</h1>)} path={'/private'} exact/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
-    expect(screen.queryByText('Welcome to public route')).toBeInTheDocument()
-    expect(screen.queryByText('Welcome to private route')).not.toBeInTheDocument()
+    expect(screen.queryByText('Welcome to public route')).toBeInTheDocument();
+    expect(screen.queryByText('Welcome to private route')).not.toBeInTheDocument();
   });
 });

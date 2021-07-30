@@ -1,3 +1,4 @@
+import React from 'react';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
@@ -230,7 +231,7 @@ describe('Component: MainPage', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
     });
     render(
@@ -238,13 +239,13 @@ describe('Component: MainPage', () => {
         <Router history={history}>
           <MainPage/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('Catalog')).toBeInTheDocument();
     expect(screen.queryAllByText('The Grand Budapest Hotel').length).toBe(2);
     expect(screen.queryByText('Show more')).not.toBeInTheDocument();
-  })
+  });
   it('Should render correctly. Films long list', () => {
     const history = createMemoryHistory();
     const configureFakeStore = configureStore([thunk.withExtraArgument(api)]);
@@ -268,12 +269,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Tom Hardy',
                 'Kelly Adams',
-                'Luing Andrews'
+                'Luing Andrews',
               ],
               'runTime': 92,
               'genre': 'Action',
               'year': 2008,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '2',
@@ -291,12 +292,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Rowan Atkinson',
                 'John Malkovich',
-                'Natalie Imbruglia'
+                'Natalie Imbruglia',
               ],
               'runTime': 88,
               'genre': 'Comedy',
               'year': 2003,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '3',
@@ -314,12 +315,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Eddie Redmayne',
                 'Katherine Waterston',
-                'Dan Fogler'
+                'Dan Fogler',
               ],
               'runTime': 134,
               'genre': 'Fantasy',
               'year': 2018,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '4',
@@ -337,12 +338,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Tilda Swinton',
                 'Billy Zane',
-                'Quentin Crisp'
+                'Quentin Crisp',
               ],
               'runTime': 94,
               'genre': 'Drama',
               'year': 1992,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '5',
@@ -360,12 +361,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Owen Wilson',
                 'Adrien Brody',
-                'Jason Schwartzman'
+                'Jason Schwartzman',
               ],
               'runTime': 91,
               'genre': 'Adventure',
               'year': 2007,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '6',
@@ -383,12 +384,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Kayvan Novak',
                 'Matt Berry',
-                'Natasia Demetriou'
+                'Natasia Demetriou',
               ],
               'runTime': 30,
               'genre': 'Comedy',
               'year': 2019,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '7',
@@ -406,12 +407,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Michael Shannon',
                 'Joel Edgerton',
-                'Kirsten Dunst '
+                'Kirsten Dunst ',
               ],
               'runTime': 112,
               'genre': 'Action',
               'year': 2016,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '8',
@@ -429,12 +430,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Leonardo DiCaprio',
                 'Daniel York',
-                'Patcharawan Patarakijjanon'
+                'Patcharawan Patarakijjanon',
               ],
               'runTime': 119,
               'genre': 'Adventure',
               'year': 2000,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '9',
@@ -452,12 +453,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Tilda Swinton',
                 'John C. Reilly',
-                'Ezra Miller'
+                'Ezra Miller',
               ],
               'runTime': 112,
               'genre': 'Drama',
               'year': 2011,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '10',
@@ -475,13 +476,13 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Keanu Reeves',
                 'Laurence Fishburne',
-                'Carrie-Anne Moss'
+                'Carrie-Anne Moss',
               ],
               'runTime': 136,
               'genre': 'Action',
               'year': 1999,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Action': [
             {
@@ -500,12 +501,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Tom Hardy',
                 'Kelly Adams',
-                'Luing Andrews'
+                'Luing Andrews',
               ],
               'runTime': 92,
               'genre': 'Action',
               'year': 2008,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '7',
@@ -523,12 +524,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Michael Shannon',
                 'Joel Edgerton',
-                'Kirsten Dunst '
+                'Kirsten Dunst ',
               ],
               'runTime': 112,
               'genre': 'Action',
               'year': 2016,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '10',
@@ -546,13 +547,13 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Keanu Reeves',
                 'Laurence Fishburne',
-                'Carrie-Anne Moss'
+                'Carrie-Anne Moss',
               ],
               'runTime': 136,
               'genre': 'Action',
               'year': 1999,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Comedy': [
             {
@@ -571,12 +572,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Rowan Atkinson',
                 'John Malkovich',
-                'Natalie Imbruglia'
+                'Natalie Imbruglia',
               ],
               'runTime': 88,
               'genre': 'Comedy',
               'year': 2003,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '6',
@@ -594,13 +595,13 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Kayvan Novak',
                 'Matt Berry',
-                'Natasia Demetriou'
+                'Natasia Demetriou',
               ],
               'runTime': 30,
               'genre': 'Comedy',
               'year': 2019,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Fantasy': [
             {
@@ -619,13 +620,13 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Eddie Redmayne',
                 'Katherine Waterston',
-                'Dan Fogler'
+                'Dan Fogler',
               ],
               'runTime': 134,
               'genre': 'Fantasy',
               'year': 2018,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Drama': [
             {
@@ -644,12 +645,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Tilda Swinton',
                 'Billy Zane',
-                'Quentin Crisp'
+                'Quentin Crisp',
               ],
               'runTime': 94,
               'genre': 'Drama',
               'year': 1992,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '9',
@@ -667,13 +668,13 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Tilda Swinton',
                 'John C. Reilly',
-                'Ezra Miller'
+                'Ezra Miller',
               ],
               'runTime': 112,
               'genre': 'Drama',
               'year': 2011,
-              'isFavorite': false
-            }
+              'isFavorite': false,
+            },
           ],
           'Adventure': [
             {
@@ -692,12 +693,12 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Owen Wilson',
                 'Adrien Brody',
-                'Jason Schwartzman'
+                'Jason Schwartzman',
               ],
               'runTime': 91,
               'genre': 'Adventure',
               'year': 2007,
-              'isFavorite': false
+              'isFavorite': false,
             },
             {
               'id': '8',
@@ -715,14 +716,14 @@ describe('Component: MainPage', () => {
               'starring': [
                 'Leonardo DiCaprio',
                 'Daniel York',
-                'Patcharawan Patarakijjanon'
+                'Patcharawan Patarakijjanon',
               ],
               'runTime': 119,
               'genre': 'Adventure',
               'year': 2000,
-              'isFavorite': false
-            }
-          ]
+              'isFavorite': false,
+            },
+          ],
         },
         filmsList: {
           1: {
@@ -741,12 +742,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Tom Hardy',
               'Kelly Adams',
-              'Luing Andrews'
+              'Luing Andrews',
             ],
             'runTime': 92,
             'genre': 'Action',
             'year': 2008,
-            'isFavorite': false
+            'isFavorite': false,
           },
           2: {
             'id': '2',
@@ -764,12 +765,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Rowan Atkinson',
               'John Malkovich',
-              'Natalie Imbruglia'
+              'Natalie Imbruglia',
             ],
             'runTime': 88,
             'genre': 'Comedy',
             'year': 2003,
-            'isFavorite': false
+            'isFavorite': false,
           },
           3: {
             'id': '3',
@@ -787,12 +788,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Eddie Redmayne',
               'Katherine Waterston',
-              'Dan Fogler'
+              'Dan Fogler',
             ],
             'runTime': 134,
             'genre': 'Fantasy',
             'year': 2018,
-            'isFavorite': false
+            'isFavorite': false,
           },
           4: {
             'id': '4',
@@ -810,12 +811,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Tilda Swinton',
               'Billy Zane',
-              'Quentin Crisp'
+              'Quentin Crisp',
             ],
             'runTime': 94,
             'genre': 'Drama',
             'year': 1992,
-            'isFavorite': false
+            'isFavorite': false,
           },
           5: {
             'id': '5',
@@ -833,12 +834,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Owen Wilson',
               'Adrien Brody',
-              'Jason Schwartzman'
+              'Jason Schwartzman',
             ],
             'runTime': 91,
             'genre': 'Adventure',
             'year': 2007,
-            'isFavorite': false
+            'isFavorite': false,
           },
           6: {
             'id': '6',
@@ -856,12 +857,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Kayvan Novak',
               'Matt Berry',
-              'Natasia Demetriou'
+              'Natasia Demetriou',
             ],
             'runTime': 30,
             'genre': 'Comedy',
             'year': 2019,
-            'isFavorite': false
+            'isFavorite': false,
           },
           7: {
             'id': '7',
@@ -879,12 +880,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Michael Shannon',
               'Joel Edgerton',
-              'Kirsten Dunst '
+              'Kirsten Dunst ',
             ],
             'runTime': 112,
             'genre': 'Action',
             'year': 2016,
-            'isFavorite': false
+            'isFavorite': false,
           },
           8: {
             'id': '8',
@@ -902,12 +903,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Leonardo DiCaprio',
               'Daniel York',
-              'Patcharawan Patarakijjanon'
+              'Patcharawan Patarakijjanon',
             ],
             'runTime': 119,
             'genre': 'Adventure',
             'year': 2000,
-            'isFavorite': false
+            'isFavorite': false,
           },
           9: {
             'id': '9',
@@ -925,12 +926,12 @@ describe('Component: MainPage', () => {
             'starring': [
               'Tilda Swinton',
               'John C. Reilly',
-              'Ezra Miller'
+              'Ezra Miller',
             ],
             'runTime': 112,
             'genre': 'Drama',
             'year': 2011,
-            'isFavorite': false
+            'isFavorite': false,
           },
           10: {
             'id': '10',
@@ -948,13 +949,13 @@ describe('Component: MainPage', () => {
             'starring': [
               'Keanu Reeves',
               'Laurence Fishburne',
-              'Carrie-Anne Moss'
+              'Carrie-Anne Moss',
             ],
             'runTime': 136,
             'genre': 'Action',
             'year': 1999,
-            'isFavorite': false
-          }
+            'isFavorite': false,
+          },
         },
         promoFilm: {
           'id': '1',
@@ -972,12 +973,12 @@ describe('Component: MainPage', () => {
           'starring': [
             'Tom Hardy',
             'Kelly Adams',
-            'Luing Andrews'
+            'Luing Andrews',
           ],
           'runTime': 92,
           'genre': 'Action',
           'year': 2008,
-          'isFavorite': false
+          'isFavorite': false,
         },
         waitingResponse: false,
         errorMessage: '',
@@ -993,7 +994,7 @@ describe('Component: MainPage', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
     });
     render(
@@ -1001,13 +1002,13 @@ describe('Component: MainPage', () => {
         <Router history={history}>
           <MainPage/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('Catalog')).toBeInTheDocument();
     expect(screen.queryAllByText('Bronson').length).toBe(2);
     expect(screen.queryByText('Show more')).toBeInTheDocument();
     userEvent.click(screen.getByTestId('show-more'));
-    expect(screen.queryByText('Show more')).not.toBeInTheDocument()
+    expect(screen.queryByText('Show more')).not.toBeInTheDocument();
   });
 });

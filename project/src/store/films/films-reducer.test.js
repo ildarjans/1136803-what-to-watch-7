@@ -288,7 +288,7 @@ const filmsByGenre = {
       'year': 2014,
       'isFavorite': false,
     },
-  ]
+  ],
 };
 
 describe('films reducer', () => {
@@ -312,7 +312,7 @@ describe('films reducer', () => {
       promoFilm: {},
       waitingResponse: true,
       errorMessage: '',
-    }
+    };
     expect(filmsReducer(state, fetchFilmsStart())).toEqual(expectedState);
   });
   it('Action \'fetchFilmsSuccess\' return correct state', () => {
@@ -323,7 +323,7 @@ describe('films reducer', () => {
       promoFilm: {},
       waitingResponse: false,
       errorMessage: '',
-    }
+    };
     expect(filmsReducer(state, fetchFilmsSuccess(films))).toEqual(expectedState);
   });
   it('Action \'fetchFilmsFail\' return correct state', () => {
@@ -334,7 +334,7 @@ describe('films reducer', () => {
       promoFilm: {},
       waitingResponse: false,
       errorMessage,
-    }
+    };
     expect(filmsReducer(state, fetchFilmsFail(errorMessage))).toEqual(expectedState);
   });
   it('Action \'fetchPromoFilmSuccess\' return correct state', () => {
@@ -344,7 +344,7 @@ describe('films reducer', () => {
       promoFilm: adaptedFilm,
       waitingResponse: false,
       errorMessage: '',
-    }
+    };
     expect(filmsReducer(state, fetchPromoFilmSuccess(film))).toEqual(expectedState);
   });
   it('Action \'fetchPromoFilmFail\' return correct state', () => {
@@ -355,7 +355,7 @@ describe('films reducer', () => {
       promoFilm: {},
       waitingResponse: false,
       errorMessage,
-    }
+    };
     expect(filmsReducer(state, fetchPromoFilmFail(errorMessage))).toEqual(expectedState);
   });
   it('Action \'updateFilm\' return correct state', () => {
@@ -557,7 +557,7 @@ describe('films reducer', () => {
           'year': 2014,
           'isFavorite': true,
         },
-      ]
+      ],
     };
 
     const initialState = {
@@ -596,4 +596,4 @@ describe('films reducer', () => {
 
     expect(filmsReducer(initialState, updateFilm(updatedServerFilm))).toEqual(expectedState);
   });
-})
+});

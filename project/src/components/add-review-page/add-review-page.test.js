@@ -1,3 +1,4 @@
+import React from 'react';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {render, screen} from '@testing-library/react';
@@ -91,14 +92,14 @@ describe('Component: AddReviewPage', () => {
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
         },
-      }
+      },
     });
     render(
       <Provider store={store}>
         <Router history={history}>
           <Route exact path={AppRoute.REVIEW} component={AddReviewPage}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     history.push('/film/1/review');

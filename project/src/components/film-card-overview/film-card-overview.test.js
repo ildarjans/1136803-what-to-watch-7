@@ -1,3 +1,4 @@
+import React from 'react';
 import FilmCardOverview from './film-card-overview.jsx';
 
 const {render} = require('@testing-library/react');
@@ -23,8 +24,8 @@ describe('Component: FilmCardOverview', () => {
       'isFavorite': false,
     };
     const {getByText} = render(
-     <FilmCardOverview film={film}/>
-   );
+      <FilmCardOverview film={film}/>,
+    );
     expect(getByText(/very good/i)).toBeInTheDocument();
     expect(getByText(/240 ratings/i)).toBeInTheDocument();
     expect(getByText(/In the 1930s, the Grand Budapest Hotel is a popular European ski resort/i)).toBeInTheDocument();

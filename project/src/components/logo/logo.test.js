@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {getNodeText, render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -10,7 +11,7 @@ describe('Component: Logo', () => {
     const {container} = render(
       <Router history={history}>
         <Logo className={'logo__link logo__link'}/>
-      </Router>
+      </Router>,
     );
 
     container
@@ -20,4 +21,4 @@ describe('Component: Logo', () => {
         expect(getNodeText(element)).toEqual(logoLetters[i]);
       });
   });
-})
+});

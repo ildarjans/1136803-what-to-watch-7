@@ -162,4 +162,4 @@ describe('similar-films-reducer', () => {
   });
 
 
-})
+});

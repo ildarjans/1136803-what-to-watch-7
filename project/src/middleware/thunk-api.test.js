@@ -32,7 +32,7 @@ describe('Async actions', () => {
     return fetchFilmsLoader(dispatch, () => {
     }, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
+        expect(dispatch).toBeCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.FETCH_FILMS_START,
         });
@@ -184,7 +184,8 @@ describe('Async actions', () => {
       .onDelete(ApiRoute.LOGOUT)
       .reply(200);
 
-    return logoutUserLoader(dispatch, () => {}, api)
+    return logoutUserLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -204,7 +205,8 @@ describe('Async actions', () => {
       .onDelete(ApiRoute.LOGOUT)
       .reply(404, 'logout failed message');
 
-    return logoutUserLoader(dispatch, () => {}, api)
+    return logoutUserLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -212,7 +214,8 @@ describe('Async actions', () => {
           payload: 'logout failed message',
         });
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
   it('should correct API call to GET /favorites', () => {
     const apiMock = new MockAdapter(api);
@@ -223,7 +226,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_FAVORITES)
       .reply(200, [{fake: true}]);
 
-    return fetchFavoritesLoader(dispatch, () => {}, api)
+    return fetchFavoritesLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -244,7 +248,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_FAVORITES)
       .reply(404, 'error message');
 
-    return fetchFavoritesLoader(dispatch, () => {}, api)
+    return fetchFavoritesLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -256,7 +261,8 @@ describe('Async actions', () => {
         });
 
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
   it('should correct API call to GET /films/:id/similar', () => {
     const apiMock = new MockAdapter(api);
@@ -268,7 +274,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_SIMILAR_FILMS.replace(':id', id))
       .reply(200, [{fake: true}]);
 
-    return fetchSimilarFilmsLoader(dispatch, () => {}, api)
+    return fetchSimilarFilmsLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -290,7 +297,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_SIMILAR_FILMS.replace(':id', id))
       .reply(404, 'error message');
 
-    return fetchSimilarFilmsLoader(dispatch, () => {}, api)
+    return fetchSimilarFilmsLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -302,7 +310,8 @@ describe('Async actions', () => {
         });
 
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
   it('should correct API call to GET /comments/:film_id', () => {
     const apiMock = new MockAdapter(api);
@@ -314,7 +323,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_REVIEWS.replace(':film_id', id))
       .reply(200, [{fake: true}]);
 
-    return fetchReviewsLoader(dispatch, () => {}, api)
+    return fetchReviewsLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -336,7 +346,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_REVIEWS.replace(':film_id', id))
       .reply(404, 'error message');
 
-    return fetchReviewsLoader(dispatch, () => {}, api)
+    return fetchReviewsLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -347,7 +358,8 @@ describe('Async actions', () => {
           payload: 'error message',
         });
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
   it('should correct API call to POST /comments/:film_id', () => {
     const apiMock = new MockAdapter(api);
@@ -360,7 +372,8 @@ describe('Async actions', () => {
       .onPost(ApiRoute.ADD_REVIEW.replace(':film_id', id), review)
       .reply(200, [{fake: true}]);
 
-    return addReviewLoader(dispatch, () => {}, api)
+    return addReviewLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -387,7 +400,8 @@ describe('Async actions', () => {
       .onPost(ApiRoute.ADD_REVIEW.replace(':film_id', id), review)
       .reply(404, 'error message');
 
-    return addReviewLoader(dispatch, () => {}, api)
+    return addReviewLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -399,7 +413,8 @@ describe('Async actions', () => {
           payload: '/film/1/review',
         });
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
   it('should correct API call to GET /promo', () => {
     const apiMock = new MockAdapter(api);
@@ -410,7 +425,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_PROMO)
       .reply(200, [{fake: true}]);
 
-    return fetchPromoFilmLoader(dispatch, () => {}, api)
+    return fetchPromoFilmLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -428,7 +444,8 @@ describe('Async actions', () => {
       .onGet(ApiRoute.FETCH_PROMO)
       .reply(404, 'error message');
 
-    return fetchPromoFilmLoader(dispatch, () => {}, api)
+    return fetchPromoFilmLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -436,7 +453,8 @@ describe('Async actions', () => {
           payload: 'error message',
         });
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
   it('should correct API call to POST /favorite/:film_id/:status', () => {
     const apiMock = new MockAdapter(api);
@@ -449,7 +467,8 @@ describe('Async actions', () => {
       .onPost(ApiRoute.ADD_TO_FAVORITES.replace(':film_id', id).replace(':status', status))
       .reply(200, [{fake: true}]);
 
-    return addToFavoritesLoader(dispatch, () => {}, api)
+    return addToFavoritesLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(2);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -472,7 +491,8 @@ describe('Async actions', () => {
       .onPost(ApiRoute.ADD_TO_FAVORITES.replace(':film_id', id).replace(':status', status))
       .reply(404, 'error message');
 
-    return addToFavoritesLoader(dispatch, () => {}, api)
+    return addToFavoritesLoader(dispatch, () => {
+    }, api)
       .then(() => {
         expect(dispatch).toHaveBeenCalledTimes(1);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -480,6 +500,7 @@ describe('Async actions', () => {
           payload: 'error message',
         });
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   });
 });

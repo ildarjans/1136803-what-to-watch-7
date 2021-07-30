@@ -1,11 +1,14 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {getByTestId, render} from '@testing-library/react';
+import {screen, render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import FilmCardFull from './film-card-full.jsx';
 
 describe('Component: FilmCardFull', () => {
+  const history = createMemoryHistory();
+  const createFakeStore = configureStore();
   it('Should render correctly then user authorized', () => {
     const film = {
       'id': '1',
@@ -26,28 +29,26 @@ describe('Component: FilmCardFull', () => {
       'year': 2014,
       'isFavorite': false,
     };
-    const history = createMemoryHistory();
-    const createFakeStore = configureStore();
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'AUTHORIZED',
         user: {},
       },
-    })
-    const {getByText, getByTestId} = render(
+    });
+    render(
       <Provider store={store}>
         <Router history={history}>
           <FilmCardFull authorizationStatus={'AUTHORIZED'} film={film}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
-    expect(getByText('The Grand Budapest Hotel')).toBeInTheDocument();
-    expect(getByText('Comedy')).toBeInTheDocument();
-    expect(getByText('2014')).toBeInTheDocument();
-    expect(getByText('Add review')).toBeInTheDocument();
-    expect(getByTestId('bg-image')).toHaveAttribute('src', 'img/bg-the-grand-budapest-hotel.jpg');
-    expect(getByTestId('poster-image')).toHaveAttribute('src', 'img/the-grand-budapest-hotel-poster.jpg');
-  })
+    expect(screen.getByText('The Grand Budapest Hotel')).toBeInTheDocument();
+    expect(screen.getByText('Comedy')).toBeInTheDocument();
+    expect(screen.getByText('2014')).toBeInTheDocument();
+    expect(screen.getByText('Add review')).toBeInTheDocument();
+    expect(screen.getByTestId('bg-image')).toHaveAttribute('src', 'img/bg-the-grand-budapest-hotel.jpg');
+    expect(screen.getByTestId('poster-image')).toHaveAttribute('src', 'img/the-grand-budapest-hotel-poster.jpg');
+  });
   it('Should render correctly then user is guest', () => {
     const film = {
       'id': '1',
@@ -68,26 +69,24 @@ describe('Component: FilmCardFull', () => {
       'year': 2014,
       'isFavorite': false,
     };
-    const history = createMemoryHistory();
-    const createFakeStore = configureStore();
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'NO_AUTHORIZED',
         user: {},
       },
-    })
-    const {getByText, getByTestId, queryByText} = render(
+    });
+    render(
       <Provider store={store}>
         <Router history={history}>
           <FilmCardFull authorizationStatus={'NO_AUTHORIZED'} film={film}/>
         </Router>
-      </Provider>
+      </Provider>,
     );
-    expect(getByText('The Grand Budapest Hotel')).toBeInTheDocument();
-    expect(getByText('Comedy')).toBeInTheDocument();
-    expect(getByText('2014')).toBeInTheDocument();
-    expect(queryByText('Add review')).not.toBeInTheDocument();
-    expect(getByTestId('bg-image')).toHaveAttribute('src', 'img/bg-the-grand-budapest-hotel.jpg');
-    expect(getByTestId('poster-image')).toHaveAttribute('src', 'img/the-grand-budapest-hotel-poster.jpg');
-  })
+    expect(screen.getByText('The Grand Budapest Hotel')).toBeInTheDocument();
+    expect(screen.getByText('Comedy')).toBeInTheDocument();
+    expect(screen.getByText('2014')).toBeInTheDocument();
+    expect(screen.queryByText('Add review')).not.toBeInTheDocument();
+    expect(screen.getByTestId('bg-image')).toHaveAttribute('src', 'img/bg-the-grand-budapest-hotel.jpg');
+    expect(screen.getByTestId('poster-image')).toHaveAttribute('src', 'img/the-grand-budapest-hotel-poster.jpg');
+  });
 });

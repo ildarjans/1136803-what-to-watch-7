@@ -24,4 +24,4 @@ describe('similar films action', () => {
     };
     expect(fetchSimilarFilmsFail(payload)).toEqual(expectedAction);
   });
-})
+});

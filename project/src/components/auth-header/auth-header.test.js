@@ -1,11 +1,12 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import * as Redux from 'react-redux';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {createMemoryHistory} from 'history';
 import {render, screen} from '@testing-library/react';
-import AuthHeader from './auth-header.jsx';
 import userEvent from '@testing-library/user-event';
+import AuthHeader from './auth-header.jsx';
 import {AppRoute} from '../../const.js';
 
 describe('Component: AuthHeader', () => {
@@ -24,7 +25,7 @@ describe('Component: AuthHeader', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
     });
     const dispatch = jest.fn();
@@ -34,7 +35,7 @@ describe('Component: AuthHeader', () => {
         <Router history={history}>
           <AuthHeader/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const userAvatarImg = screen.getByAltText(/user avatar/i);
@@ -59,7 +60,7 @@ describe('Component: AuthHeader', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
     });
     render(
@@ -67,7 +68,7 @@ describe('Component: AuthHeader', () => {
         <Router history={history}>
           <AuthHeader/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     userEvent.click(screen.getByAltText(/user avatar/i));
@@ -78,7 +79,7 @@ describe('Component: AuthHeader', () => {
     const store = createFakeStore({
       USER: {
         authorizationStatus: 'NO_AUTHORIZED',
-        user: {}
+        user: {},
       },
     });
     render(
@@ -86,7 +87,7 @@ describe('Component: AuthHeader', () => {
         <Router history={history}>
           <AuthHeader/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText(/sign in/i)).toHaveAttribute('href', '/login');
@@ -101,7 +102,7 @@ describe('Component: AuthHeader', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
     });
     render(
@@ -111,9 +112,9 @@ describe('Component: AuthHeader', () => {
             <p>test child</p>
           </AuthHeader>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     expect(screen.getByText('test child')).toBeInTheDocument();
   });
-})
+});

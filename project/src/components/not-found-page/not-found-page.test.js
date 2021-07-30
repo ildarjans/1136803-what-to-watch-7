@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -9,11 +10,11 @@ describe('Component: NotFoundPage', () => {
     const {getByText} = render(
       <Router history={history}>
         <NotFoundPage/>
-      </Router>
+      </Router>,
     );
 
-  expect(getByText('Page not Found')).toBeInTheDocument();
-  expect(getByText('Go to main page')).toBeInTheDocument();
+    expect(getByText('Page not Found')).toBeInTheDocument();
+    expect(getByText('Go to main page')).toBeInTheDocument();
 
   });
 });

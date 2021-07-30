@@ -1,3 +1,4 @@
+import React from 'react';
 import {createMemoryHistory} from 'history';
 import FilmCardSmall from './film-card-small.jsx';
 import {Router} from 'react-router-dom';
@@ -15,6 +16,7 @@ describe('Component: FilmCardSmall', () => {
   it('Should render correctly, without video preview', () => {
     const handleCardHover = jest.fn();
     const history = createMemoryHistory();
+    //eslint-disable-next-line
     console.error = jest.fn();
     const {rerender} = render(
       <Router history={history}>
@@ -26,7 +28,7 @@ describe('Component: FilmCardSmall', () => {
           hasVideo={false}
           image={'https://7.react.pages.academy/static/film/preview/bronson.jpg'}
         />
-      </Router>
+      </Router>,
     );
 
     expect(screen.getByText('Bronson')).toBeInTheDocument();
@@ -44,12 +46,13 @@ describe('Component: FilmCardSmall', () => {
           title={'Bronson'}
           onCardHover={handleCardHover}
           videoSrc={'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm'}
-          hasVideo={true}
+          hasVideo
           image={'https://7.react.pages.academy/static/film/preview/bronson.jpg'}
         />
-      </Router>
+      </Router>,
     );
-    expect(console.error).toHaveBeenCalledWith('Warning: unstable_flushDiscreteUpdates: Cannot flush updates when React is already rendering.%s', expect.any(String))
+    //eslint-disable-next-line
+    expect(console.error).toHaveBeenCalledWith('Warning: unstable_flushDiscreteUpdates: Cannot flush updates when React is already rendering.%s', expect.any(String));
     expect(screen.queryByTestId('video')).toBeInTheDocument();
     expect(screen.queryByTestId('image')).not.toBeInTheDocument();
   });

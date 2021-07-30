@@ -22,7 +22,7 @@ const fakeHistory = {
 jest.mock('../browser-history.js', () => ({
   get browserHistory () {
     return fakeHistory;
-  }
+  },
 }));
 
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {getNodeText, render} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
@@ -13,8 +14,8 @@ describe('Component: GenreList', () => {
     const store = createFakeStore({
       PROCESS: {currentGenre: 'All genres'},
       FILMS: {
-        filmsByGenre: {'Drama': '', 'Comedy': '', 'Fantasy': '', 'Thriller': '', 'Crime': '', 'All genres': ''}
-      }
+        filmsByGenre: {'Drama': '', 'Comedy': '', 'Fantasy': '', 'Thriller': '', 'Crime': '', 'All genres': ''},
+      },
     });
 
     const {container} = render(
@@ -22,7 +23,7 @@ describe('Component: GenreList', () => {
         <Router history={history}>
           <GenreList/>
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const genreItems = container.querySelectorAll('[data-testid="genre-item"]');

@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Redux from 'react-redux';
 import {Provider} from 'react-redux';
 import {render, screen} from '@testing-library/react';
@@ -14,7 +15,7 @@ let mockAddToFavorites;
 jest.mock('../../middleware/thunk-api.js', () => ({
   get addToFavorites() {
     return mockAddToFavorites;
-  }
+  },
 }));
 
 describe('Component: MyListButton', () => {
@@ -26,8 +27,8 @@ describe('Component: MyListButton', () => {
   it('Should render correctly if is favorite', () => {
     render(
       <Provider store={createFakeStore()}>
-        <MyListButton id={'1'} isFavorite={true}/>
-      </Provider>
+        <MyListButton id={'1'} isFavorite/>
+      </Provider>,
     );
     expect(screen.getByTestId('in-list')).toBeInTheDocument();
     expect(screen.queryByTestId('add-to-list')).not.toBeInTheDocument();
@@ -40,7 +41,7 @@ describe('Component: MyListButton', () => {
     render(
       <Provider store={createFakeStore()}>
         <MyListButton id={'1'} isFavorite={false}/>
-      </Provider>
+      </Provider>,
     );
     expect(screen.getByTestId('add-to-list')).toBeInTheDocument();
     expect(screen.queryByTestId('in-list')).not.toBeInTheDocument();

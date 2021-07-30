@@ -1,3 +1,4 @@
+import React from 'react';
 import {render} from '@testing-library/react';
 import FilmReview from './film-review.jsx';
 
@@ -16,7 +17,7 @@ describe('Component: FilmReview', () => {
     };
 
     const {getByText} = render(
-      <FilmReview review={review}/>
+      <FilmReview review={review}/>,
     );
     expect(getByText(comment)).toBeInTheDocument();
     expect(getByText('Red John')).toBeInTheDocument();

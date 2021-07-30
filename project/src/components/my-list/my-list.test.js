@@ -1,3 +1,4 @@
+import React from 'react';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -47,7 +48,7 @@ describe('Component: MyList', () => {
           name: 'Red John',
           avatarUrl: 'www.redjohn.com/img/avatar.jpg',
           token: '00faf9901',
-        }
+        },
       },
     });
     render(
@@ -55,7 +56,7 @@ describe('Component: MyList', () => {
         <Router history={history}>
           <MyList/>
         </Router>
-      </Provider>
+      </Provider>,
     );
     expect(screen.queryAllByText(/my list/i).length).toBe(2);
     expect(screen.getByText('Fantastic Beasts: The Crimes of Grindelwald')).toBeInTheDocument();

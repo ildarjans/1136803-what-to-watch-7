@@ -1,3 +1,4 @@
+import React from 'react';
 import {render} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
@@ -9,10 +10,10 @@ describe('Component: AddReviewButton', () => {
     const {getByText, container} = render(
       <Router history={history}>
         <AddReviewButton id={'1'}/>
-      </Router>
+      </Router>,
     );
     const addButtonReviewLink = container.querySelector('.btn.film-card__button');
     expect(getByText('Add review')).toBeInTheDocument();
     expect(addButtonReviewLink).toHaveAttribute('href', '/film/1/review');
   });
-})
+});

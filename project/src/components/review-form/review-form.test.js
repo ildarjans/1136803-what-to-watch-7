@@ -1,3 +1,4 @@
+import React from 'react';
 import ReviewForm from './review-form.jsx';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -6,7 +7,7 @@ describe('Component: ReviewForm', () => {
   it('Should render correctly. Case: not enough text', () => {
     const handleFormSubmit = jest.fn();
     render(
-      <ReviewForm onSubmit={handleFormSubmit} id={'1'} errorMessage={''}/>
+      <ReviewForm onSubmit={handleFormSubmit} id={'1'} errorMessage={''}/>,
     );
     expect(screen.queryByTestId('comment')).toBeInTheDocument();
     expect(screen.queryByTestId('rating-star-5')).toBeInTheDocument();
@@ -23,7 +24,7 @@ describe('Component: ReviewForm', () => {
     const handleFormSubmit = jest.fn();
     const validComment = 'This review is absolutely valid and ready to submit and send to server.';
     render(
-      <ReviewForm onSubmit={handleFormSubmit} id={'1'} errorMessage={''}/>
+      <ReviewForm onSubmit={handleFormSubmit} id={'1'} errorMessage={''}/>,
     );
     expect(screen.queryByTestId('comment')).toBeInTheDocument();
     expect(screen.queryByTestId('rating-star-1')).toBeInTheDocument();
@@ -40,7 +41,7 @@ describe('Component: ReviewForm', () => {
   it('Should render correctly. Case: display error message', () => {
     const handleFormSubmit = jest.fn();
     render(
-      <ReviewForm onSubmit={handleFormSubmit} id={'1'} errorMessage={'bad request error message'}/>
+      <ReviewForm onSubmit={handleFormSubmit} id={'1'} errorMessage={'bad request error message'}/>,
     );
     expect(screen.getByText('Something goes wrong, try again later.')).toBeInTheDocument();
   });

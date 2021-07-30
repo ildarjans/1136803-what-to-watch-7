@@ -1,3 +1,4 @@
+import React from 'react';
 import {render} from '@testing-library/react';
 import FilmCardDetails from './film-card-details.jsx';
 
@@ -23,7 +24,7 @@ describe('Component: FilmCardDetails', () => {
       'isFavorite': false,
     };
     const {getByText} = render(
-      <FilmCardDetails film={film}/>
+      <FilmCardDetails film={film}/>,
     );
     expect(getByText('Wes Andreson')).toBeInTheDocument();
     expect(getByText(/Bill Murray/i)).toBeInTheDocument();

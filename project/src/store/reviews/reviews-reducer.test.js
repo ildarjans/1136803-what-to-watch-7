@@ -36,12 +36,12 @@ describe('reviews reducer', () => {
     const reviews = [
       {
         'rating': 8,
-        'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European.'
+        'comment': 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European.',
       },
       {
         'rating': 3,
-        'comment': 'Raj is a rich, carefree, happy-go-lucky second generation NRI.'
-      }
+        'comment': 'Raj is a rich, carefree, happy-go-lucky second generation NRI.',
+      },
     ];
     const expectedState = {
       waitingFetchResponse: false,
@@ -86,4 +86,4 @@ describe('reviews reducer', () => {
   });
 
 
-})
+});

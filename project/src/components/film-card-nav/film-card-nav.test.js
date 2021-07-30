@@ -33,7 +33,7 @@ describe('Component: FilmCardNav', () => {
     render(
       <Router history={history}>
         <FilmCardNav film={film}/>
-      </Router>
+      </Router>,
     );
     expect(screen.getByText(/overview/i)).toBeInTheDocument();
     expect(screen.getByText(/details/i)).toBeInTheDocument();

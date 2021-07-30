@@ -18,4 +18,4 @@ describe('process action', () => {
     };
     expect(redirectToRoute(payload)).toEqual(expectedAction);
   });
-})
+});

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Router} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,23 +15,23 @@ describe('Component: Genre', () => {
   it('Should render correctly active genre', () => {
     render(
       <Router history={history}>
-        <Genre isActive={true} onGenreClick={handleGenreClick} genre={'Drama'}/>
-      </Router>
+        <Genre isActive onGenreClick={handleGenreClick} genre={'Drama'}/>
+      </Router>,
     );
     expect(screen.getByText('Drama')).toBeInTheDocument();
     expect(screen.getByTestId('genre-item')).toHaveClass(activeClassName);
     userEvent.click(screen.getByTestId('genre-item'));
-    expect(handleGenreClick).toHaveBeenLastCalledWith('Drama')
+    expect(handleGenreClick).toHaveBeenLastCalledWith('Drama');
   });
   it('Should render correctly simple genre', () => {
     render(
       <Router history={history}>
         <Genre isActive={false} onGenreClick={handleGenreClick} genre={'Comedy'}/>
-      </Router>
+      </Router>,
     );
     expect(screen.getByText('Comedy')).toBeInTheDocument();
     expect(screen.getByTestId('genre-item')).not.toHaveClass(activeClassName);
     userEvent.click(screen.getByTestId('genre-item'));
-    expect(handleGenreClick).toHaveBeenLastCalledWith('Comedy')
+    expect(handleGenreClick).toHaveBeenLastCalledWith('Comedy');
   });
 });
