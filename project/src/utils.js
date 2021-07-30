@@ -1,14 +1,6 @@
 import {DisplayCards} from './const.js';
 
-export const getRandomInteger = (max, min = 0) => Math.round(min + Math.random() * (max - min));
-
-export const getRandomArrayElement = (arr) => arr[getRandomInteger(arr.length - 1)];
-
-export const getFilmByID = (films, id) => films.find((film) => film.id === id);
-
 export const extend = (obj1, obj2) => ({...{}, ...obj1, ...obj2});
-
-export const reduceFilmGenres = (acc, film) => acc.includes(film.genre) ? acc : [...acc, film.genre];
 
 export const adaptFilmToClient = (film) => (
   {
@@ -55,11 +47,11 @@ export const getFilmsMoreLikeThis = (films, filmSample) => (
     .slice(0, DisplayCards.MORE_LIKE_THIS)
 );
 
-export const chunkArray = (arr, chunks = 2) => {
-  const chunksArray = [];
-  const chunkSize = Math.round(arr.length / chunks);
+export const chunkArray = (arr, chunksAmount = 2) => {
+  const chunks = [];
+  const chunkSize = Math.round(arr.length / chunksAmount);
   while (arr.length) {
-    chunksArray.push(arr.splice(0, chunkSize));
+    chunks.push(arr.splice(0, chunkSize));
   }
-  return chunksArray;
+  return chunks;
 };
