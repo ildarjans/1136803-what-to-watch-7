@@ -66,7 +66,7 @@ describe('user action', () => {
       id: 1,
       email: 'example@hotmail.com',
       name: 'Billy Johns',
-      avatar_url: 'pirates.com/avatars/billy.img',
+      avatar_url: 'pirates.com/avatars/billy.img', // eslint-disable-line
       token: 'af301ff01',
     };
     const adaptedUser = {
