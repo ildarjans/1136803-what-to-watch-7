@@ -15,6 +15,7 @@ import {ApiRoute} from '../const.js';
 
 
 describe('Async actions', () => {
+  const DEFAULT_ERROR_MESSAGE = 'Request failed with status code 404';
   let api;
   beforeAll(() => {
     api = createAPI();
@@ -42,29 +43,45 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to GET /films', () => {
+  it('should failed API call to GET /films', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const fetchFilmsLoader = fetchFilms();
 
     apiMock
       .onGet(ApiRoute.FETCH_FILMS)
-      .reply(404, 'error message');
+      .reply(404);
 
-    return fetchFilmsLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.FETCH_FILMS_START,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.FETCH_FILMS_FAIL,
-          payload: 'error message',
-        });
-      })
-      .catch(() => {
+    try {
+      await fetchFilmsLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.FETCH_FILMS_START,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.FETCH_FILMS_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
+      });
+    }
+
+    // return fetchFilmsLoader(dispatch, () => {
+    // }, api)
+    //   .then(() => {
+    //     expect(dispatch).toHaveBeenCalledTimes(2);
+    //     expect(dispatch).toHaveBeenNthCalledWith(1, {
+    //       type: ActionType.FETCH_FILMS_START,
+    //     });
+    //   })
+    //   .catch(() => {
+    //   })
+    //   .finally(() => {
+    //     expect(dispatch).toHaveBeenNthCalledWith(2, {
+    //       type: ActionType.FETCH_FILMS_FAIL,
+    //       payload: 'Request failed with status code 404',
+    //     });
+    //   });
+
+
   });
   it('should correct API call to GET /login', () => {
     const apiMock = new MockAdapter(api);
@@ -91,29 +108,27 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to GET /login', () => {
+  it('should failed API call to GET /login', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const checkAuthUserLoader = checkAuthUser();
 
     apiMock
       .onGet(ApiRoute.LOGIN)
-      .reply(404, 'error message');
+      .reply(404);
 
-    return checkAuthUserLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.SEND_AUTHORIZATION_REQUEST,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.AUTHORIZATION_FAIL,
-          payload: 'error message',
-        });
-      })
-      .catch(() => {
+    try {
+      await checkAuthUserLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.SEND_AUTHORIZATION_REQUEST,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.AUTHORIZATION_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
+      });
+    }
   });
   it('should correct API call to POST /login', () => {
     const apiMock = new MockAdapter(api);
@@ -145,7 +160,7 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to POST /login', () => {
+  it('should failed API call to POST /login', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const authData = {email: 'example@hotmail.com', password: 'qwerty'};
@@ -153,25 +168,24 @@ describe('Async actions', () => {
 
     apiMock
       .onPost(ApiRoute.LOGIN, authData)
-      .reply(404, 'authorization fail message');
+      .reply(404);
 
-    return loginUserLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(3);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.SEND_AUTHORIZATION_REQUEST,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.AUTHORIZATION_FAIL,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
-          type: ActionType.REDIRECT_TO_ROUTE,
-          payload: '/login',
-        });
-      })
-      .catch(() => {
+    try {
+      await loginUserLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(3);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.SEND_AUTHORIZATION_REQUEST,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.AUTHORIZATION_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
+      });
+      expect(dispatch).toHaveBeenNthCalledWith(3, {
+        type: ActionType.REDIRECT_TO_ROUTE,
+        payload: '/login',
+      });
+    }
   });
   it('should correct API call to DELETE /logout', () => {
     const apiMock = new MockAdapter(api);
@@ -196,26 +210,24 @@ describe('Async actions', () => {
       });
 
   });
-  it('should failed API call to DELETE /logout', () => {
+  it('should failed API call to DELETE /logout', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const logoutUserLoader = logoutUser();
 
     apiMock
       .onDelete(ApiRoute.LOGOUT)
-      .reply(404, 'logout failed message');
+      .reply(404);
 
-    return logoutUserLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.LOGOUT_USER_FAIL,
-          payload: 'logout failed message',
-        });
-      })
-      .catch(() => {
+    try {
+      await logoutUserLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.LOGOUT_USER_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
       });
+    }
   });
   it('should correct API call to GET /favorites', () => {
     const apiMock = new MockAdapter(api);
@@ -239,30 +251,27 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to GET /favorites', () => {
+  it('should failed API call to GET /favorites', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const fetchFavoritesLoader = fetchFavorites();
 
     apiMock
       .onGet(ApiRoute.FETCH_FAVORITES)
-      .reply(404, 'error message');
+      .reply(404);
 
-    return fetchFavoritesLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.FETCH_FAVORITES_START,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.FETCH_FAVORITES_FAIL,
-          payload: 'error message',
-        });
-
-      })
-      .catch(() => {
+    try {
+      await fetchFavoritesLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.FETCH_FAVORITES_START,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.FETCH_FAVORITES_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
+      });
+    }
   });
   it('should correct API call to GET /films/:id/similar', () => {
     const apiMock = new MockAdapter(api);
@@ -287,7 +296,7 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to GET /films/:id/similar', () => {
+  it('should failed API call to GET /films/:id/similar', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = '1';
@@ -295,23 +304,20 @@ describe('Async actions', () => {
 
     apiMock
       .onGet(ApiRoute.FETCH_SIMILAR_FILMS.replace(':id', id))
-      .reply(404, 'error message');
+      .reply(404);
 
-    return fetchSimilarFilmsLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.FETCH_SIMILAR_FILMS_START,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.FETCH_SIMILAR_FILMS_FAIL,
-          payload: 'error message',
-        });
-
-      })
-      .catch(() => {
+    try {
+      await fetchSimilarFilmsLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.FETCH_SIMILAR_FILMS_START,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.FETCH_SIMILAR_FILMS_FAIL,
+        payload: 'Request failed with status code 404',
+      });
+    }
   });
   it('should correct API call to GET /comments/:film_id', () => {
     const apiMock = new MockAdapter(api);
@@ -336,7 +342,7 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to GET /comments/:film_id', () => {
+  it('should failed API call to GET /comments/:film_id', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = '1';
@@ -344,22 +350,20 @@ describe('Async actions', () => {
 
     apiMock
       .onGet(ApiRoute.FETCH_REVIEWS.replace(':film_id', id))
-      .reply(404, 'error message');
+      .reply(404);
 
-    return fetchReviewsLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.FETCH_REVIEWS_START,
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.FETCH_REVIEWS_FAIL,
-          payload: 'error message',
-        });
-      })
-      .catch(() => {
+    try {
+      await fetchReviewsLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.FETCH_REVIEWS_START,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.FETCH_REVIEWS_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
+      });
+    }
   });
   it('should correct API call to POST /comments/:film_id', () => {
     const apiMock = new MockAdapter(api);
@@ -389,7 +393,7 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to POST /comments/:film_id', () => {
+  it('should failed API call to POST /comments/:film_id', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = '1';
@@ -398,23 +402,21 @@ describe('Async actions', () => {
 
     apiMock
       .onPost(ApiRoute.ADD_REVIEW.replace(':film_id', id), review)
-      .reply(404, 'error message');
+      .reply(404);
 
-    return addReviewLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(2);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.ADD_REVIEW_FAIL,
-          payload: 'error message',
-        });
-        expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.REDIRECT_TO_ROUTE,
-          payload: '/film/1/review',
-        });
-      })
-      .catch(() => {
+    try {
+      await addReviewLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.ADD_REVIEW_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
       });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: ActionType.REDIRECT_TO_ROUTE,
+        payload: '/film/1/review',
+      });
+    }
   });
   it('should correct API call to GET /promo', () => {
     const apiMock = new MockAdapter(api);
@@ -435,26 +437,24 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to GET /promo', () => {
+  it('should failed API call to GET /promo', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const fetchPromoFilmLoader = fetchPromoFilm();
 
     apiMock
       .onGet(ApiRoute.FETCH_PROMO)
-      .reply(404, 'error message');
+      .reply(404);
 
-    return fetchPromoFilmLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.FETCH_PROMO_FILM_FAIL,
-          payload: 'error message',
-        });
-      })
-      .catch(() => {
+    try {
+      await fetchPromoFilmLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.FETCH_PROMO_FILM_FAIL,
+        payload: DEFAULT_ERROR_MESSAGE,
       });
+    }
   });
   it('should correct API call to POST /favorite/:film_id/:status', () => {
     const apiMock = new MockAdapter(api);
@@ -480,7 +480,7 @@ describe('Async actions', () => {
         });
       });
   });
-  it('should failed API call to POST /favorite/:film_id/:status', () => {
+  it('should failed API call to POST /favorite/:film_id/:status', async () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const id = '1';
@@ -489,18 +489,16 @@ describe('Async actions', () => {
 
     apiMock
       .onPost(ApiRoute.ADD_TO_FAVORITES.replace(':film_id', id).replace(':status', status))
-      .reply(404, 'error message');
+      .reply(404);
 
-    return addToFavoritesLoader(dispatch, () => {
-    }, api)
-      .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
-        expect(dispatch).toHaveBeenNthCalledWith(1, {
-          type: ActionType.ADD_TO_FAVORITES_FAIL,
-          payload: 'error message',
-        });
-      })
-      .catch(() => {
+    try {
+      await addToFavoritesLoader(dispatch, null, api);
+    } finally {
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: ActionType.ADD_TO_FAVORITES_FAIL,
+        payload: 'Request failed with status code 404',
       });
+    }
   });
 });
