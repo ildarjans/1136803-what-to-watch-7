@@ -48,7 +48,7 @@ function ReviewForm({id, onSubmit, errorMessage}) {
 
         <div className="rating">
           <div className="rating__stars">
-            {ratingStars.map((star, i) => (
+            {ratingStars.map((star) => (
               <React.Fragment key={star}>
                 <input
                   className="rating__input"

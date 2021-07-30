@@ -29,7 +29,7 @@ export const reviewsReducer = createReducer(initialState, (builder) => {
       state.waitingFetchResponse = false;
       state.fetchErrorMessage = action.payload;
     })
-    .addCase(addReviewSuccess, (state, action) => {
+    .addCase(addReviewSuccess, (state) => {
       state.waitingPostResponse = false;
     })
     .addCase(addReviewFail, (state, action) => {

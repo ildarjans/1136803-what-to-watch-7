@@ -28,7 +28,7 @@ export const favoritesReducer = createReducer(initialState, (builder) => {
       state.waitingResponse = false;
       state.errorMessage = action.payload;
     })
-    .addCase(addToFavoritesSuccess, (state, action) => {
+    .addCase(addToFavoritesSuccess, (state) => {
       state.waitingResponse = false;
       state.errorMessage = '';
     })

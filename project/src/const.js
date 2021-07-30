@@ -46,7 +46,6 @@ export const AppRoute = {
 export const ApiRoute = {
   ROOT: '/',
   FETCH_FILMS: '/films',
-  FETCH_FILM: '/films/:id',
   FETCH_SIMILAR_FILMS: '/films/:id/similar',
   FETCH_PROMO: '/promo',
   FETCH_FAVORITES: '/favorite',

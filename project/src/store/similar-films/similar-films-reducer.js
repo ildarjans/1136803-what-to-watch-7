@@ -10,7 +10,7 @@ const initialState = {
 
 export const similarFilmsReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fetchSimilarFilmsStart, (state, action) => {
+    .addCase(fetchSimilarFilmsStart, (state) => {
       state.waitingResponse = true;
       state.errorMessage = '';
     })
